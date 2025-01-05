@@ -6,7 +6,7 @@ userRouter.route("/").get(userController.getAllUsers);
 
 userRouter.route("/profile/:id").get(userController.getUserProfile);
 
-userRouter.route("/register").post(userController.registerUsers);
+userRouter.route("/register").post(userController.registerUser);
 
 userRouter.route("/login").post(userController.loginUser);
 
