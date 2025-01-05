@@ -1,5 +1,6 @@
 const express = require("express");
 const userRouter = require("./src/routes/userRoutes");
+const blogPostRouter = require("./src/routes/blogPostRoutes");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
@@ -26,6 +27,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/posts", blogPostRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
