@@ -57,7 +57,8 @@ exports.deleteUser = async (req, res) => {
 
 exports.getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate("blogPosts");
+    console.log(user);
 
     res.status(200).json({
       status: "success",
