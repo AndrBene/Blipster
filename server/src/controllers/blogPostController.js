@@ -2,7 +2,20 @@ const BlogPost = require("../models/blogPostModel");
 
 exports.getAllBlogPosts = async (req, res) => {
   try {
-    const blogPosts = await BlogPost.find();
+    let query = BlogPost.find();
+
+    const page = (req.query.page * 1) | 1;
+    const limit = (req.query.limit * 100) | 100;
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numPosts = await BlogPost.countDocuments();
+      if (skip >= numPosts) throw Error("This page does not exist");
+    }
+
+    const blogPosts = await query;
 
     res.status(200).json({
       status: "success",
