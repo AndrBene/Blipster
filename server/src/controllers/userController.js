@@ -17,24 +17,6 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-exports.registerUser = async (req, res) => {
-  try {
-    const newUser = await User.create(req.body);
-
-    res.status(201).json({
-      status: "success",
-      data: {
-        user: newUser,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: "Invalid data!",
-    });
-  }
-};
-
 exports.loginUser = (req, res) => {
   res.status(200).send("loginUser!");
 };
