@@ -1,16 +1,16 @@
-const express = require("express");
-const userRouter = require("./src/routes/userRoutes");
-const blogPostRouter = require("./src/routes/blogPostRoutes");
-const commentRouter = require("./src/routes/commentRoutes");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const express = require('express');
+const userRouter = require('./src/routes/userRoutes');
+const blogPostRouter = require('./src/routes/blogPostRoutes');
+const commentRouter = require('./src/routes/commentRoutes');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: './config.env' });
 
-const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
+const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DB_PASSWORD);
 mongoose
   .connect(
-    DB
+    DB,
     //     , {
     //     useNewUrlParser: true,
     //     useCreateIndex: true,
@@ -19,7 +19,7 @@ mongoose
   )
   .then((con) => {
     // console.log(con.connections);
-    console.log("DB connection successful!");
+    console.log('DB connection successful!');
   });
 
 const app = express();
@@ -27,9 +27,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/posts", blogPostRouter);
-app.use("/api/v1/comments", commentRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/posts', blogPostRouter);
+app.use('/api/v1/comments', commentRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
