@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     role: { type: String, enum: ["admin", "user"], default: "user" }, // Role-based access
     createdAt: { type: Date, default: Date.now },
+    passwordChangedAt: Date,
   },
   {
     // timestamps: true,
@@ -58,7 +59,21 @@ userSchema.methods.checkCorrectPassword = async function (
   candidatePassword,
   actualPassword
 ) {
-  return await bcrypt.compare(candidatePassword, actualPassword);
+  return await bcrypt.compare(candidatePassword, actualPassword); // bcrypt extracts the salt from the beginning of the stored hash.
+};
+
+userSchema.methods.checkPasswordChangedAfterTokenRelease = function (
+  jwtTimestamp
+) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 100,
+      10
+    );
+
+    return jwtTimestamp < changedTimestamp;
+  }
+  return false;
 };
 
 console.log(userSchema.virtuals);

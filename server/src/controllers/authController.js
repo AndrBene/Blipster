@@ -1,5 +1,44 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+
+exports.protect = async (req, res, next) => {
+  try {
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+
+    if (!token) {
+      throw new Error("You are not logged in! Please log in to get access.");
+    }
+
+    const decodedPayload = await promisify(jwt.verify)(
+      token,
+      process.env.JWT_SECRET
+    );
+    console.log(decodedPayload);
+
+    const user = await User.findById(decodedPayload.id);
+    if (!user) {
+      throw new Error("User no longer exists.");
+    }
+
+    if (user.checkPasswordChangedAfterTokenRelease(decodedPayload.iat)) {
+      throw new Error("User recently changed password.");
+    }
+
+    next();
+  } catch (err) {
+    res.status(401).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
 
 exports.registerUser = async (req, res) => {
   try {
@@ -8,6 +47,7 @@ exports.registerUser = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       confirmPassword: req.body.confirmPassword,
+      passwordChangeAt: req.body.passwordChangeAt,
     });
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
