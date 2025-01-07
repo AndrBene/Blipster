@@ -31,6 +31,8 @@ exports.protect = async (req, res, next) => {
       throw new Error("User recently changed password.");
     }
 
+    req.user = user;
+
     next();
   } catch (err) {
     res.status(401).json({
@@ -38,6 +40,23 @@ exports.protect = async (req, res, next) => {
       message: err,
     });
   }
+};
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    try {
+      console.log("user: ", req.user);
+      if (!roles.includes(req.user.role)) {
+        throw new Error();
+      }
+      next();
+    } catch (err) {
+      res.status(400).json({
+        status: "fail",
+        message: err,
+      });
+    }
+  };
 };
 
 exports.registerUser = async (req, res) => {
