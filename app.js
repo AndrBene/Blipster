@@ -40,7 +40,6 @@ app.use(express.json());
 app.use('/', homeViewRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
-app.use('/api/v1/comments', commentRouter);
 
 app.all('*', (req, res, next) => {
   next(
