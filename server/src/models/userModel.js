@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,22 +16,22 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please provide a password"],
+      required: [true, 'Please provide a password'],
       minlength: 8,
       select: false,
     },
     confirmPassword: {
       type: String,
-      required: [true, "Please confirm your password"],
+      required: [true, 'Please confirm your password'],
       validate: {
         // this only works on CREATE and SAVE!!!
         validator: function (val) {
           return val === this.password;
         },
-        message: "Passwords do not coincide!",
+        message: 'Passwords do not coincide!',
       },
     },
-    role: { type: String, enum: ["admin", "user"], default: "user" }, // Role-based access
+    role: { type: String, enum: ['admin', 'user'], default: 'user' }, // Role-based access
     createdAt: { type: Date, default: Date.now },
     passwordChangedAt: Date,
   },
@@ -39,17 +39,17 @@ const userSchema = new mongoose.Schema(
     // timestamps: true,
     toJSON: { virtuals: true },
     // toObject: { virtuals: true },
-  }
+  },
 );
 
-userSchema.virtual("blogPosts", {
-  ref: "BlogPost",
-  localField: "_id",
-  foreignField: "author",
+userSchema.virtual('blogPosts', {
+  ref: 'BlogPost',
+  localField: '_id',
+  foreignField: 'author',
 });
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   this.confirmPassword = undefined;
   next();
@@ -57,18 +57,18 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.checkCorrectPassword = async function (
   candidatePassword,
-  actualPassword
+  actualPassword,
 ) {
   return await bcrypt.compare(candidatePassword, actualPassword); // bcrypt extracts the salt from the beginning of the stored hash.
 };
 
 userSchema.methods.checkPasswordChangedAfterTokenRelease = function (
-  jwtTimestamp
+  jwtTimestamp,
 ) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 100,
-      10
+      10,
     );
 
     return jwtTimestamp < changedTimestamp;
@@ -78,6 +78,6 @@ userSchema.methods.checkPasswordChangedAfterTokenRelease = function (
 
 console.log(userSchema.virtuals);
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

@@ -1,25 +1,31 @@
-const express = require("express");
-const userRouter = require("./src/routes/userRoutes");
-const blogPostRouter = require("./src/routes/blogPostRoutes");
-const commentRouter = require("./src/routes/commentRoutes");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const express = require('express');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
-dotenv.config({ path: "./config.env" });
+const userRouter = require('./src/routes/userRoutes');
+const blogPostRouter = require('./src/routes/blogPostRoutes');
+const commentRouter = require('./src/routes/commentRoutes');
 
-const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
+const AppError = require('./src/utils/appError');
+const globalErrorHandler = require('./src/controllers/errorController');
+
+dotenv.config({ path: './config.env' });
+
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DB_PASSWORD,
+);
 mongoose
   .connect(
-    DB
+    DB,
     //     , {
     //     useNewUrlParser: true,
     //     useCreateIndex: true,
     //     useFindAndModify: true,
     //   }
   )
-  .then((con) => {
-    // console.log(con.connections);
-    console.log("DB connection successful!");
+  .then(() => {
+    console.log('DB connection successful!');
   });
 
 const app = express();
@@ -27,9 +33,17 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/posts", blogPostRouter);
-app.use("/api/v1/comments", commentRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/posts', blogPostRouter);
+app.use('/api/v1/comments', commentRouter);
+
+app.all('*', (req, res, next) => {
+  next(
+    new AppError(`Can't find ${req.originalUrl} on the server.`, 404),
+  );
+});
+
+app.use(globalErrorHandler);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
