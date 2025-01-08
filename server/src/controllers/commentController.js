@@ -1,6 +1,7 @@
 const Comment = require('../models/commentModel');
+const catchAsync = require('../utils/catchAsync');
 
-exports.getComments = async (req, res) => {
+exports.getComments = catchAsync(async (req, res) => {
   try {
     const comments = await Comment.find({
       post: req.params.postId,
@@ -17,58 +18,37 @@ exports.getComments = async (req, res) => {
       message: err,
     });
   }
-};
+});
 
-exports.addComment = async (req, res) => {
-  try {
-    const newComment = await Comment.create({
-      ...req.body,
-      post: req.params.postId,
-    });
+exports.addComment = catchAsync(async (req, res) => {
+  const newComment = await Comment.create({
+    ...req.body,
+    post: req.params.postId,
+  });
 
-    res.status(201).json({
-      status: 'success',
-      data: { newComment },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: 'Invalid data',
-    });
-  }
-};
+  res.status(201).json({
+    status: 'success',
+    data: { newComment },
+  });
+});
 
-exports.addComment = async (req, res) => {
-  try {
-    const newComment = await Comment.create({
-      ...req.body,
-      post: req.params.postId,
-    });
+exports.addComment = catchAsync(async (req, res) => {
+  const newComment = await Comment.create({
+    ...req.body,
+    post: req.params.postId,
+  });
 
-    res.status(201).json({
-      status: 'success',
-      data: { newComment },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: 'Invalid data',
-    });
-  }
-};
+  res.status(201).json({
+    status: 'success',
+    data: { newComment },
+  });
+});
 
-exports.deleteComment = async (req, res) => {
-  try {
-    await Comment.findByIdAndDelete(req.params.commentId);
+exports.deleteComment = catchAsync(async (req, res) => {
+  await Comment.findByIdAndDelete(req.params.commentId);
 
-    res.status(204).json({
-      status: 'success',
-      data: null,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
