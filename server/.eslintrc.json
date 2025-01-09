@@ -1,5 +1,10 @@
 {
-  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:node/recommended",
+    "react-app"
+  ],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",

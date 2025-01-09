@@ -1,8 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const path = require('path');
-const ejs = require('ejs');
+
+require('@babel/register')({ extensions: ['.js', '.jsx'] });
 
 const userRouter = require('./src/routes/userRoutes');
 const blogPostRouter = require('./src/routes/blogPostRoutes');
@@ -32,10 +32,6 @@ mongoose
   });
 
 const app = express();
-
-app.set('views', path.join(__dirname, '/src/views'));
-app.engine('html', ejs.renderFile);
-app.set('view engine', 'html');
 
 const port = process.env.PORT || 3000;
 
