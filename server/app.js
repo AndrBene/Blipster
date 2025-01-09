@@ -2,9 +2,12 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
+require('@babel/register')({ extensions: ['.js', '.jsx'] });
+
 const userRouter = require('./src/routes/userRoutes');
 const blogPostRouter = require('./src/routes/blogPostRoutes');
 const commentRouter = require('./src/routes/commentRoutes');
+const homeViewRouter = require('./src/routes/homeViewRoutes');
 
 const AppError = require('./src/utils/appError');
 const globalErrorHandler = require('./src/controllers/errorController');
@@ -33,6 +36,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use('/', homeViewRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
 app.use('/api/v1/comments', commentRouter);
