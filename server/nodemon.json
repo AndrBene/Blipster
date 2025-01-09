@@ -1,5 +1,5 @@
 {
   "restartable": "rs",
   "watch": ["*.*"],
-  "ext": "js,json,jsx"
+  "ext": "js,json,jsx,html"
 }
