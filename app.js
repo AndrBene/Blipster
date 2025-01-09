@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
 
 require('@babel/register')({ extensions: ['.js', '.jsx'] });
 
-const userRouter = require('./src/routes/userRoutes');
-const blogPostRouter = require('./src/routes/blogPostRoutes');
-const commentRouter = require('./src/routes/commentRoutes');
-const homeViewRouter = require('./src/routes/homeViewRoutes');
+const userRouter = require('./src/server/routes/userRoutes');
+const blogPostRouter = require('./src/server/routes/blogPostRoutes');
+const commentRouter = require('./src/server/routes/commentRoutes');
+const homeViewRouter = require('./src/server/routes/homeViewRoutes');
 
-const AppError = require('./src/utils/appError');
-const globalErrorHandler = require('./src/controllers/errorController');
+const AppError = require('./src/server/utils/appError');
+const globalErrorHandler = require('./src/server/controllers/errorController');
 
 dotenv.config({ path: './config.env' });
 

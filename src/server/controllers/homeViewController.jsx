@@ -1,10 +1,7 @@
 const { renderToString } = require('react-dom/server');
 const React = require('react');
 const path = require('path');
-const App = require(path.join(__dirname, '../views/App.jsx'));
-// const App = require(
-//   path.join(__dirname, '../../../client/public-blog/src/App.jsx'),
-// );
+const Home = require(path.join(__dirname, '../views/Home.jsx'));
 const { readFileSync } = require('fs');
 
 const homeViewHtml = readFileSync(
@@ -13,12 +10,12 @@ const homeViewHtml = readFileSync(
 );
 
 const jsBundle = readFileSync(
-  path.join(__dirname, '../../../client/public-blog/src/App.jsx'),
+  path.join(__dirname, '../../client/public-blog/index.jsx'),
   `utf-8`,
 );
 
 exports.getHomeView = (req, res, next) => {
-  const renderedReact = renderToString(<App />);
+  const renderedReact = renderToString(<Home />);
   const renderedHtml = homeViewHtml.replace(
     '%CONTENT%',
     renderedReact,

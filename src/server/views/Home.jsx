@@ -1,7 +1,7 @@
 const React = require('react');
 
-function App() {
+function Home() {
   return <div>Hello Vite</div>;
 }
 
-module.exports = App;
+module.exports = Home;
