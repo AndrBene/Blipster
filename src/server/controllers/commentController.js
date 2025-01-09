@@ -1,7 +1,7 @@
 const Comment = require('../models/commentModel');
 const catchAsync = require('../utils/catchAsync');
 
-exports.getComments = catchAsync(async (req, res) => {
+exports.getBlogPostComments = catchAsync(async (req, res) => {
   try {
     const comments = await Comment.find({
       post: req.params.postId,
@@ -18,18 +18,6 @@ exports.getComments = catchAsync(async (req, res) => {
       message: err,
     });
   }
-});
-
-exports.addComment = catchAsync(async (req, res) => {
-  const newComment = await Comment.create({
-    ...req.body,
-    post: req.params.postId,
-  });
-
-  res.status(201).json({
-    status: 'success',
-    data: { newComment },
-  });
 });
 
 exports.addComment = catchAsync(async (req, res) => {
