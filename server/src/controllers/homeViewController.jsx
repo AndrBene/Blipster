@@ -12,6 +12,11 @@ const homeViewHtml = readFileSync(
   `utf-8`,
 );
 
+const jsBundle = readFileSync(
+  path.join(__dirname, '../../../client/public-blog/src/App.jsx'),
+  `utf-8`,
+);
+
 exports.getHomeView = (req, res, next) => {
   const renderedReact = renderToString(<App />);
   const renderedHtml = homeViewHtml.replace(
@@ -20,4 +25,11 @@ exports.getHomeView = (req, res, next) => {
   );
 
   res.status(200).send(renderedHtml);
+};
+
+exports.getJsBundle = (req, res, next) => {
+  res
+    .status(200)
+    .set('Content-Type', 'application/javascript')
+    .end(jsBundle);
 };
