@@ -6,7 +6,6 @@ require('@babel/register')({ extensions: ['.js', '.jsx'] });
 
 const userRouter = require('./src/server/routes/userRoutes');
 const blogPostRouter = require('./src/server/routes/blogPostRoutes');
-const commentRouter = require('./src/server/routes/commentRoutes');
 const homeViewRouter = require('./src/server/routes/homeViewRoutes');
 
 const AppError = require('./src/server/utils/appError');
