@@ -1,7 +1,7 @@
-const express = require('express');
-const userController = require('../controllers/userController');
-const authController = require('../controllers/authController');
-const blogPostController = require('../controllers/blogPostController');
+import express from 'express';
+import * as userController from '../controllers/userController';
+import * as authController from '../controllers/authController';
+import * as blogPostController from '../controllers/blogPostController';
 
 const userRouter = express.Router();
 
@@ -33,4 +33,4 @@ userRouter
   .put(authController.protect, blogPostController.updateBlogPost)
   .delete(authController.protect, blogPostController.deleteBlogPost);
 
-module.exports = userRouter;
+export default userRouter;

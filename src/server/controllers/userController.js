@@ -1,7 +1,7 @@
-const User = require('../models/userModel');
-const catchAsync = require('../utils/catchAsync');
+import User from '../models/userModel';
+import catchAsync from '../utils/catchAsync';
 
-exports.getAllUsers = catchAsync(async (req, res) => {
+export const getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
 
   res.status(200).json({
@@ -11,7 +11,7 @@ exports.getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
-exports.deleteUser = catchAsync(async (req, res) => {
+export const deleteUser = catchAsync(async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
@@ -20,7 +20,7 @@ exports.deleteUser = catchAsync(async (req, res) => {
   });
 });
 
-exports.getUserProfile = catchAsync(async (req, res) => {
+export const getUserProfile = catchAsync(async (req, res) => {
   const user = await User.findById(req.params.id).populate(
     'blogPosts',
   );

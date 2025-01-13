@@ -1,12 +1,12 @@
-const { renderToString } = require('react-dom/server');
-const React = require('react');
-const path = require('path');
+import { renderToString } from 'react-dom/server';
+import React from 'react';
+import path from 'path';
 // const Home = require(path.join(__dirname, '../views/Home.jsx'));
-const Home = require('../views/Home.jsx');
-const { readFileSync } = require('fs');
+import Home from '../../views/Home.jsx';
+import { readFileSync } from 'fs';
 
 const homeViewHtml = readFileSync(
-  path.join(__dirname, '../src/server/views/index.html'),
+  path.join(__dirname, '../src/views/index.html'),
   `utf-8`,
 );
 
@@ -15,7 +15,7 @@ const jsBundle = readFileSync(
   `utf-8`,
 );
 
-exports.getHomeView = (req, res, next) => {
+export const getHomeView = (req, res, next) => {
   const renderedReact = renderToString(<Home />);
   const renderedHtml = homeViewHtml.replace(
     '%CONTENT%',
@@ -25,7 +25,7 @@ exports.getHomeView = (req, res, next) => {
   res.status(200).send(renderedHtml);
 };
 
-exports.getJsBundle = (req, res, next) => {
+export const getJsBundle = (req, res, next) => {
   res
     .status(200)
     .set('Content-Type', 'application/javascript')

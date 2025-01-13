@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema(
   {
@@ -80,4 +80,4 @@ console.log(userSchema.virtuals);
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+export default User;

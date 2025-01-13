@@ -1,15 +1,15 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+import express from 'express';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 // require('@babel/register')({ extensions: ['.js', '.jsx'] });
 
-const userRouter = require('./src/server/routes/userRoutes');
-const blogPostRouter = require('./src/server/routes/blogPostRoutes');
-const homeViewRouter = require('./src/server/routes/homeViewRoutes');
+import userRouter from './src/server/routes/userRoutes';
+import blogPostRouter from './src/server/routes/blogPostRoutes';
+import homeViewRouter from './src/server/routes/homeViewRoutes';
 
-const AppError = require('./src/server/utils/appError');
-const globalErrorHandler = require('./src/server/controllers/errorController');
+import AppError from './src/server/utils/appError';
+import globalErrorHandler from './src/server/controllers/errorController';
 
 dotenv.config({ path: './config.env' });
 

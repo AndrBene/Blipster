@@ -1,7 +1,7 @@
-const Comment = require('../models/commentModel');
-const catchAsync = require('../utils/catchAsync');
+import Comment from '../models/commentModel';
+import catchAsync from '../utils/catchAsync';
 
-exports.getBlogPostComments = catchAsync(async (req, res) => {
+export const getBlogPostComments = catchAsync(async (req, res) => {
   try {
     const comments = await Comment.find({
       post: req.params.postId,
@@ -20,7 +20,7 @@ exports.getBlogPostComments = catchAsync(async (req, res) => {
   }
 });
 
-exports.addComment = catchAsync(async (req, res) => {
+export const addComment = catchAsync(async (req, res) => {
   const newComment = await Comment.create({
     ...req.body,
     post: req.params.postId,
@@ -32,7 +32,7 @@ exports.addComment = catchAsync(async (req, res) => {
   });
 });
 
-exports.deleteComment = catchAsync(async (req, res) => {
+export const deleteComment = catchAsync(async (req, res) => {
   await Comment.findByIdAndDelete(req.params.commentId);
 
   res.status(204).json({

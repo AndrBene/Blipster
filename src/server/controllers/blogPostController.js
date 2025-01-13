@@ -1,7 +1,7 @@
-const BlogPost = require('../models/blogPostModel');
-const catchAsync = require('../utils/catchAsync');
+import BlogPost from '../models/blogPostModel';
+import catchAsync from '../utils/catchAsync';
 
-exports.getAllBlogPosts = catchAsync(async (req, res) => {
+export const getAllBlogPosts = catchAsync(async (req, res) => {
   let query = BlogPost.find();
 
   const page = req.query.page * 1 || 1;
@@ -26,7 +26,7 @@ exports.getAllBlogPosts = catchAsync(async (req, res) => {
   });
 });
 
-exports.createNewBlogPost = catchAsync(async (req, res) => {
+export const createNewBlogPost = catchAsync(async (req, res) => {
   const newBlogPost = await BlogPost.create(req.body);
 
   res.status(201).json({
@@ -37,7 +37,7 @@ exports.createNewBlogPost = catchAsync(async (req, res) => {
   });
 });
 
-exports.getBlogPost = catchAsync(async (req, res) => {
+export const getBlogPost = catchAsync(async (req, res) => {
   const blogPost = await BlogPost.findById(req.params.id);
 
   res.status(200).json({
@@ -48,7 +48,7 @@ exports.getBlogPost = catchAsync(async (req, res) => {
   });
 });
 
-exports.updateBlogPost = catchAsync(async (req, res) => {
+export const updateBlogPost = catchAsync(async (req, res) => {
   const blogPost = await BlogPost.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -66,7 +66,7 @@ exports.updateBlogPost = catchAsync(async (req, res) => {
   });
 });
 
-exports.deleteBlogPost = catchAsync(async (req, res) => {
+export const deleteBlogPost = catchAsync(async (req, res) => {
   await BlogPost.findByIdAndDelete(req.params.id);
 
   res.status(204).json({

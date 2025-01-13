@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
-const { promisify } = require('util');
-const User = require('../models/userModel');
-const catchAsync = require('../utils/catchAsync');
+import jwt from 'jsonwebtoken';
+import { promisify } from 'util';
+import User from '../models/userModel';
+import catchAsync from '../utils/catchAsync';
 
-exports.protect = catchAsync(async (req, res, next) => {
+export const protect = catchAsync(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -40,7 +40,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.restrictTo = (...roles) => {
+export const restrictTo = (...roles) => {
   return (req, res, next) => {
     try {
       console.log('user: ', req.user);
@@ -58,7 +58,7 @@ exports.restrictTo = (...roles) => {
   };
 };
 
-exports.registerUser = catchAsync(async (req, res) => {
+export const registerUser = catchAsync(async (req, res) => {
   const newUser = await User.create({
     username: req.body.username,
     email: req.body.email,
@@ -84,7 +84,7 @@ exports.registerUser = catchAsync(async (req, res) => {
   });
 });
 
-exports.loginUser = catchAsync(async (req, res, next) => {
+export const loginUser = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
