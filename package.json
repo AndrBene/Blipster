@@ -4,8 +4,10 @@
   "description": "Backend of Blipster Project",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --config nodemon.json app.js",
-    "start:prod": "NODE_ENV=production nodemon app.js",
+    "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx",
+    "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --loader:.js=jsx",
+    "start": "npm run build:server && npm run build:client && nodemon --config nodemon.json build/server.js",
+    "start:prod": "NODE_ENV=production nodemon build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ndb app.js"
   },
@@ -22,10 +24,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.26.3",
-    "@babel/register": "^7.25.9",
+    "esbuild": "^0.24.2",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",

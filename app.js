@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
-require('@babel/register')({ extensions: ['.js', '.jsx'] });
+// require('@babel/register')({ extensions: ['.js', '.jsx'] });
 
 const userRouter = require('./src/server/routes/userRoutes');
 const blogPostRouter = require('./src/server/routes/blogPostRoutes');

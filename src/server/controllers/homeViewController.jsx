@@ -1,16 +1,17 @@
 const { renderToString } = require('react-dom/server');
 const React = require('react');
 const path = require('path');
-const Home = require(path.join(__dirname, '../views/Home.jsx'));
+// const Home = require(path.join(__dirname, '../views/Home.jsx'));
+const Home = require('../views/Home.jsx');
 const { readFileSync } = require('fs');
 
 const homeViewHtml = readFileSync(
-  path.join(__dirname, '../views/index.html'),
+  path.join(__dirname, '../src/server/views/index.html'),
   `utf-8`,
 );
 
 const jsBundle = readFileSync(
-  path.join(__dirname, '../../client/public-blog/index.jsx'),
+  path.join(__dirname, './jsBundle.js'),
   `utf-8`,
 );
 
