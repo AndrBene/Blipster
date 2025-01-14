@@ -1,4 +1,3 @@
-import React from 'react';
 import Profile from './components/Profile';
 import MainFeed from './components/MainFeed';
 import { Routes, Route, Link } from 'react-router-dom';

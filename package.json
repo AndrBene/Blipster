@@ -4,12 +4,13 @@
   "description": "Backend of Blipster Project",
   "main": "app.js",
   "scripts": {
-    "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx",
-    "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --loader:.js=jsx",
-    "start": "npm run build:server && npm run build:client && nodemon --config nodemon.json build/server.js",
+    "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx --jsx=automatic",
+    "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --loader:.js=jsx --jsx=automatic",
+    "start": "eslint . && npm run build:server && npm run build:client && nodemon --config nodemon.json build/server.js",
     "start:prod": "NODE_ENV=production nodemon build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "ndb app.js"
+    "debug": "ndb app.js",
+    "lint": "eslint ."
   },
   "author": "Andrea Benedetto",
   "license": "ISC",
@@ -25,15 +26,12 @@
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.18.0",
     "esbuild": "^0.24.2",
     "eslint": "^8.57.1",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.14.0",
     "ndb": "^1.1.5",
     "nodemon": "^3.1.9",
     "prettier": "^3.4.2"

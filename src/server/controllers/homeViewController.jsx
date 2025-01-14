@@ -1,5 +1,5 @@
 import { renderToString } from 'react-dom/server';
-import React from 'react';
+// import React from 'react';
 import path from 'path';
 // const Home = require(path.join(__dirname, '../views/Home.jsx'));
 import AppLayout from '../../views/AppLayout.jsx';
