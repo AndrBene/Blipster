@@ -5,10 +5,10 @@ import { Routes, Route, Link } from 'react-router-dom';
 function AppLayout() {
   return (
     <div>
-      <Link to="/s">MainFeed</Link>
+      <Link to="/public-blog/s">MainFeed</Link>
       <Routes>
         <Route path="/" element={<Profile />}></Route>
-        <Route path="s" element={<MainFeed />}></Route>
+        <Route path="public-blog/s" element={<MainFeed />}></Route>
       </Routes>
     </div>
   );
