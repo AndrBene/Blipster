@@ -5,6 +5,7 @@ import path from 'path';
 import AppLayout from '../../views/AppLayout.jsx';
 import { readFileSync } from 'fs';
 import { StaticRouter } from 'react-router-dom';
+import '../../style/index.css';
 
 const homeViewHtml = readFileSync(
   path.join(__dirname, '../src/views/index.html'),

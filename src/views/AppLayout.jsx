@@ -1,7 +1,6 @@
 import Profile from './components/Profile';
 import MainFeed from './components/MainFeed';
 import { Routes, Route, Link } from 'react-router-dom';
-import '../style/index.css';
 
 function AppLayout() {
   return (
