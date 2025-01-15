@@ -16,6 +16,11 @@ const jsBundle = readFileSync(
   `utf-8`,
 );
 
+const jsBundleCss = readFileSync(
+  path.join(__dirname, './jsBundle.css'),
+  `utf-8`,
+);
+
 export const getHomeView = (req, res, next) => {
   const renderedReact = renderToString(
     <StaticRouter location={req.url} context={{}}>
@@ -35,4 +40,8 @@ export const getJsBundle = (req, res, next) => {
     .status(200)
     .set('Content-Type', 'application/javascript')
     .end(jsBundle);
+};
+
+export const getJsBundleCss = (req, res, next) => {
+  res.status(200).set('Content-Type', 'text/css').end(jsBundleCss);
 };
