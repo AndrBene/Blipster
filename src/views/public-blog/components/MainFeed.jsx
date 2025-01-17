@@ -2,6 +2,7 @@ import Post from './Post';
 
 const feed = [
   {
+    id: '1',
     title: 'Wildfires',
     text: `Thread of heartbreaking moments just before disaster strikes
 (Don't open it if you have a soft heart)`,
@@ -12,6 +13,7 @@ const feed = [
     date: '10 Oct, 2024',
   },
   {
+    id: '2',
     title: 'Biden news',
     text: `Four years ago, in the middle of a pandemic, we needed a leader with the character to put politics aside and do what was right. That’s what 
 @JoeBiden
@@ -27,6 +29,7 @@ I’m grateful to Joe for his leadership, his friendship, and his lifetime of se
     date: '12 Oct, 2024',
   },
   {
+    id: '3',
     title: 'Toughest bodyguard around',
     text: `10 things you don’t know about Messi bodyguard`,
     topic: 'sports',
@@ -36,6 +39,7 @@ I’m grateful to Joe for his leadership, his friendship, and his lifetime of se
     date: '10 Oct, 2024',
   },
   {
+    id: '4',
     title: 'STEPH CURRY. INEVITABLE 😤',
     text: `His seventh three of the game 💪`,
     topic: 'sports',
@@ -54,12 +58,6 @@ function MainFeed() {
           return <Post key={el.title} feed={el} />;
         })}
       </div>
-      <div className="delay-20 fixed bottom-20 right-20 flex size-24 cursor-pointer flex-col items-center justify-center rounded-full bg-slate-800 text-white transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-125">
-        <div>CREATE</div>
-        <div>POST</div>
-      </div>
-      <div className="fixed bottom-12 right-12 size-10 rounded-full bg-slate-800"></div>
-      <div className="fixed bottom-8 right-8 size-5 rounded-full bg-slate-800"></div>
     </div>
   );
 }

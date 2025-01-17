@@ -2,13 +2,13 @@ import { renderToString } from 'react-dom/server';
 // import React from 'react';
 import path from 'path';
 // const Home = require(path.join(__dirname, '../views/Home.jsx'));
-import AppLayout from '../../views/AppLayout.jsx';
+import AppLayout from '../../views/public-blog/AppLayout.jsx';
 import { readFileSync } from 'fs';
 import { StaticRouter } from 'react-router-dom';
 import '../../style/index.css';
 
 const homeViewHtml = readFileSync(
-  path.join(__dirname, '../src/views/index.html'),
+  path.join(__dirname, '../src/views/public-blog/index.html'),
   `utf-8`,
 );
 

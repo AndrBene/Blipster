@@ -13,9 +13,9 @@ export function About() {
         powered by <span className="font-bold">Angular</span>, all
         backed by a reliable Node.js backend.
         <br />
-        Whether you're a blogger looking to share stories or an admin
-        managing posts and engagement, Blipster makes the process
-        efficient and enjoyable.
+        Whether you{`'`}re a blogger looking to share stories or an
+        admin managing posts and engagement, Blipster makes the
+        process efficient and enjoyable.
       </div>
 
       <div className="mb-5 font-bold">🌟 Key Features</div>

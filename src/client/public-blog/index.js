@@ -1,4 +1,4 @@
-import AppLayout from '../../views/AppLayout.jsx';
+import AppLayout from '../../views/public-blog/AppLayout.jsx';
 import ReactDOM from 'react-dom/client';
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
