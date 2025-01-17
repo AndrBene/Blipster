@@ -6,7 +6,11 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        EBGaramond: 'EB Garamond, monospace',
+      },
+    },
   },
   plugins: [],
 };
