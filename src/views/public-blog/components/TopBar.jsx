@@ -17,7 +17,7 @@ function TopBar() {
         }}
       >
         <img
-          src="home.png"
+          src="/home.png"
           className={`size-5 ${isHome ? null : 'opacity-25'}`}
           alt="not found"
         />
@@ -31,7 +31,7 @@ function TopBar() {
         }}
       >
         <img
-          src="about.png"
+          src="/about.png"
           className={`size-5 ${!isHome ? null : 'opacity-25'}`}
           alt="not found"
         />

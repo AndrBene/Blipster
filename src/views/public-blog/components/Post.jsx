@@ -30,7 +30,7 @@ function Post(props) {
             <div>{props.feed.date}</div>
             <div className="flex items-center justify-start gap-2">
               <img
-                src="views.png"
+                src="/views.png"
                 className="size-5 opacity-50"
                 alt="not found"
               />
@@ -38,7 +38,7 @@ function Post(props) {
             </div>
             <div className="flex items-center justify-start gap-2">
               <img
-                src="comments.png"
+                src="/comments.png"
                 className="size-5 opacity-50"
                 alt="not found"
               />

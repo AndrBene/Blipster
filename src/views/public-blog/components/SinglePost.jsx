@@ -9,7 +9,7 @@ function SinglePost() {
         to="/"
         className="flex cursor-pointer justify-start gap-2"
       >
-        <img src="back_arrow.png" alt="not found" className="h-5" />
+        <img src="/back_arrow.png" alt="not found" className="h-5" />
         <div className="text-sm text-slate-800">Home</div>
       </Link>
       <div className="mt-5">Single post</div>

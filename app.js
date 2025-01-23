@@ -35,6 +35,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.static('build'));
+app.use(express.static('public'));
 
 app.use('/', homeViewRouter);
 app.use('/api/v1/users', userRouter);
