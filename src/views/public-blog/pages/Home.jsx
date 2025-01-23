@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import TopBar from '../components/TopBar';
 import { About } from '../components/About';
 import MainFeed from '../components/MainFeed';
@@ -10,11 +10,15 @@ function Home() {
       <TopBar />
       <div className="overflow-scroll text-xl">
         <Routes>
-          <Route path="/home" element={<MainFeed />}></Route>
+          <Route path="home" element={<MainFeed />}></Route>
           <Route path="public-blog/about" element={<About />}></Route>
           <Route
             path="public-blog/single-post/:id"
             element={<SinglePost />}
+          ></Route>
+          <Route
+            path="/*"
+            element={<Navigate replace to="/not-found" />}
           ></Route>
         </Routes>
       </div>

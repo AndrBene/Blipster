@@ -4,20 +4,31 @@ import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Register from './pages/Register';
 import CreatePost from './pages/CreatePost';
+import PageNotFound from './pages/PageNotFound';
 
 function AppLayout() {
   return (
-    <div className="font-EBGaramond grid h-screen grid-rows-[auto_1fr] overflow-hidden border-[1px] border-blue-500 bg-white text-white">
+    <div className="font-EBGaramond grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white text-white">
       <Header />
       <div className="mx-64 overflow-hidden">
         <Routes>
-          <Route path="/signin" element={<Signin />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/create-post" element={<CreatePost />}></Route>
+          <Route exact path="/signin" element={<Signin />}></Route>
           <Route
+            exact
+            path="/register"
+            element={<Register />}
+          ></Route>
+          <Route
+            exact
+            path="/create-post"
+            element={<CreatePost />}
+          ></Route>
+          <Route
+            exact
             path="/"
             element={<Navigate replace to="/home" />}
           ></Route>
+          <Route path="/not-found" element={<PageNotFound />}></Route>
           <Route path="/*" element={<Home />}></Route>
         </Routes>
       </div>
