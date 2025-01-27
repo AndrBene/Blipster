@@ -9,7 +9,8 @@ const blogPostSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  tags: [{ type: String }],
+  topic: { type: String },
+  image: { type: String },
   views: { type: Number, default: 0 },
   status: {
     type: String,

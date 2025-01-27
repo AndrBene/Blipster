@@ -17,12 +17,12 @@ function Post(props) {
             <div className="mb-2 text-3xl font-bold text-slate-800">
               {props.feed.title}
             </div>
-            <div>{props.feed.text}</div>
+            <div>{props.feed.content}</div>
           </div>
           <img
-            src={props.feed.image}
+            src={`/images/${props.feed.image}`}
             alt="not found"
-            className="mr-10 w-44 rounded-lg"
+            className="mr-10 w-36 rounded-lg"
           />
         </div>
         <div className="flex h-auto items-center justify-between">
