@@ -42,7 +42,7 @@ function Post(props) {
                 className="size-5 opacity-50"
                 alt="not found"
               />
-              <div>{props.feed.comments}</div>
+              <div>{props.feed.numComments}</div>
             </div>
           </div>
           <div

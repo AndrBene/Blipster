@@ -12,6 +12,7 @@ const blogPostSchema = new mongoose.Schema({
   topic: { type: String },
   image: { type: String },
   views: { type: Number, default: 0 },
+  numComments: { type: Number, default: 0 },
   status: {
     type: String,
     enum: ['draft', 'published'],
