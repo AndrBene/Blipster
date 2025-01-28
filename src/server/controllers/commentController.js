@@ -27,12 +27,12 @@ export const addComment = catchAsync(async (req, res) => {
     post: req.params.postId,
   });
 
-  const post = await BlogPost.findById(req.body.post).select(
+  const post = await BlogPost.findById(req.params.postId).select(
     'numComments',
   );
 
   await BlogPost.findByIdAndUpdate(
-    req.body.post,
+    req.params.postId,
     { numComments: post.numComments + 1 },
     { new: true, runValidators: true },
   );
