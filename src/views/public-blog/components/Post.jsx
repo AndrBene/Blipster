@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 
-function Post(props) {
-  const topicColorMap = {
-    nature: 'bg-green-800',
-    sports: 'bg-red-800',
-    politics: 'bg-blue-800',
-  };
+const topicColorMap = {
+  nature: 'bg-green-800',
+  sports: 'bg-red-800',
+  politics: 'bg-blue-800',
+};
 
+function Post(props) {
   const color = topicColorMap[props.feed.topic];
 
   return (
-    <Link to={`/public-blog/single-post/${props.feed.id}`}>
+    <Link to={`/public-blog/single-post/${props.feed._id}`}>
       <div className="my-6 flex h-56 cursor-pointer flex-col justify-between gap-6 border-b-[0.5px] p-2 hover:bg-slate-50">
         <div className="flex items-start justify-between gap-16 overflow-hidden">
           <div className="">

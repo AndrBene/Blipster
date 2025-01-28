@@ -19,7 +19,7 @@ blogPostRouter
 blogPostRouter.route('/:id').get(blogPostController.getBlogPost);
 
 blogPostRouter
-  .route('/:postId/comments')
+  .route('/:postId/comments/:commentId')
   .get(commentController.getBlogPostComments)
   .post(authController.protect, commentController.addComment)
   .delete(authController.protect, commentController.deleteComment);
