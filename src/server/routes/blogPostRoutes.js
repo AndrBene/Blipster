@@ -19,6 +19,11 @@ blogPostRouter
 blogPostRouter.route('/:id').get(blogPostController.getBlogPost);
 
 blogPostRouter
+  .route('/:id/num-views')
+  .get(blogPostController.getNumViews)
+  .patch(blogPostController.updateNumViews);
+
+blogPostRouter
   .route('/:postId/comments')
   .get(commentController.getBlogPostComments)
   .post(authController.protect, commentController.addComment);

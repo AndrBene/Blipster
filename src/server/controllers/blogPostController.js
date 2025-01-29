@@ -85,3 +85,34 @@ export const deleteBlogPost = catchAsync(async (req, res) => {
     data: null,
   });
 });
+
+export const updateNumViews = catchAsync(async (req, res) => {
+  const blogPost = await BlogPost.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      blogPost,
+    },
+  });
+});
+
+export const getNumViews = catchAsync(async (req, res) => {
+  const numViews = await BlogPost.findById(req.params.id).select(
+    'views',
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      numViews: numViews.views,
+    },
+  });
+});
