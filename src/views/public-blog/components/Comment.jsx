@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 function Comment({ comment }) {
   return (
     // <div className="flex content-center justify-between border-b-[1px] border-slate-800 px-32 py-3">
@@ -19,7 +21,11 @@ function Comment({ comment }) {
           <div className="text-black">
             {comment.userInfo[0]?.username}
           </div>
-          <div className="text-base text-stone-400">Mar 12, 2024</div>
+          <div className="text-base text-stone-400">
+            {DateTime.fromISO(comment.createdAt).toFormat(
+              'MMM dd, yyyy',
+            )}
+          </div>
         </div>
       </div>
       <div>{comment.content}</div>

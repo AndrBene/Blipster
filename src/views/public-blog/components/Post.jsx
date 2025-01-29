@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { DateTime } from 'luxon';
 
 const topicColorMap = {
   nature: 'bg-green-800',
@@ -27,7 +28,11 @@ function Post(props) {
         </div>
         <div className="flex h-auto items-center justify-between">
           <div className="flex items-center justify-start gap-8 text-lg text-stone-500">
-            <div>{props.feed.date}</div>
+            <div>
+              {DateTime.fromISO(props.feed.updatedAt).toFormat(
+                'MMM dd, yyyy',
+              )}
+            </div>
             <div className="flex items-center justify-start gap-2">
               <img
                 src="/views.png"
