@@ -20,7 +20,7 @@ function Post(props) {
             <div>{props.feed.content}</div>
           </div>
           <img
-            src={`/images/${props.feed.image}`}
+            src={`/posts/images/${props.feed.image}`}
             alt="not found"
             className="mr-10 w-36 rounded-lg"
           />

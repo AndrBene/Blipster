@@ -5,7 +5,7 @@ import * as authController from '../controllers/authController';
 import multer from 'multer';
 
 const blogPostRouter = express.Router();
-const upload = multer({ dest: './public/images/' });
+const upload = multer({ dest: './public/posts/images/' });
 
 blogPostRouter
   .route('/')

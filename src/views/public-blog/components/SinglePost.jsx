@@ -22,7 +22,7 @@ function SinglePost() {
     <div className="mt-10 flex flex-col justify-start">
       <Link
         to="/"
-        className="flex cursor-pointer items-center justify-start gap-2"
+        className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800"
       >
         <img src="/back_arrow.png" alt="not found" className="h-5" />
         <div className="text-base text-slate-800">Home</div>
@@ -30,7 +30,7 @@ function SinglePost() {
       <div className="mt-10 text-4xl font-bold">{content.title}</div>
       <div className="my-12">
         <img
-          src={`/images/${content.image}`}
+          src={`/posts/images/${content.image}`}
           className="w-96 rounded-md"
           alt="Not found"
         />

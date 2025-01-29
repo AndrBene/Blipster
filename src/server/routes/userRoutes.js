@@ -2,10 +2,16 @@ import express from 'express';
 import * as userController from '../controllers/userController';
 import * as authController from '../controllers/authController';
 import * as blogPostController from '../controllers/blogPostController';
+import multer from 'multer';
 
 const userRouter = express.Router();
+const upload = multer({ dest: './public/users/images/' });
 
-userRouter.post('/register', authController.registerUser);
+userRouter.post(
+  '/register',
+  upload.single('photo'),
+  authController.registerUser,
+);
 userRouter.post('/login', authController.loginUser);
 
 userRouter

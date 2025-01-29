@@ -43,9 +43,13 @@ export const createNewBlogPost = catchAsync(async (req, res) => {
 });
 
 export const getBlogPost = catchAsync(async (req, res) => {
-  const blogPost = await BlogPost.findById(req.params.id).populate(
-    'comments',
-  );
+  const blogPost = await BlogPost.findById(req.params.id).populate({
+    path: 'comments',
+    populate: {
+      path: 'userInfo',
+      model: 'User',
+    },
+  });
 
   res.status(200).json({
     status: 'success',
