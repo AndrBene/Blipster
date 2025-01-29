@@ -1,6 +1,6 @@
 export function About() {
   return (
-    <div className="mt-10 space-x-1 text-xl text-slate-800">
+    <div className="mb-20 mt-10 space-x-1 text-xl text-slate-800">
       <div className="mb-10">
         <span className="font-bold">Blipster</span> is an intuitive
         and modern{' '}

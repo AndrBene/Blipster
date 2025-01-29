@@ -5,7 +5,7 @@ export const getAllBlogPosts = catchAsync(async (req, res) => {
   let query = BlogPost.find();
 
   const page = req.query.page * 1 || 1;
-  const limit = req.query.limit * 100 || 100;
+  const limit = req.query.limit * 1 || 100;
   const skip = (page - 1) * limit;
 
   query = query.skip(skip).limit(limit);
@@ -113,6 +113,17 @@ export const getNumViews = catchAsync(async (req, res) => {
     status: 'success',
     data: {
       numViews: numViews.views,
+    },
+  });
+});
+
+export const getTotNumberPosts = catchAsync(async (req, res) => {
+  const numPosts = await BlogPost.countDocuments();
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      numPosts,
     },
   });
 });

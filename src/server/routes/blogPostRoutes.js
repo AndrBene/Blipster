@@ -8,6 +8,10 @@ const blogPostRouter = express.Router();
 const upload = multer({ dest: './public/posts/images/' });
 
 blogPostRouter
+  .route('/tot-posts')
+  .get(blogPostController.getTotNumberPosts);
+
+blogPostRouter
   .route('/')
   .get(blogPostController.getAllBlogPosts)
   .post(
