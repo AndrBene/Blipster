@@ -5,10 +5,11 @@ import Signin from './pages/Signin';
 import Register from './pages/Register';
 import CreatePost from './pages/CreatePost';
 import PageNotFound from './pages/PageNotFound';
+import { Toaster } from 'react-hot-toast';
 
 function AppLayout() {
   return (
-    <div className="font-EBGaramond grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white text-white">
+    <div className="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-white">
       <Header />
       <div className="mx-64 overflow-hidden">
         <Routes>
@@ -41,6 +42,24 @@ function AppLayout() {
       </Link>
       <div className="fixed bottom-12 right-12 size-10 rounded-full bg-slate-800"></div>
       <div className="fixed bottom-8 right-8 size-5 rounded-full bg-slate-800"></div>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: '8px' }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: { duration: 5000 },
+          style: {
+            fontSize: '20px',
+            maxWidth: '500px',
+            padding: '16px 24px',
+            backgroundColor: 'white',
+            color: 'black',
+          },
+        }}
+      />
     </div>
   );
 }
