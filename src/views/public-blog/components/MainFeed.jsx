@@ -41,7 +41,7 @@ function MainFeed() {
           (pageNum) => (
             <div
               key={pageNum}
-              className={`cursor-pointer rounded-xl border-[1px] ${pageNum == currentPageNum ? 'border-slate-800' : 'border-gray-200 hover:bg-slate-50'} px-5 py-3`}
+              className={`cursor-pointer rounded-xl border-[1px] ${pageNum === currentPageNum ? 'border-slate-800' : 'border-gray-200 hover:bg-slate-50'} px-5 py-3`}
               onClick={() => {
                 setCurrentPageNum(pageNum);
               }}

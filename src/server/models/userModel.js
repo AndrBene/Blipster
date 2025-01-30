@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords do not coincide!',
       },
     },
-    photo: { type: String },
+    photo: { type: String, default: undefined },
     role: { type: String, enum: ['admin', 'user'], default: 'user' }, // Role-based access
     createdAt: { type: Date, default: Date.now },
     passwordChangedAt: Date,

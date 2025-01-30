@@ -21,7 +21,7 @@ function Register() {
 
       const json = await res.json();
 
-      if (json.status == 'error') {
+      if (json.status === 'error') {
         // if (!res.ok) {
         throw new Error(json.message);
       }
