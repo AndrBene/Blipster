@@ -7,7 +7,6 @@ import mongoose from 'mongoose';
 
 import userRouter from './src/server/routes/userRoutes';
 import blogPostRouter from './src/server/routes/blogPostRoutes';
-import homeViewRouter from './src/server/routes/homeViewRoutes';
 
 import AppError from './src/server/utils/appError';
 import globalErrorHandler from './src/server/controllers/errorController';
@@ -40,7 +39,13 @@ app.use(express.json());
 app.use(express.static('build'));
 app.use(express.static('public'));
 
-app.use('/', homeViewRouter);
+if (process.env.JUST_API === false) {
+  app.use(
+    '/',
+    import('./src/server/routes/homeViewRoutes').homeViewRouter,
+  );
+}
+
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
 

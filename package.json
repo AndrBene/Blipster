@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev:public-blog": "vite",
+    "dev:api": "JUST_API=true nodemon --config nodemon.json --experimental-detect-module --import=extensionless/register app.js",
     "build:css": "tailwindcss -i ./src/style/input.css -o ./src/style/index.css",
     "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx --jsx=automatic",
     "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --loader:.js=jsx --jsx=automatic",
@@ -43,6 +44,7 @@
     "eslint": "^8.57.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.37.4",
+    "extensionless": "^1.9.9",
     "globals": "^15.14.0",
     "ndb": "^1.1.5",
     "nodemon": "^3.1.9",
