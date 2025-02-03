@@ -10,6 +10,8 @@ export const protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token) {
@@ -88,17 +90,13 @@ export const registerUser = catchAsync(async (req, res) => {
 });
 
 export const loginUser = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!email || !password) {
-    throw new Error('Please provide email and password!');
+  if (!username || !password) {
+    throw new Error('Please provide username and password!');
   }
 
-  // const user = await User.find()
-  //   .where("email")
-  //   .equals(email)
-  //   .select("+password")[0];
-  const user = await User.findOne({ email: email }).select(
+  const user = await User.findOne({ username: username }).select(
     '+password',
   );
 
@@ -106,16 +104,28 @@ export const loginUser = catchAsync(async (req, res, next) => {
     !user ||
     !(await user.checkCorrectPassword(password, user.password))
   ) {
-    throw new Error('Incorrect email or password!');
+    throw new Error('Incorrect username or password!');
   }
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() +
+        process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 100, // milliseconds
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production')
+    cookieOptions.secure = true;
+
+  res.cookie('jwt', token, cookieOptions);
+
   res.status(200).json({
     status: 'success',
-    token,
   });
 });
 
