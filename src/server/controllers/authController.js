@@ -129,6 +129,17 @@ export const loginUser = catchAsync(async (req, res, next) => {
   });
 });
 
+export const logoutUser = catchAsync(async (req, res, next) => {
+  res.cookie('jwt', '', {
+    expires: new Date(0),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: 'success',
+  });
+});
+
 export const isLoggedIn = catchAsync(async (req, res, next) => {
   const resObject = {
     status: 'success',

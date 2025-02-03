@@ -15,6 +15,7 @@ userRouter.post(
   authController.registerUser,
 );
 userRouter.post('/login', authController.loginUser);
+userRouter.get('/logout', authController.logoutUser);
 
 userRouter
   .route('/')
