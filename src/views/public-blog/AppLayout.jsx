@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import CreatePost from './pages/CreatePost';
 import PageNotFound from './pages/PageNotFound';
 import { Toaster } from 'react-hot-toast';
+import ProtectedRoute from './components/ProtectedRoute';
 import AuthProvider from './context/AuthContext';
 
 function AppLayout() {
@@ -24,7 +25,11 @@ function AppLayout() {
             <Route
               exact
               path="/create-post"
-              element={<CreatePost />}
+              element={
+                <ProtectedRoute>
+                  <CreatePost />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               exact
