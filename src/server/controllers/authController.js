@@ -118,3 +118,30 @@ export const loginUser = catchAsync(async (req, res, next) => {
     token,
   });
 });
+
+export const isLoggedIn = catchAsync(async (req, res, next) => {
+  const resObject = {
+    status: 'success',
+    authenticated: false,
+  };
+
+  if (req.cookies.jwt) {
+    const decodedPayload = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET,
+    );
+
+    const user = await User.findById(decodedPayload.id);
+    if (
+      user &&
+      !user.checkPasswordChangedAfterTokenRelease(decodedPayload.iat)
+    ) {
+      resObject.authenticated = true;
+      resObject.data = {
+        user: user,
+      };
+    }
+  }
+
+  res.status(201).json(resObject);
+});

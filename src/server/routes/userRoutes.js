@@ -7,6 +7,8 @@ import multer from 'multer';
 const userRouter = express.Router();
 const upload = multer({ dest: './public/users/images/' });
 
+userRouter.get('/is-logged-in', authController.isLoggedIn);
+
 userRouter.post(
   '/register',
   upload.single('photo'),
