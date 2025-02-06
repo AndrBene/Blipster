@@ -27,11 +27,9 @@ export const getAllBlogPosts = catchAsync(async (req, res) => {
 });
 
 export const createNewBlogPost = catchAsync(async (req, res) => {
-  const data = await JSON.parse(req.body.data);
-
   const newBlogPost = await BlogPost.create({
-    ...data,
-    image: req.file.filename,
+    ...req.body,
+    image: req.file?.filename,
   });
 
   res.status(201).json({

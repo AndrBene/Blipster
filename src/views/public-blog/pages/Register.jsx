@@ -6,21 +6,23 @@ function Register() {
 
   async function registerNewUser(userInfo) {
     try {
+      const formData = new FormData();
+      formData.append('data', userInfo.email);
+      formData.append('username', userInfo.username);
+      formData.append('password', userInfo.password);
+      formData.append('confirmPassword', userInfo.confirmPassword);
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }
       const res = await fetch(
         `http://localhost:3000/api/v1/users/register`,
         {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json', // Sending JSON data
-          },
-          // body: JSON.stringify({ info: userInfo }),
-          // body: { info: JSON.stringify(userInfo) },
-          body: JSON.stringify({ info: JSON.stringify(userInfo) }),
+          body: formData,
         },
       );
 
       const json = await res.json();
-
       if (json.status === 'error') {
         // if (!res.ok) {
         throw new Error(json.message);
@@ -33,6 +35,7 @@ function Register() {
       toast.error(`${error}`);
     }
   }
+
   return (
     <div className="mx-80 mt-10 text-black">
       <div className="mb-16 text-3xl font-bold">Register</div>

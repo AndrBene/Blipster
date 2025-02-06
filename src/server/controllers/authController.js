@@ -61,14 +61,11 @@ export const restrictTo = (...roles) => {
 };
 
 export const registerUser = catchAsync(async (req, res) => {
-  const data = await JSON.parse(req.body.info);
-
   const newUser = await User.create({
-    username: data.username,
-    email: data.email,
-    password: data.password,
-    confirmPassword: data.confirmPassword,
-    passwordChangeAt: data.passwordChangeAt,
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    confirmPassword: req.body.confirmPassword,
     photo: req.file?.filename,
   });
 
