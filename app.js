@@ -55,7 +55,9 @@ app.use(express.static('public'));
 
 app.options('*', cors());
 
-app.use('/', homeViewRouter);
+if (process.env.JUST_API === 'false') {
+  app.use('/', homeViewRouter);
+}
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
 
