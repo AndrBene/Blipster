@@ -9,7 +9,7 @@
     "build:css": "tailwindcss -i ./src/style/input.css -o ./src/style/index.css",
     "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx --jsx=automatic",
     "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --external:@babel/preset-typescript --loader:.js=jsx --jsx=automatic",
-    "start": "eslint . && npm run build:css && npm run build:server && npm run build:client && nodemon --config nodemon.json build/server.js",
+    "start": "eslint . && npm run build:css && npm run build:server && npm run build:client && node build/server.js",
     "start:prod": "NODE_ENV=production nodemon build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ndb app.js",
@@ -46,7 +46,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
-    "@babel/plugin-transform-react-jsx": "^7.25.9",
     "@babel/preset-react": "^7.26.3",
     "@eslint/js": "^9.18.0",
     "@types/react": "^19.0.7",
