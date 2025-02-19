@@ -5,10 +5,10 @@
   "main": "app.js",
   "scripts": {
     "dev:public-blog": "vite",
-    "dev:api": "JUST_API=true nodemon --config nodemon.json --experimental-detect-module --import=extensionless/register app.js",
+    "dev:api": "JUST_API=true nodemon --config nodemon.json --experimental-loader ./jsx-loader.mjs  --experimental-loader ./css-loader.mjs --experimental-detect-module  --import=extensionless/register app.js",
     "build:css": "tailwindcss -i ./src/style/input.css -o ./src/style/index.css",
     "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx --jsx=automatic",
-    "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --loader:.js=jsx --jsx=automatic",
+    "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --external:@babel/preset-typescript --loader:.js=jsx --jsx=automatic",
     "start": "eslint . && npm run build:css && npm run build:server && npm run build:client && nodemon --config nodemon.json build/server.js",
     "start:prod": "NODE_ENV=production nodemon build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,7 +17,16 @@
   },
   "author": "Andrea Benedetto",
   "license": "ISC",
+  "extensionless": {
+    "lookFor": [
+      "js",
+      "mjs",
+      "cjs",
+      "jsx"
+    ]
+  },
   "dependencies": {
+    "@multiloader/loader": "^0.0.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -36,6 +45,9 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
+    "@babel/preset-react": "^7.26.3",
     "@eslint/js": "^9.18.0",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
@@ -56,6 +68,6 @@
     "vite": "^6.0.7"
   },
   "engines": {
-    "node": ">=21.5.0"
+    "node": "^21.5.0"
   }
 }

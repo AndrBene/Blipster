@@ -3,11 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-
-// require('@babel/register')({ extensions: ['.js', '.jsx'] });
+export * from '@multiloader/loader';
 
 import userRouter from './src/server/routes/userRoutes';
 import blogPostRouter from './src/server/routes/blogPostRoutes';
+import homeViewRouter from './src/server/routes/homeViewRoutes';
 
 import AppError from './src/server/utils/appError';
 import globalErrorHandler from './src/server/controllers/errorController';
@@ -37,24 +37,25 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5173',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3000',
+    ],
     credentials: true,
   }),
 );
+
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(express.static('build'));
 app.use(express.static('public'));
 
-if (process.env.JUST_API === false) {
-  app.use(
-    '/',
-    import('./src/server/routes/homeViewRoutes').homeViewRouter,
-  );
-}
-
 app.options('*', cors());
+
+app.use('/', homeViewRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
 
