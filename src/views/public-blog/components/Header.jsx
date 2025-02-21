@@ -10,6 +10,7 @@ function Header() {
 
   async function logoutUser() {
     try {
+      toast.loading('Waiting for logout...');
       const res = await fetch(
         `http://localhost:3000/api/v1/users/logout`,
         {
@@ -22,7 +23,7 @@ function Header() {
       if (json.status === 'error') {
         throw new Error(json.message);
       }
-
+      toast.dismiss();
       toast.success('Logout successful!');
 
       auth.logout();

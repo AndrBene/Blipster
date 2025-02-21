@@ -13,6 +13,7 @@ function Signin() {
     console.log('userInfo: ', userInfo);
 
     try {
+      toast.loading('Waiting for sign in...');
       const res = await fetch(
         `http://localhost:3000/api/v1/users/login`,
         {
@@ -30,7 +31,7 @@ function Signin() {
       if (json.status === 'error') {
         throw new Error(json.message);
       }
-
+      toast.dismiss();
       toast.success('Login successful!');
 
       auth.login();
@@ -38,6 +39,7 @@ function Signin() {
 
       reset();
     } catch (error) {
+      toast.dismiss();
       toast.error(`${error}`);
     }
   }
