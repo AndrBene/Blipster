@@ -1,8 +1,6 @@
 import { renderToString } from 'react-dom/server';
-// import React from 'react';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// const Home = require(path.join(__dirname, '../views/Home.jsx'));
 import AppLayout from '../../views/public-blog/AppLayout.jsx';
 import { readFileSync } from 'fs';
 import { StaticRouter } from 'react-router-dom';
