@@ -47,7 +47,7 @@ function Signin() {
   */
 
   return (
-    <div className="mx-80 mt-10 text-black">
+    <div className="mx-80 mt-10 text-black dark:text-white">
       <div className="mb-16 text-3xl font-bold">Login</div>
       <form onSubmit={handleSubmit(loginUser)}>
         <div className="mb-5 flex items-center gap-4 text-lg">

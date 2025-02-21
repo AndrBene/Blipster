@@ -23,6 +23,7 @@ function Register() {
       );
 
       const json = await res.json();
+
       if (json.status === 'error') {
         // if (!res.ok) {
         throw new Error(json.message);
@@ -37,7 +38,7 @@ function Register() {
   }
 
   return (
-    <div className="mx-80 mt-10 text-black">
+    <div className="mx-80 mt-10 text-black dark:text-white">
       <div className="mb-16 text-3xl font-bold">Register</div>
       <form onSubmit={handleSubmit(registerNewUser)}>
         <div className="mb-5 flex items-center gap-4 text-lg">

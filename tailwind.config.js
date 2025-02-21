@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/views/index.html',
-    './src/client/public-blog/index.html',
+    './src/vite-dev-server/index.html',
+    './src/views/public-blog/index.html',
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
@@ -13,4 +13,5 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: 'class',
 };

@@ -6,7 +6,7 @@ import SinglePost from '../components/SinglePost';
 
 function Home() {
   return (
-    <div className="grid h-full grid-rows-[auto_1fr] overflow-hidden bg-white px-5 text-black">
+    <div className="grid h-full grid-rows-[auto_1fr] overflow-hidden bg-white px-5 text-black dark:bg-slate-950 dark:text-white">
       <TopBar />
       <div className="overflow-scroll text-xl">
         <Routes>

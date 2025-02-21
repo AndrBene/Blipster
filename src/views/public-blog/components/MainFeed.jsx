@@ -31,7 +31,7 @@ function MainFeed() {
 
   return (
     <div className="">
-      <div className="mt-2 border-2 border-white">
+      <div className="mt-2">
         {feed.map((el) => {
           return <Post key={el.title} feed={el} />;
         })}

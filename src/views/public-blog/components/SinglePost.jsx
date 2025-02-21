@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import Comments from './Comments';
 import { useEffect, useState } from 'react';
+import { HiArrowLongLeft } from 'react-icons/hi2';
 
 function SinglePost() {
   const { id } = useParams();
@@ -22,10 +23,13 @@ function SinglePost() {
     <div className="mt-10 flex flex-col justify-start">
       <Link
         to="/"
-        className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800"
+        className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white"
       >
-        <img src="/back_arrow.png" alt="not found" className="h-5" />
-        <div className="text-base text-slate-800">Home</div>
+        {/* <img src="/back_arrow.png" alt="not found" className="h-5" /> */}
+        <HiArrowLongLeft className="size-5" />
+        <div className="text-base text-slate-800 dark:text-white">
+          Home
+        </div>
       </Link>
       <div className="mt-10 text-4xl font-bold">{content.title}</div>
       <div className="my-12">
