@@ -1,11 +1,18 @@
-import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { fetchUserIsAuthenticated } from '../services/authApi';
+import { useQuery } from '@tanstack/react-query';
 
 function ProtectedRoute({ children }) {
-  const auth = useContext(AuthContext);
+  const { data: isAuthenticated } = useQuery({
+    queryKey: ['isAuthenticated'],
+    queryFn: fetchUserIsAuthenticated,
+    meta: {
+      protectedRouteErrorMessage:
+        "Couldn't fetch user authentication status",
+    },
+  });
 
-  return auth.isLoggedIn ? (
+  return isAuthenticated ? (
     children
   ) : (
     <Navigate replace to="/signin" />

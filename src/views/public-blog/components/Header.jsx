@@ -1,35 +1,57 @@
-import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import DarkModeToggle from './DarkModeToggle';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { fetchUserIsAuthenticated } from '../services/authApi';
 
 function Header() {
-  const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
-  async function logoutUser() {
-    try {
-      toast.loading('Waiting for logout...');
-      const res = await fetch(
-        `http://localhost:3000/api/v1/users/logout`,
-        {
-          credentials: 'include',
-        },
-      );
+  const { data: isAuthenticated } = useQuery({
+    queryKey: ['isAuthenticated'],
+    queryFn: fetchUserIsAuthenticated,
+    meta: {
+      protectedRouteErrorMessage:
+        "Couldn't fetch user authentication status",
+    },
+  });
 
-      const json = await res.json();
+  const queryClient = useQueryClient();
 
-      if (json.status === 'error') {
-        throw new Error(json.message);
-      }
+  const { mutate: logout } = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: () => {
       toast.dismiss();
       toast.success('Logout successful!');
 
-      auth.logout();
       navigate('/home');
-    } catch (error) {
+      queryClient.invalidateQueries({
+        queryKey: ['isAuthenticated'],
+      });
+    },
+    onError: (error) => {
+      toast.dismiss();
       toast.error(`${error}`);
+    },
+  });
+
+  async function logoutUser() {
+    toast.loading('Waiting for logout...');
+    const res = await fetch(
+      `http://localhost:3000/api/v1/users/logout`,
+      {
+        credentials: 'include',
+      },
+    );
+
+    const json = await res.json();
+
+    if (json.status === 'error') {
+      throw new Error(json.message);
     }
   }
   return (
@@ -43,7 +65,7 @@ function Header() {
       </Link>
 
       <div className="flex items-center justify-between gap-10">
-        {auth.isLoggedIn ? (
+        {isAuthenticated ? (
           <div className="flex items-center justify-between gap-10">
             <Link
               to="/profile"
@@ -58,7 +80,7 @@ function Header() {
             </Link>
             <div
               className="flex items-center justify-between gap-2"
-              onClick={logoutUser}
+              onClick={logout}
             >
               <img
                 src="/logout.png"

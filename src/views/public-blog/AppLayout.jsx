@@ -7,12 +7,33 @@ import CreatePost from './pages/CreatePost';
 import PageNotFound from './pages/PageNotFound';
 import { Toaster } from 'react-hot-toast';
 import ProtectedRoute from './components/ProtectedRoute';
-import AuthProvider from './context/AuthContext';
 import DarkModeProvider from './context/DarkModeContext';
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000, // (60 * 1000 ms) = 1 minute
+    },
+  },
+  queryCache: new QueryCache({
+    onError: (error, query) => {
+      if (query.meta.protectedRouteErrorMessage) {
+        console.log(query.meta.protectedRouteErrorMessage);
+      }
+    },
+  }),
+});
 
 function AppLayout() {
   return (
-    <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <DarkModeProvider>
         <div className="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-white dark:bg-slate-950">
           <Header />
@@ -78,7 +99,7 @@ function AppLayout() {
           />
         </div>
       </DarkModeProvider>
-    </AuthProvider>
+    </QueryClientProvider>
   );
 }
 

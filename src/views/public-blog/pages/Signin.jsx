@@ -1,48 +1,54 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function Signin() {
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
-  const auth = useContext(AuthContext);
 
-  async function loginUser(userInfo) {
-    console.log('userInfo: ', userInfo);
+  const queryClient = useQueryClient();
 
-    try {
-      toast.loading('Waiting for sign in...');
-      const res = await fetch(
-        `http://localhost:3000/api/v1/users/login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json', // Sending JSON data
-          },
-          credentials: 'include',
-          body: JSON.stringify(userInfo),
-        },
-      );
-
-      const json = await res.json();
-
-      if (json.status === 'error') {
-        throw new Error(json.message);
-      }
+  const { mutate: login } = useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
       toast.dismiss();
       toast.success('Login successful!');
 
-      auth.login();
       navigate('/home');
 
       reset();
-    } catch (error) {
+      queryClient.invalidateQueries({
+        queryKey: ['isAuthenticated'],
+      });
+    },
+    onError: (error) => {
       toast.dismiss();
       toast.error(`${error}`);
+    },
+  });
+
+  async function loginUser(userInfo) {
+    toast.loading('Waiting for sign in...');
+    const res = await fetch(
+      `http://localhost:3000/api/v1/users/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Sending JSON data
+        },
+        credentials: 'include',
+        body: JSON.stringify(userInfo),
+      },
+    );
+
+    const json = await res.json();
+
+    if (json.status === 'error') {
+      throw new Error(json.message);
     }
   }
+
   /*
    TODO: 
    - add signin functionality
@@ -51,7 +57,7 @@ function Signin() {
   return (
     <div className="mx-80 mt-10 text-black dark:text-white">
       <div className="mb-16 text-3xl font-bold">Login</div>
-      <form onSubmit={handleSubmit(loginUser)}>
+      <form onSubmit={handleSubmit(login)}>
         <div className="mb-5 flex items-center gap-4 text-lg">
           <label htmlFor="" className="basis-20 text-xl">
             Username
