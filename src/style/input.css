@@ -8,12 +8,4 @@
   .input {
     @apply w-full rounded-lg border border-slate-800 px-4 py-1 placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 dark:placeholder:text-slate-500;
   }
-
-  .styledNavLink {
-    @apply fill-yellow-400;
-  }
-
-  .styledNavLink a svg {
-    @apply fill-yellow-400;
-  }
 }
