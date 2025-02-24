@@ -55,11 +55,11 @@ function Header() {
     }
   }
   return (
-    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 xl:px-32 dark:bg-slate-900">
+    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 md:px-12 xl:px-32 dark:bg-slate-900">
       <Link to="/">
         <img
           src="/blipster_logo.png"
-          className="h-12 xl:h-20"
+          className="h-12 md:h-14 xl:h-20"
           alt="not found"
         />
       </Link>
@@ -73,7 +73,7 @@ function Header() {
             >
               <img
                 src="/profile.png"
-                className="size-5 xl:size-8"
+                className="size-5 md:size-6 xl:size-8"
                 alt="not found"
               />
               <div className="hidden text-lg uppercase xl:block">
@@ -86,7 +86,7 @@ function Header() {
             >
               <img
                 src="/logout.png"
-                className="size-5 xl:size-7"
+                className="size-5 md:size-6 xl:size-7"
                 alt="not found"
               />
               <button className="hidden text-lg uppercase xl:block">
@@ -101,7 +101,7 @@ function Header() {
           >
             <img
               src="/signin.png"
-              className="size-5 xl:size-8"
+              className="size-5 md:size-6 xl:size-8"
               alt="not found"
             />
             <div className="hidden text-lg uppercase xl:block">

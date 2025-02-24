@@ -55,13 +55,16 @@ function Signin() {
   */
 
   return (
-    <div className="mx-4 mt-10 text-black xl:mx-80 dark:text-white">
-      <div className="mb-12 text-xl font-bold xl:mb-16 xl:text-3xl">
+    <div className="mx-4 mt-10 text-black md:mx-16 xl:mx-80 dark:text-white">
+      <div className="mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl">
         Login
       </div>
       <form onSubmit={handleSubmit(login)}>
         <div className="mb-5 flex items-center gap-4 text-base xl:text-lg">
-          <label htmlFor="" className="basis-20 text-base xl:text-xl">
+          <label
+            htmlFor=""
+            className="basis-20 text-base md:text-lg xl:text-xl"
+          >
             Username
           </label>
           <div className="grow text-base xl:text-lg">
@@ -77,7 +80,10 @@ function Signin() {
         </div>
 
         <div className="mb-5 flex items-center gap-4 text-base xl:text-lg">
-          <label htmlFor="" className="basis-20 text-base xl:text-xl">
+          <label
+            htmlFor=""
+            className="basis-20 text-base md:text-lg xl:text-xl"
+          >
             Password
           </label>
           <div className="grow text-base xl:text-lg">
@@ -96,7 +102,7 @@ function Signin() {
           <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
             Login
           </button>
-          <div className="text-base xl:text-lg">
+          <div className="text-base md:text-lg xl:text-lg">
             Or{' '}
             <Link to="/register" className="underline">
               Sign Up

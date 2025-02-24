@@ -38,13 +38,16 @@ function Register() {
   }
 
   return (
-    <div className="mx-4 mt-10 text-black xl:mx-80 dark:text-white">
-      <div className="mb-12 text-xl font-bold xl:mb-16 xl:text-3xl">
+    <div className="mx-4 mt-10 text-black md:mx-16 xl:mx-80 dark:text-white">
+      <div className="mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl">
         Register
       </div>
       <form onSubmit={handleSubmit(registerNewUser)}>
         <div className="mb-5 flex items-center gap-4">
-          <label htmlFor="" className="basis-40 text-base xl:text-xl">
+          <label
+            htmlFor=""
+            className="basis-40 text-base md:text-lg xl:text-xl"
+          >
             Email
           </label>
           <div className="grow text-base xl:text-lg">
@@ -60,7 +63,10 @@ function Register() {
         </div>
 
         <div className="mb-5 flex items-center gap-4">
-          <label htmlFor="" className="basis-40 text-base xl:text-xl">
+          <label
+            htmlFor=""
+            className="basis-40 text-base md:text-lg xl:text-xl"
+          >
             Username
           </label>
           <div className="grow text-base xl:text-lg">
@@ -76,7 +82,10 @@ function Register() {
         </div>
 
         <div className="mb-5 flex items-center gap-4">
-          <label htmlFor="" className="basis-40 text-base xl:text-xl">
+          <label
+            htmlFor=""
+            className="basis-40 text-base md:text-lg xl:text-xl"
+          >
             Password
           </label>
           <div className="grow text-base xl:text-lg">
@@ -92,7 +101,10 @@ function Register() {
         </div>
 
         <div className="mb-5 flex items-center gap-4">
-          <label htmlFor="" className="basis-40 text-base xl:text-xl">
+          <label
+            htmlFor=""
+            className="basis-40 text-base md:text-lg xl:text-xl"
+          >
             Confirm password
           </label>
           <div className="grow text-base xl:text-lg">
