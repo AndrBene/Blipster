@@ -40,7 +40,7 @@ function AppLayout() {
       <DarkModeProvider>
         <div className="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-white dark:bg-slate-950">
           <Header />
-          <div className="mx-4 overflow-hidden md:mx-16 xl:mx-64">
+          <div className="mx-4 overflow-hidden md:mx-16 xl:mx-48 2xl:mx-64">
             <Routes>
               <Route
                 exact
@@ -82,7 +82,7 @@ function AppLayout() {
                 <div>CREATE</div>
                 <div>POST</div>
               </Link>
-              <div className="fixed bottom-12 right-12 hidden size-10 rounded-full bg-slate-800 md:bottom-9 md:right-9 md:block md:size-8 xl:block"></div>
+              <div className="fixed bottom-12 right-12 hidden size-10 rounded-full bg-slate-800 md:bottom-9 md:right-9 md:block md:size-8 xl:bottom-12 xl:right-12 xl:block xl:size-10"></div>
               <div className="fixed bottom-5 right-5 size-5 rounded-full bg-slate-800 xl:bottom-8 xl:right-8"></div>
             </>
           )}

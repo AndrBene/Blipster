@@ -76,7 +76,7 @@ function Header() {
                 className="size-5 md:size-6 xl:size-8"
                 alt="not found"
               />
-              <div className="hidden text-lg uppercase xl:block">
+              <div className="hidden text-lg uppercase sm:block">
                 Profile
               </div>
             </Link>
@@ -89,7 +89,7 @@ function Header() {
                 className="size-5 md:size-6 xl:size-7"
                 alt="not found"
               />
-              <button className="hidden text-lg uppercase xl:block">
+              <button className="hidden text-lg uppercase sm:block">
                 Logout
               </button>
             </div>
@@ -104,7 +104,7 @@ function Header() {
               className="size-5 md:size-6 xl:size-8"
               alt="not found"
             />
-            <div className="hidden text-lg uppercase xl:block">
+            <div className="hidden text-lg uppercase sm:block">
               Sign in
             </div>
           </Link>
