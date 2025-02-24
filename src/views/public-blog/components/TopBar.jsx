@@ -12,7 +12,7 @@ function TopBar() {
   const unselectedStyle = 'text-slate-500';
 
   return (
-    <div className="mt-4 flex content-start gap-x-5 border-b-[1px] border-gray-200 text-xl dark:border-slate-500">
+    <div className="mt-4 flex content-start gap-x-5 border-b-[1px] border-gray-200 text-base xl:text-xl dark:border-slate-500">
       <Link
         to="/"
         className={`flex cursor-pointer items-center gap-2 ${isHome ? selectedStyle : unselectedStyle} p-5`}

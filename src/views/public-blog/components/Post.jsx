@@ -38,42 +38,44 @@ function Post(props) {
       onClick={updateViews}
     >
       <div className="my-6 flex h-56 cursor-pointer flex-col justify-between gap-6 border-b-[0.5px] p-2 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900">
-        <div className="flex items-start justify-between gap-16 overflow-hidden">
+        <div className="flex items-start justify-between gap-4 overflow-hidden xl:gap-16">
           <div className="">
-            <div className="mb-2 text-3xl font-bold text-slate-800 dark:text-white">
+            <div className="mb-2 text-lg font-bold text-slate-800 xl:text-3xl dark:text-white">
               {props.feed.title}
             </div>
-            <div>{props.feed.content}</div>
+            <div className="text-sm xl:text-xl">
+              {props.feed.content}
+            </div>
           </div>
           <img
             src={`/posts/images/${props.feed.image}`}
             alt="not found"
-            className="mr-10 w-36 rounded-lg"
+            className="w-24 rounded-lg xl:mr-10 xl:w-36"
           />
         </div>
         <div className="flex h-auto items-center justify-between">
-          <div className="flex items-center justify-start gap-8 text-lg text-stone-500 dark:text-slate-500">
+          <div className="flex items-center justify-start gap-2 text-sm text-stone-500 xl:gap-8 xl:text-lg dark:text-slate-500">
             <div>
               {DateTime.fromISO(props.feed.updatedAt).toFormat(
                 'MMM dd, yyyy',
               )}
             </div>
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-start gap-1 xl:gap-2">
               {/* <img
                 src="/views.png"
                 className="size-5 opacity-50"
                 alt="not found"
               /> */}
-              <HiOutlineEye className="size-6" />
+              <HiOutlineEye className="size-4 xl:size-6" />
               <div>{props.feed.views}</div>
             </div>
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-start gap-1 xl:gap-2">
               {/* <img
                 src="/comments.png"
                 className="size-5 opacity-50"
                 alt="not found"
               /> */}
-              <HiOutlineChatBubbleOvalLeft className="size-6" />
+              <HiOutlineChatBubbleOvalLeft className="size-4 xl:size-6" />
               <div>{props.feed.numComments}</div>
             </div>
           </div>

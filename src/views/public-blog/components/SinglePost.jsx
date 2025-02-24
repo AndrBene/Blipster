@@ -27,18 +27,22 @@ function SinglePost() {
       >
         {/* <img src="/back_arrow.png" alt="not found" className="h-5" /> */}
         <HiArrowLongLeft className="size-5" />
-        <div className="text-base text-slate-800 dark:text-white">
+        <div className="text-sm text-slate-800 xl:text-base dark:text-white">
           Home
         </div>
       </Link>
-      <div className="mt-10 text-4xl font-bold">{content.title}</div>
+      <div className="mt-10 text-xl font-bold xl:text-4xl">
+        {content.title}
+      </div>
       <div className="my-12">
         <img
           src={`/posts/images/${content.image}`}
-          className="w-96 rounded-md"
+          className="w-80 rounded-md xl:w-96"
           alt="Not found"
         />
-        <div className="pt-10">{content.content}</div>
+        <div className="pt-10 text-base xl:text-xl">
+          {content.content}
+        </div>
       </div>
       <Comments comments={content.comments} />
     </div>

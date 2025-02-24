@@ -51,7 +51,7 @@ function MainFeed() {
             )?.map((pageNum) => (
               <div
                 key={pageNum}
-                className={`cursor-pointer rounded-xl border-[1px] ${pageNum === currentPageNum ? 'border-slate-800 dark:border-white' : 'border-gray-200 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900'} px-5 py-3`}
+                className={`cursor-pointer rounded-xl border-[1px] ${pageNum === currentPageNum ? 'border-slate-800 dark:border-white' : 'border-gray-200 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900'} px-3 py-2 xl:px-5 xl:py-3`}
                 onClick={() => {
                   setCurrentPageNum(pageNum);
                 }}

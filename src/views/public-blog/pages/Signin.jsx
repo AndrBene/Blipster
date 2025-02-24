@@ -55,14 +55,16 @@ function Signin() {
   */
 
   return (
-    <div className="mx-80 mt-10 text-black dark:text-white">
-      <div className="mb-16 text-3xl font-bold">Login</div>
+    <div className="mx-4 mt-10 text-black xl:mx-80 dark:text-white">
+      <div className="mb-12 text-xl font-bold xl:mb-16 xl:text-3xl">
+        Login
+      </div>
       <form onSubmit={handleSubmit(login)}>
-        <div className="mb-5 flex items-center gap-4 text-lg">
-          <label htmlFor="" className="basis-20 text-xl">
+        <div className="mb-5 flex items-center gap-4 text-base xl:text-lg">
+          <label htmlFor="" className="basis-20 text-base xl:text-xl">
             Username
           </label>
-          <div className="grow text-lg">
+          <div className="grow text-base xl:text-lg">
             <input
               placeholder="username"
               className="input"
@@ -74,11 +76,11 @@ function Signin() {
           </div>
         </div>
 
-        <div className="mb-5 flex items-center gap-4 text-lg">
-          <label htmlFor="" className="basis-20 text-xl">
+        <div className="mb-5 flex items-center gap-4 text-base xl:text-lg">
+          <label htmlFor="" className="basis-20 text-base xl:text-xl">
             Password
           </label>
-          <div className="grow text-lg">
+          <div className="grow text-base xl:text-lg">
             <input
               type="password"
               required
@@ -91,10 +93,10 @@ function Signin() {
         </div>
 
         <div className="mt-10 flex flex-col items-center">
-          <button className="mb-2 rounded-full bg-slate-800 px-12 py-3 text-xl uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none">
+          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
             Login
           </button>
-          <div className="text-lg">
+          <div className="text-base xl:text-lg">
             Or{' '}
             <Link to="/register" className="underline">
               Sign Up

@@ -6,7 +6,7 @@ function Comment({ comment }) {
     <div className="mb-2 flex flex-col justify-start gap-5 border-b-[1px] border-gray-200 p-5 dark:border-slate-500">
       <div className="flex items-center justify-start gap-4">
         {/* <div className="h-14 w-14 overflow-clip rounded-full border-[1px] border-slate-800"> */}
-        <div className="h-14 w-14 overflow-clip rounded-full">
+        <div className="h-10 w-10 overflow-clip rounded-full xl:h-14 xl:w-14">
           <img
             src={
               comment.userInfo[0]?.photo != undefined
@@ -14,21 +14,21 @@ function Comment({ comment }) {
                 : '/default_profile.jpg'
             }
             alt="not found"
-            className="h-14 object-cover"
+            className="h-10 object-cover xl:h-14"
           />
         </div>
         <div>
-          <div className="text-black dark:text-white">
+          <div className="text-lg text-black xl:text-xl dark:text-white">
             {comment.userInfo[0]?.username}
           </div>
-          <div className="text-base text-stone-400 dark:text-slate-500">
+          <div className="text-xs text-stone-400 xl:text-base dark:text-slate-500">
             {DateTime.fromISO(comment.createdAt).toFormat(
               'MMM dd, yyyy',
             )}
           </div>
         </div>
       </div>
-      <div>{comment.content}</div>
+      <div className="text-base xl:text-xl">{comment.content}</div>
     </div>
   );
 }
