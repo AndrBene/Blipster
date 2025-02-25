@@ -49,11 +49,6 @@ function Signin() {
     }
   }
 
-  /*
-   TODO: 
-   - add signin functionality
-  */
-
   return (
     <div className="flex justify-center">
       <div className="mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white">
