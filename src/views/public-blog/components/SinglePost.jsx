@@ -1,51 +1,70 @@
 import { Link, useParams } from 'react-router-dom';
 import Comments from './Comments';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import Loader from './Loader';
 
 function SinglePost() {
   const { id } = useParams();
-  const [content, setContent] = useState([]);
+
+  const { isLoading, data: postContent } = useQuery({
+    queryKey: [`post-${id}`],
+    queryFn: fetchPostContent,
+    meta: {
+      protectedRouteErrorMessage: "Couldn't fetch post content",
+    },
+  });
+
+  async function fetchPostContent() {
+    const res = await fetch(
+      `http://localhost:3000/api/v1/posts/${id}`,
+    );
+    const json = await res.json();
+
+    return json.data.blogPost;
+  }
+
+  const queryClient = useQueryClient();
 
   useEffect(function () {
-    fetch(`http://localhost:3000/api/v1/posts/${id}`)
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(
-          'ret blogPost: ',
-          json.data.blogPost.comments.length,
-        );
-        setContent(json.data.blogPost);
-      });
+    return () => {
+      queryClient.removeQueries(`post-${id}`);
+    };
   }, []);
 
   return (
-    <div className="mt-10 flex flex-col justify-start">
-      <Link
-        to="/"
-        className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white"
-      >
-        {/* <img src="/back_arrow.png" alt="not found" className="h-5" /> */}
-        <HiArrowLongLeft className="size-5" />
-        <div className="text-sm text-slate-800 xl:text-base dark:text-white">
-          Home
+    <>
+      {isLoading ? (
+        <Loader text={'post content'} />
+      ) : (
+        <div className="mt-10 flex flex-col justify-start overflow-x-visible">
+          <Link
+            to="/"
+            className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white"
+          >
+            <HiArrowLongLeft className="size-5" />
+            <div className="text-sm text-slate-800 xl:text-base dark:text-white">
+              Home
+            </div>
+          </Link>
+          <div className="mt-10 text-xl font-bold xl:text-4xl">
+            {postContent.title}
+          </div>
+          <div className="my-12">
+            <img
+              src={`/posts/images/${postContent.image}`}
+              className="w-80 rounded-md xl:w-96"
+              alt="Not found"
+            />
+            <div className="pt-10 text-base xl:text-xl">
+              {postContent.content}
+            </div>
+          </div>
+          <Comments comments={postContent.comments} />
         </div>
-      </Link>
-      <div className="mt-10 text-xl font-bold xl:text-4xl">
-        {content.title}
-      </div>
-      <div className="my-12">
-        <img
-          src={`/posts/images/${content.image}`}
-          className="w-80 rounded-md xl:w-96"
-          alt="Not found"
-        />
-        <div className="pt-10 text-base xl:text-xl">
-          {content.content}
-        </div>
-      </div>
-      <Comments comments={content.comments} />
-    </div>
+      )}
+    </>
   );
 }
 
