@@ -7,7 +7,7 @@ function Register() {
   async function registerNewUser(userInfo) {
     try {
       const formData = new FormData();
-      formData.append('data', userInfo.email);
+      formData.append('email', userInfo.email);
       formData.append('username', userInfo.username);
       formData.append('password', userInfo.password);
       formData.append('confirmPassword', userInfo.confirmPassword);
