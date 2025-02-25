@@ -11,7 +11,7 @@ import { fetchUserIsAuthenticated } from '../services/authApi';
 function Header() {
   const navigate = useNavigate();
 
-  const { data: isAuthenticated } = useQuery({
+  const { data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -65,7 +65,7 @@ function Header() {
       </Link>
 
       <div className="flex items-center justify-between gap-5 xl:gap-10">
-        {isAuthenticated ? (
+        {userInfo?.authenticated ? (
           <div className="flex items-center justify-between gap-3 xl:gap-10">
             <Link
               to="/profile"

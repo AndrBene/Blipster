@@ -7,9 +7,5 @@ export async function fetchUserIsAuthenticated() {
   );
 
   const json = await res.json();
-
-  if (json.authenticated) {
-    return true;
-  }
-  return false;
+  return json;
 }

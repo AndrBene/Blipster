@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from './Loader';
 
 function ProtectedRoute({ children }) {
-  console.log('ProtectedRoute');
-  const { isLoading, data: isAuthenticated } = useQuery({
+  const { isLoading, data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -14,13 +13,11 @@ function ProtectedRoute({ children }) {
     },
   });
 
-  console.log('isAuthenticated:', isAuthenticated);
-
   if (isLoading) {
     return <Loader text={''} />; // Show loading until the query resolves
   }
 
-  return isAuthenticated ? (
+  return userInfo.authenticated ? (
     children
   ) : (
     <Navigate replace to="/signin" />
