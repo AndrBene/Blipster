@@ -28,6 +28,12 @@ commentSchema.virtual('userInfo', {
   foreignField: '_id',
 });
 
+commentSchema.virtual('postInfo', {
+  ref: 'BlogPost',
+  localField: 'post',
+  foreignField: '_id',
+});
+
 const Comment = mongoose.model('Comment', commentSchema);
 
 export default Comment;

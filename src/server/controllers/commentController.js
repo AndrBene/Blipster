@@ -3,6 +3,10 @@ import Comment from '../models/commentModel';
 import catchAsync from '../utils/catchAsync';
 
 export const getBlogPostComments = catchAsync(async (req, res) => {
+  /*
+   FIXME: 
+   - why there's still a try-catch block
+  */
   try {
     const comments = await Comment.find({
       post: req.params.postId,
@@ -22,6 +26,11 @@ export const getBlogPostComments = catchAsync(async (req, res) => {
 });
 
 export const addComment = catchAsync(async (req, res) => {
+  console.log('addComment: ', req.body);
+  /*
+   FIXME: 
+   - find a way to make DB operations atomic
+  */
   const newComment = await Comment.create({
     ...req.body,
     post: req.params.postId,
@@ -44,6 +53,10 @@ export const addComment = catchAsync(async (req, res) => {
 });
 
 export const deleteComment = catchAsync(async (req, res) => {
+  /*
+   FIXME: 
+   - find a way to make DB operations atomic
+  */
   await Comment.findByIdAndDelete(req.params.commentId);
 
   const post = await BlogPost.findById(req.params.postId).select(
@@ -59,5 +72,21 @@ export const deleteComment = catchAsync(async (req, res) => {
   res.status(204).json({
     status: 'success',
     data: null,
+  });
+});
+
+export const getUserComments = catchAsync(async (req, res) => {
+  const comments = await Comment.find({
+    user: req.params.id,
+  })
+    .populate({
+      path: 'postInfo',
+      select: 'title',
+    })
+    .select(['post', 'content', 'createdAt']);
+
+  res.status(200).json({
+    status: 'success',
+    data: { comments },
   });
 });
