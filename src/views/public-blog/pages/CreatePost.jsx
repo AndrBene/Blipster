@@ -55,8 +55,8 @@ function CreatePost({ setIsCreatePost }) {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="h-full w-2/3 overflow-scroll pb-5 pt-10 text-black sm:w-10/12 lg:w-2/3 dark:text-white">
+    <div className="flex h-full justify-center overflow-hidden">
+      <div className="w-2/3 overflow-scroll pb-5 pt-10 text-black sm:w-10/12 lg:w-2/3 dark:text-white">
         <div className="mb-12 text-xl font-bold md:text-2xl xl:text-3xl">
           Create your post
         </div>
