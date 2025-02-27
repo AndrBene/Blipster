@@ -41,20 +41,17 @@ function Comments({ comments }) {
     });
 
   async function sendNewComment({ comment }) {
-    const res = await fetch(
-      `http://localhost:3000/api/v1/posts/${id}/comments`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Sending JSON data
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          user: userInfo.data.user._id,
-          content: comment,
-        }),
+    const res = await fetch(`/api/v1/posts/${id}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Sending JSON data
       },
-    );
+      credentials: 'include',
+      body: JSON.stringify({
+        user: userInfo.data.user._id,
+        content: comment,
+      }),
+    });
 
     const json = await res.json();
 
@@ -67,7 +64,7 @@ function Comments({ comments }) {
     <div className="mb-20 overflow-x-visible">
       {/* {comments?.length > 0 ? ( */}
       <div className="overflow-x-visible">
-        <div className="mb-6 flex flex-col justify-start text-lg font-medium text-black xl:text-2xl dark:text-white">
+        <div className="mb-6 flex flex-col justify-start text-lg font-medium text-black dark:text-white xl:text-2xl">
           Comments
         </div>
         {userInfo?.authenticated && (
@@ -75,7 +72,7 @@ function Comments({ comments }) {
             className="px-5 pb-5"
             onSubmit={handleSubmit(submitComment)}
           >
-            <div className="shadow-custom dark:shadow-custom-dark flex h-12 w-full grow items-center justify-between rounded-lg px-4 py-8 text-base placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900">
+            <div className="flex h-12 w-full grow items-center justify-between rounded-lg px-4 py-8 text-base shadow-custom placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 dark:shadow-custom-dark md:text-lg xl:text-lg">
               <input
                 type="text"
                 required
@@ -84,7 +81,7 @@ function Comments({ comments }) {
                 {...register('comment')}
               />
 
-              <button className="flex w-20 items-center justify-center rounded-full bg-slate-800 px-5 py-1 text-base text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:text-lg dark:bg-stone-200 dark:text-black dark:hover:bg-white dark:focus:bg-white dark:focus:outline-none">
+              <button className="flex w-20 items-center justify-center rounded-full bg-slate-800 px-5 py-1 text-base text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none dark:bg-stone-200 dark:text-black dark:hover:bg-white dark:focus:bg-white dark:focus:outline-none xl:text-lg">
                 {sendingMessage === undefined ||
                 sendingMessage === false ? (
                   'Reply'

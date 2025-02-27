@@ -47,7 +47,7 @@ function Profile() {
       formData.append('profileImg', profileImg[0]);
 
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/profile-image`,
+        `/api/v1/users/${userInfo?.data.user._id}/profile-image`,
         {
           method: 'PATCH',
           credentials: 'include',
@@ -77,7 +77,7 @@ function Profile() {
     console.log('user: ', userInfo?.data.user);
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts`,
+        `/api/v1/users/${userInfo?.data.user._id}/posts`,
         {
           credentials: 'include',
         },
@@ -99,7 +99,7 @@ function Profile() {
     console.log('userInfo?.data: ', userInfo?.data);
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/comments`,
+        `/api/v1/users/${userInfo?.data.user._id}/comments`,
         {
           credentials: 'include',
         },
@@ -159,7 +159,7 @@ function Profile() {
   async function deleteBlogPost(postId) {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts/${postId}`,
+        `/api/v1/users/${userInfo?.data.user._id}/posts/${postId}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -180,7 +180,7 @@ function Profile() {
     console.log('postId: ', postId);
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/posts/${postId}/comments/${commentId}`,
+        `/api/v1/posts/${postId}/comments/${commentId}`,
         {
           method: 'DELETE',
           credentials: 'include',

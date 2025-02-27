@@ -30,17 +30,14 @@ function Signin() {
 
   async function loginUser(userInfo) {
     toast.loading('Waiting for sign in...');
-    const res = await fetch(
-      `http://localhost:3000/api/v1/users/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Sending JSON data
-        },
-        credentials: 'include',
-        body: JSON.stringify(userInfo),
+    const res = await fetch(`/api/v1/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Sending JSON data
       },
-    );
+      credentials: 'include',
+      body: JSON.stringify(userInfo),
+    });
 
     const json = await res.json();
 
@@ -51,7 +48,7 @@ function Signin() {
 
   return (
     <div className="flex justify-center">
-      <div className="mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white">
+      <div className="mt-10 w-2/3 text-black dark:text-white sm:w-3/6 lg:w-1/3">
         <div className="mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl">
           Login
         </div>

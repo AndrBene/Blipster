@@ -17,9 +17,7 @@ function SinglePost() {
   });
 
   async function fetchPostContent() {
-    const res = await fetch(
-      `http://localhost:3000/api/v1/posts/${id}`,
-    );
+    const res = await fetch(`/api/v1/posts/${id}`);
     const json = await res.json();
 
     return json.data.blogPost;
@@ -44,7 +42,7 @@ function SinglePost() {
             className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white"
           >
             <HiArrowLongLeft className="size-5" />
-            <div className="text-sm text-slate-800 xl:text-base dark:text-white">
+            <div className="text-sm text-slate-800 dark:text-white xl:text-base">
               Home
             </div>
           </Link>

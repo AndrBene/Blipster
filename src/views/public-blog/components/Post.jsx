@@ -16,20 +16,17 @@ function Post(props) {
 
   async function updateViews() {
     const response = await fetch(
-      `http://localhost:3000/api/v1/posts/${props.feed._id}/num-views`,
+      `/api/v1/posts/${props.feed._id}/num-views`,
     );
     const resJson = await response.json();
 
-    fetch(
-      `http://localhost:3000/api/v1/posts/${props.feed._id}/num-views`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json', // Sending JSON data
-        },
-        body: JSON.stringify({ views: resJson.data.numViews + 1 }),
+    fetch(`/api/v1/posts/${props.feed._id}/num-views`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json', // Sending JSON data
       },
-    );
+      body: JSON.stringify({ views: resJson.data.numViews + 1 }),
+    });
   }
 
   return (
@@ -40,7 +37,7 @@ function Post(props) {
       <div className="my-6 flex h-56 cursor-pointer flex-col justify-between gap-6 border-b-[0.5px] p-2 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900">
         <div className="flex items-start justify-between gap-4 overflow-hidden xl:gap-16">
           <div className="">
-            <div className="mb-2 text-lg font-bold text-slate-800 md:text-2xl xl:text-3xl dark:text-white">
+            <div className="mb-2 text-lg font-bold text-slate-800 dark:text-white md:text-2xl xl:text-3xl">
               {props.feed.title}
             </div>
             <div className="text-sm md:text-lg xl:text-xl">
@@ -54,7 +51,7 @@ function Post(props) {
           />
         </div>
         <div className="flex h-auto items-center justify-between">
-          <div className="flex items-center justify-start gap-2 text-sm text-stone-500 md:gap-5 md:text-base xl:gap-8 xl:text-lg dark:text-slate-500">
+          <div className="flex items-center justify-start gap-2 text-sm text-stone-500 dark:text-slate-500 md:gap-5 md:text-base xl:gap-8 xl:text-lg">
             <div>
               {DateTime.fromISO(props.feed.updatedAt).toFormat(
                 'MMM dd, yyyy',

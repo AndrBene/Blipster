@@ -14,13 +14,10 @@ function Register() {
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
       }
-      const res = await fetch(
-        `http://localhost:3000/api/v1/users/register`,
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
+      const res = await fetch(`/api/v1/users/register`, {
+        method: 'POST',
+        body: formData,
+      });
 
       const json = await res.json();
 
@@ -39,7 +36,7 @@ function Register() {
 
   return (
     <div className="flex justify-center">
-      <div className="mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white">
+      <div className="mt-10 w-2/3 text-black dark:text-white sm:w-3/6 lg:w-1/3">
         <div className="mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl">
           Register
         </div>

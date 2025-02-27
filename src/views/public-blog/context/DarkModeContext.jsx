@@ -4,8 +4,15 @@ export const DarkModeContext = createContext();
 
 function DarkModeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(function () {
-    const storedValue = localStorage.getItem('dark-mode');
-    return storedValue ? JSON.parse(storedValue) : false;
+    if (typeof localStorage !== 'undefined') {
+      const storedValue = localStorage.getItem('dark-mode');
+      return storedValue ? JSON.parse(storedValue) : false;
+    } else {
+      console.log(
+        'Web Storage is not supported in this environment.',
+      );
+      return false;
+    }
   });
 
   function toggleDarkMode() {
@@ -23,7 +30,9 @@ function DarkModeProvider({ children }) {
 
   useEffect(
     function () {
-      localStorage.setItem('dark-mode', JSON.stringify(isDarkMode));
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('dark-mode', JSON.stringify(isDarkMode));
+      }
     },
     [isDarkMode],
   );

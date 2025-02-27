@@ -38175,8 +38175,15 @@ to {
   var DarkModeContext = (0, import_react5.createContext)();
   function DarkModeProvider({ children: children2 }) {
     const [isDarkMode, setIsDarkMode] = (0, import_react5.useState)(function() {
-      const storedValue = localStorage.getItem("dark-mode");
-      return storedValue ? JSON.parse(storedValue) : false;
+      if (typeof localStorage !== "undefined") {
+        const storedValue = localStorage.getItem("dark-mode");
+        return storedValue ? JSON.parse(storedValue) : false;
+      } else {
+        console.log(
+          "Web Storage is not supported in this environment."
+        );
+        return false;
+      }
     });
     function toggleDarkMode() {
       setIsDarkMode(!isDarkMode);
@@ -38189,7 +38196,9 @@ to {
     );
     (0, import_react5.useEffect)(
       function() {
-        localStorage.setItem("dark-mode", JSON.stringify(isDarkMode));
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("dark-mode", JSON.stringify(isDarkMode));
+        }
       },
       [isDarkMode]
     );
@@ -40797,12 +40806,9 @@ to {
 
   // src/views/public-blog/services/authApi.js
   async function fetchUserIsAuthenticated() {
-    const res = await fetch(
-      `http://localhost:3000/api/v1/users/is-logged-in`,
-      {
-        credentials: "include"
-      }
-    );
+    const res = await fetch(`/api/v1/users/is-logged-in`, {
+      credentials: "include"
+    });
     const json = await res.json();
     return json;
   }
@@ -40836,18 +40842,15 @@ to {
     });
     async function logoutUser() {
       kt.loading("Waiting for logout...");
-      const res = await fetch(
-        `http://localhost:3000/api/v1/users/logout`,
-        {
-          credentials: "include"
-        }
-      );
+      const res = await fetch(`/api/v1/users/logout`, {
+        credentials: "include"
+      });
       const json = await res.json();
       if (json.status === "error") {
         throw new Error(json.message);
       }
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 md:px-12 xl:px-32 dark:bg-slate-900", children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 dark:bg-slate-900 md:px-12 xl:px-32", children: [
       /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Link, { to: "/", children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
         "img",
         {
@@ -47515,20 +47518,17 @@ to {
     const color = topicColorMap[props.feed.topic];
     async function updateViews() {
       const response = await fetch(
-        `http://localhost:3000/api/v1/posts/${props.feed._id}/num-views`
+        `/api/v1/posts/${props.feed._id}/num-views`
       );
       const resJson = await response.json();
-      fetch(
-        `http://localhost:3000/api/v1/posts/${props.feed._id}/num-views`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-            // Sending JSON data
-          },
-          body: JSON.stringify({ views: resJson.data.numViews + 1 })
-        }
-      );
+      fetch(`/api/v1/posts/${props.feed._id}/num-views`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+          // Sending JSON data
+        },
+        body: JSON.stringify({ views: resJson.data.numViews + 1 })
+      });
     }
     return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
       Link,
@@ -47538,7 +47538,7 @@ to {
         children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "my-6 flex h-56 cursor-pointer flex-col justify-between gap-6 border-b-[0.5px] p-2 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900", children: [
           /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-start justify-between gap-4 overflow-hidden xl:gap-16", children: [
             /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "mb-2 text-lg font-bold text-slate-800 md:text-2xl xl:text-3xl dark:text-white", children: props.feed.title }),
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "mb-2 text-lg font-bold text-slate-800 dark:text-white md:text-2xl xl:text-3xl", children: props.feed.title }),
               /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "text-sm md:text-lg xl:text-xl", children: props.feed.content })
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
@@ -47551,7 +47551,7 @@ to {
             )
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex h-auto items-center justify-between", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-start gap-2 text-sm text-stone-500 md:gap-5 md:text-base xl:gap-8 xl:text-lg dark:text-slate-500", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex items-center justify-start gap-2 text-sm text-stone-500 dark:text-slate-500 md:gap-5 md:text-base xl:gap-8 xl:text-lg", children: [
               /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { children: DateTime.fromISO(props.feed.updatedAt).toFormat(
                 "MMM dd, yyyy"
               ) }),
@@ -47626,16 +47626,14 @@ to {
     const [currentPageNum, setCurrentPageNum] = (0, import_react8.useState)(1);
     const [isLoading, setIsLoading] = (0, import_react8.useState)(false);
     (0, import_react8.useEffect)(function() {
-      fetch("http://localhost:3000/api/v1/posts/tot-posts").then((res) => res.json()).then((json) => {
+      fetch("/api/v1/posts/tot-posts").then((res) => res.json()).then((json) => {
         setTotPages(Math.ceil(json.data.numPosts / limit));
       });
     }, []);
     (0, import_react8.useEffect)(
       function() {
         setIsLoading(true);
-        fetch(
-          `http://localhost:3000/api/v1/posts?page=${currentPageNum}&limit=${limit}`
-        ).then((res) => res.json()).then((json) => {
+        fetch(`/api/v1/posts?page=${currentPageNum}&limit=${limit}`).then((res) => res.json()).then((json) => {
           setFeed(json.data.blogPosts);
         }).finally(() => setIsLoading(false));
       },
@@ -49229,21 +49227,18 @@ to {
       }
     });
     async function sendNewComment({ comment }) {
-      const res = await fetch(
-        `http://localhost:3000/api/v1/posts/${id}/comments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-            // Sending JSON data
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            user: userInfo.data.user._id,
-            content: comment
-          })
-        }
-      );
+      const res = await fetch(`/api/v1/posts/${id}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+          // Sending JSON data
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          user: userInfo.data.user._id,
+          content: comment
+        })
+      });
       const json = await res.json();
       if (json.status === "error") {
         throw new Error(json.message);
@@ -49251,13 +49246,13 @@ to {
     }
     return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "mb-20 overflow-x-visible", children: [
       /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "overflow-x-visible", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "mb-6 flex flex-col justify-start text-lg font-medium text-black xl:text-2xl dark:text-white", children: "Comments" }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "mb-6 flex flex-col justify-start text-lg font-medium text-black dark:text-white xl:text-2xl", children: "Comments" }),
         userInfo?.authenticated && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
           "form",
           {
             className: "px-5 pb-5",
             onSubmit: handleSubmit(submitComment),
-            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "shadow-custom dark:shadow-custom-dark flex h-12 w-full grow items-center justify-between rounded-lg px-4 py-8 text-base placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900", children: [
+            children: /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "flex h-12 w-full grow items-center justify-between rounded-lg px-4 py-8 text-base shadow-custom placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 dark:shadow-custom-dark md:text-lg xl:text-lg", children: [
               /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
                 "input",
                 {
@@ -49268,7 +49263,7 @@ to {
                   ...register("comment")
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("button", { className: "flex w-20 items-center justify-center rounded-full bg-slate-800 px-5 py-1 text-base text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:text-lg dark:bg-stone-200 dark:text-black dark:hover:bg-white dark:focus:bg-white dark:focus:outline-none", children: sendingMessage === void 0 || sendingMessage === false ? "Reply" : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Spinner, { width: 4 }) })
+              /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("button", { className: "flex w-20 items-center justify-center rounded-full bg-slate-800 px-5 py-1 text-base text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none dark:bg-stone-200 dark:text-black dark:hover:bg-white dark:focus:bg-white dark:focus:outline-none xl:text-lg", children: sendingMessage === void 0 || sendingMessage === false ? "Reply" : /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(Spinner, { width: 4 }) })
             ] })
           }
         )
@@ -49293,9 +49288,7 @@ to {
       }
     });
     async function fetchPostContent() {
-      const res = await fetch(
-        `http://localhost:3000/api/v1/posts/${id}`
-      );
+      const res = await fetch(`/api/v1/posts/${id}`);
       const json = await res.json();
       return json.data.blogPost;
     }
@@ -49313,7 +49306,7 @@ to {
           className: "flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white",
           children: [
             /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(HiArrowLongLeft, { className: "size-5" }),
-            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "text-sm text-slate-800 xl:text-base dark:text-white", children: "Home" })
+            /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "text-sm text-slate-800 dark:text-white xl:text-base", children: "Home" })
           ]
         }
       ),
@@ -49385,24 +49378,21 @@ to {
     });
     async function loginUser(userInfo) {
       kt.loading("Waiting for sign in...");
-      const res = await fetch(
-        `http://localhost:3000/api/v1/users/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-            // Sending JSON data
-          },
-          credentials: "include",
-          body: JSON.stringify(userInfo)
-        }
-      );
+      const res = await fetch(`/api/v1/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+          // Sending JSON data
+        },
+        credentials: "include",
+        body: JSON.stringify(userInfo)
+      });
       const json = await res.json();
       if (json.status === "error") {
         throw new Error(json.message);
       }
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "flex justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white", children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "flex justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "mt-10 w-2/3 text-black dark:text-white sm:w-3/6 lg:w-1/3", children: [
       /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl", children: "Login" }),
       /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("form", { onSubmit: handleSubmit(login), children: [
         /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "mb-5 flex items-center gap-4 text-base xl:text-lg", children: [
@@ -49474,13 +49464,10 @@ to {
         for (let [key, value] of formData.entries()) {
           console.log(`${key}:`, value);
         }
-        const res = await fetch(
-          `http://localhost:3000/api/v1/users/register`,
-          {
-            method: "POST",
-            body: formData
-          }
-        );
+        const res = await fetch(`/api/v1/users/register`, {
+          method: "POST",
+          body: formData
+        });
         const json = await res.json();
         if (json.status === "error") {
           throw new Error(json.message);
@@ -49491,7 +49478,7 @@ to {
         kt.error(`${error}`);
       }
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "flex justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white", children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "flex justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "mt-10 w-2/3 text-black dark:text-white sm:w-3/6 lg:w-1/3", children: [
       /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl", children: "Register" }),
       /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("form", { onSubmit: handleSubmit(registerNewUser), children: [
         /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "mb-5 flex items-center gap-4", children: [
@@ -49611,7 +49598,7 @@ to {
         formData.append("author", userInfo.data.user._id);
         formData.append("topic", postInfo.topic);
         formData.append("image", postInfo.photo[0]);
-        const res = await fetch(`http://localhost:3000/api/v1/posts`, {
+        const res = await fetch(`/api/v1/posts`, {
           method: "POST",
           credentials: "include",
           body: formData
@@ -49626,7 +49613,7 @@ to {
         kt.error(`Error creating new post: ${error}`);
       }
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "flex h-full justify-center overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "w-2/3 overflow-scroll pb-5 pt-10 text-black sm:w-10/12 lg:w-2/3 dark:text-white", children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "flex h-full justify-center overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "w-2/3 overflow-scroll pb-5 pt-10 text-black dark:text-white sm:w-10/12 lg:w-2/3", children: [
       /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "mb-12 text-xl font-bold md:text-2xl xl:text-3xl", children: "Create your post" }),
       /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("form", { onSubmit: handleSubmit(createPost), children: [
         /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "mb-10 flex flex-col justify-start gap-4 text-base xl:text-lg", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "grow text-lg xl:text-xl", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
@@ -49657,14 +49644,14 @@ to {
             /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
               "select",
               {
-                className: "w-24 rounded-lg border border-slate-900 px-2 py-1 outline-none xl:w-full dark:border-slate-500 dark:bg-slate-950",
+                className: "w-24 rounded-lg border border-slate-900 px-2 py-1 outline-none dark:border-slate-500 dark:bg-slate-950 xl:w-full",
                 ...register("topic"),
                 children: topics.map((topic) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("option", { value: topic, children: topic }, topic))
               }
             )
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "mb-10 flex items-center gap-4 text-base md:text-lg xl:text-lg", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "h-56 w-full grow rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "mb-10 flex items-center gap-4 text-base md:text-lg xl:text-lg", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "h-56 w-full grow rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 md:text-lg xl:text-lg", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
           "input",
           {
             type: "text",
@@ -49914,7 +49901,7 @@ to {
         const formData = new FormData();
         formData.append("profileImg", profileImg[0]);
         const res = await fetch(
-          `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/profile-image`,
+          `/api/v1/users/${userInfo?.data.user._id}/profile-image`,
           {
             method: "PATCH",
             credentials: "include",
@@ -49938,7 +49925,7 @@ to {
       console.log("user: ", userInfo?.data.user);
       try {
         const res = await fetch(
-          `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts`,
+          `/api/v1/users/${userInfo?.data.user._id}/posts`,
           {
             credentials: "include"
           }
@@ -49957,7 +49944,7 @@ to {
       console.log("userInfo?.data: ", userInfo?.data);
       try {
         const res = await fetch(
-          `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/comments`,
+          `/api/v1/users/${userInfo?.data.user._id}/comments`,
           {
             credentials: "include"
           }
@@ -50013,7 +50000,7 @@ to {
     async function deleteBlogPost(postId) {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts/${postId}`,
+          `/api/v1/users/${userInfo?.data.user._id}/posts/${postId}`,
           {
             method: "DELETE",
             credentials: "include"
@@ -50033,7 +50020,7 @@ to {
       console.log("postId: ", postId);
       try {
         const res = await fetch(
-          `http://localhost:3000/api/v1/posts/${postId}/comments/${commentId}`,
+          `/api/v1/posts/${postId}/comments/${commentId}`,
           {
             method: "DELETE",
             credentials: "include"

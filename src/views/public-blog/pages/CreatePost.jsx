@@ -34,7 +34,7 @@ function CreatePost({ setIsCreatePost }) {
       formData.append('topic', postInfo.topic);
       formData.append('image', postInfo.photo[0]);
 
-      const res = await fetch(`http://localhost:3000/api/v1/posts`, {
+      const res = await fetch(`/api/v1/posts`, {
         method: 'POST',
         credentials: 'include',
         body: formData,
@@ -56,7 +56,7 @@ function CreatePost({ setIsCreatePost }) {
 
   return (
     <div className="flex h-full justify-center overflow-hidden">
-      <div className="w-2/3 overflow-scroll pb-5 pt-10 text-black sm:w-10/12 lg:w-2/3 dark:text-white">
+      <div className="w-2/3 overflow-scroll pb-5 pt-10 text-black dark:text-white sm:w-10/12 lg:w-2/3">
         <div className="mb-12 text-xl font-bold md:text-2xl xl:text-3xl">
           Create your post
         </div>
@@ -87,7 +87,7 @@ function CreatePost({ setIsCreatePost }) {
             <div className="flex flex-col gap-y-2 text-base md:text-lg xl:text-xl">
               <label htmlFor="">Choose topic:</label>
               <select
-                className="w-24 rounded-lg border border-slate-900 px-2 py-1 outline-none xl:w-full dark:border-slate-500 dark:bg-slate-950"
+                className="w-24 rounded-lg border border-slate-900 px-2 py-1 outline-none dark:border-slate-500 dark:bg-slate-950 xl:w-full"
                 {...register('topic')}
               >
                 {topics.map((topic) => (
@@ -100,7 +100,7 @@ function CreatePost({ setIsCreatePost }) {
           </div>
 
           <div className="mb-10 flex items-center gap-4 text-base md:text-lg xl:text-lg">
-            <div className="h-56 w-full grow rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900">
+            <div className="h-56 w-full grow rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 md:text-lg xl:text-lg">
               <input
                 type="text"
                 required

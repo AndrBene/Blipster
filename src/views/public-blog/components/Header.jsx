@@ -41,12 +41,9 @@ function Header() {
 
   async function logoutUser() {
     toast.loading('Waiting for logout...');
-    const res = await fetch(
-      `http://localhost:3000/api/v1/users/logout`,
-      {
-        credentials: 'include',
-      },
-    );
+    const res = await fetch(`/api/v1/users/logout`, {
+      credentials: 'include',
+    });
 
     const json = await res.json();
 
@@ -55,7 +52,7 @@ function Header() {
     }
   }
   return (
-    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 md:px-12 xl:px-32 dark:bg-slate-900">
+    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 dark:bg-slate-900 md:px-12 xl:px-32">
       <Link to="/">
         <img
           src="/blipster_logo.png"
