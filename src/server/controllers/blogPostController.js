@@ -1,5 +1,6 @@
 import BlogPost from '../models/blogPostModel';
 import catchAsync from '../utils/catchAsync';
+import Comment from '../models/commentModel';
 
 export const getAllBlogPosts = catchAsync(async (req, res) => {
   let query = BlogPost.find();
@@ -77,6 +78,8 @@ export const updateBlogPost = catchAsync(async (req, res) => {
 
 export const deleteBlogPost = catchAsync(async (req, res) => {
   await BlogPost.findByIdAndDelete(req.params.id);
+
+  await Comment.deleteMany({ post: req.params.id });
 
   res.status(204).json({
     status: 'success',
