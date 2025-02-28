@@ -2,6 +2,7 @@ import express from 'express';
 import * as userController from '../controllers/userController';
 import * as authController from '../controllers/authController';
 import * as blogPostController from '../controllers/blogPostController';
+import * as commentController from '../controllers/commentController';
 import multer from 'multer';
 
 const userRouter = express.Router();
@@ -41,5 +42,21 @@ userRouter
   .route('/:id/posts/:id')
   .put(authController.protect, blogPostController.updateBlogPost)
   .delete(authController.protect, blogPostController.deleteBlogPost);
+
+userRouter
+  .route('/:id/posts')
+  .get(authController.protect, blogPostController.getUserPosts);
+
+userRouter
+  .route('/:id/comments')
+  .get(authController.protect, commentController.getUserComments);
+
+userRouter
+  .route('/:id/profile-image')
+  .patch(
+    authController.protect,
+    upload.single('profileImg'),
+    userController.updateUserProfileImg,
+  );
 
 export default userRouter;

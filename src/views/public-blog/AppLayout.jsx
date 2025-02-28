@@ -14,7 +14,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Profile from './components/Profile';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +52,15 @@ function AppLayout() {
                 exact
                 path="/register"
                 element={<Register />}
+              ></Route>
+              <Route
+                exact
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
               ></Route>
               <Route
                 exact

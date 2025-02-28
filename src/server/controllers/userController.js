@@ -24,8 +24,21 @@ export const getUserProfile = catchAsync(async (req, res) => {
   const user = await User.findById(req.params.id).populate(
     'blogPosts',
   );
-  console.log(user);
 
+  res.status(200).json({
+    status: 'success',
+    data: { user },
+  });
+});
+
+export const updateUserProfileImg = catchAsync(async (req, res) => {
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { photo: req.file?.filename },
+    { new: true, runValidators: true },
+  );
+
+  console.log('filename:', req.file?.filename);
   res.status(200).json({
     status: 'success',
     data: { user },

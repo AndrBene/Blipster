@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
 
   async function registerNewUser(userInfo) {
     try {
@@ -29,10 +31,14 @@ function Register() {
         throw new Error(json.message);
       }
 
+      toast.dismiss();
       toast.success('User created successfully!!');
 
       reset();
+
+      navigate('/signin');
     } catch (error) {
+      toast.dismiss();
       toast.error(`${error}`);
     }
   }
