@@ -81,7 +81,7 @@ function CreatePost({ setIsCreatePost }) {
               <input
                 id="picture"
                 type="file"
-                className="file:cursor-pointer file:rounded-lg file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-white file:hover:bg-slate-700"
+                className="file:mr-5 file:cursor-pointer file:rounded-lg file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-white file:hover:bg-slate-700 dark:file:bg-white dark:file:text-black dark:file:hover:bg-slate-200"
                 {...register('photo')}
               />
             </div>
@@ -101,7 +101,7 @@ function CreatePost({ setIsCreatePost }) {
             </div>
           </div>
 
-          <div className="h-1/6 w-full rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 md:text-lg xl:text-lg">
+          <div className="h-32 w-full rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 md:text-lg xl:text-lg">
             <textarea
               required
               className="h-full w-full focus:outline-none dark:bg-slate-900 dark:placeholder:text-slate-500"
@@ -111,8 +111,8 @@ function CreatePost({ setIsCreatePost }) {
           </div>
         </div>
 
-        <div className="flex justify-center xl:block">
-          <button className="mb-2 rounded-full bg-slate-800 px-12 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none md:text-lg xl:text-xl">
+        <div className="flex justify-center xl:mt-10 xl:block">
+          <button className="rounded-full bg-slate-800 px-12 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none dark:bg-white dark:text-black dark:hover:bg-slate-200 md:text-lg xl:text-xl">
             Post
           </button>
         </div>

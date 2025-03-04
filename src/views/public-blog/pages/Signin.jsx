@@ -99,12 +99,11 @@ function Signin() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center">
-          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
+        <div className="flex flex-col items-center xl:mt-10">
+          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none dark:bg-white dark:text-black dark:hover:bg-slate-200 xl:px-12 xl:text-xl">
             Login
           </button>
           <div className="text-base md:text-lg xl:text-lg">
-            Or{' '}
             <Link to="/register" className="underline">
               Sign Up
             </Link>
