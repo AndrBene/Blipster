@@ -28,7 +28,6 @@ function Header() {
       toast.dismiss();
       toast.success('Logout successful!');
 
-      navigate('/home?page=1');
       queryClient.invalidateQueries({
         queryKey: ['isAuthenticated'],
       });
