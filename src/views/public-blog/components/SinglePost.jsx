@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Comments from './Comments';
 import { useEffect } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
@@ -6,6 +6,8 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Loader from './Loader';
 
 function SinglePost() {
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const { isLoading, data: postContent } = useQuery({
@@ -39,15 +41,19 @@ function SinglePost() {
         <Loader text={'post content'} />
       ) : (
         <div className="my-10 flex flex-col justify-start gap-y-10 overflow-x-visible">
-          <Link
-            to="/"
+          <div
             className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white"
+            onClick={() =>
+              navigate(
+                `/home?page=${localStorage.getItem('currentPageNum') || 1}`,
+              )
+            }
           >
             <HiArrowLongLeft className="size-5" />
             <div className="text-sm text-slate-800 dark:text-white xl:text-base">
               Home
             </div>
-          </Link>
+          </div>
           <div className="text-xl font-bold xl:text-4xl">
             {postContent.title}
           </div>

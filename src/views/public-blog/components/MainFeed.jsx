@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import Post from './Post';
 import Loader from './Loader';
+import { useSearchParams } from 'react-router-dom';
 
 const limit = 5;
 
 function MainFeed() {
   const [feed, setFeed] = useState([]);
   const [totPages, setTotPages] = useState(0);
-  const [currentPageNum, setCurrentPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPageNum = Number(searchParams.get('page')) || 1;
 
   useEffect(function () {
     fetch('http://localhost:3000/api/v1/posts/tot-posts')
@@ -20,6 +23,7 @@ function MainFeed() {
 
   useEffect(
     function () {
+      localStorage.setItem('currentPageNum', currentPageNum);
       setIsLoading(true);
       fetch(
         `http://localhost:3000/api/v1/posts?page=${currentPageNum}&limit=${limit}`,
@@ -53,7 +57,8 @@ function MainFeed() {
                 key={pageNum}
                 className={`cursor-pointer rounded-xl border-[1px] ${pageNum === currentPageNum ? 'border-slate-800 dark:border-white' : 'border-gray-200 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900'} px-3 py-2 xl:px-5 xl:py-3`}
                 onClick={() => {
-                  setCurrentPageNum(pageNum);
+                  // setCurrentPageNum(pageNum);
+                  setSearchParams({ page: pageNum });
                 }}
               >
                 {pageNum}

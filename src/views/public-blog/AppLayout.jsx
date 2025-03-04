@@ -75,7 +75,7 @@ function AppLayout() {
                 <Route
                   exact
                   path="/"
-                  element={<Navigate replace to="/home" />}
+                  element={<Navigate replace to="/home?page=1" />}
                 ></Route>
                 <Route
                   path="/not-found"

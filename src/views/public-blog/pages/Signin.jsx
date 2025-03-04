@@ -16,7 +16,7 @@ function Signin() {
       toast.dismiss();
       toast.success('Login successful!');
 
-      navigate('/home');
+      navigate('/home?page=1');
 
       reset();
       queryClient.invalidateQueries({

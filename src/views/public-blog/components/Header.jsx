@@ -28,7 +28,7 @@ function Header() {
       toast.dismiss();
       toast.success('Logout successful!');
 
-      navigate('/home');
+      navigate('/home?page=1');
       queryClient.invalidateQueries({
         queryKey: ['isAuthenticated'],
       });
@@ -55,7 +55,7 @@ function Header() {
     }
   }
   return (
-    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 md:px-12 xl:px-32 dark:bg-slate-900">
+    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 dark:bg-slate-900 md:px-12 xl:px-32">
       <Link to="/">
         <img
           src="/blipster_logo.png"
