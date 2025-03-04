@@ -9,7 +9,7 @@ export const getAllBlogPosts = catchAsync(async (req, res) => {
   const limit = req.query.limit * 1 || 100;
   const skip = (page - 1) * limit;
 
-  query = query.skip(skip).limit(limit);
+  query = query.skip(skip).limit(limit).sort('-createdAt');
 
   if (req.query.page) {
     const numPosts = await BlogPost.countDocuments();
