@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { fetchUserIsAuthenticated } from '../services/authApi';
+import ViewsWrapper from '../components/ViewsWrapper';
 
 const topics = ['nature', 'sports', 'politics'];
 
@@ -55,25 +56,26 @@ function CreatePost({ setIsCreatePost }) {
   }
 
   return (
-    <div className="flex h-full justify-center overflow-hidden">
-      <div className="w-2/3 overflow-scroll pb-5 pt-10 text-black sm:w-10/12 lg:w-2/3 dark:text-white">
-        <div className="mb-12 text-xl font-bold md:text-2xl xl:text-3xl">
-          Create your post
-        </div>
-        <form onSubmit={handleSubmit(createPost)}>
-          <div className="mb-10 flex flex-col justify-start gap-4 text-base xl:text-lg">
-            <div className="grow text-lg xl:text-xl">
-              <input
-                placeholder="Title"
-                className="input w-1/2 border-slate-400 dark:border-white dark:bg-slate-900"
-                type="text"
-                required
-                {...register('title')}
-              />
-            </div>
+    <ViewsWrapper>
+      <div className="sticky top-0 bg-white pb-2 text-xl font-bold dark:bg-slate-950 md:text-2xl xl:text-3xl">
+        Create your post
+      </div>
+      <form
+        onSubmit={handleSubmit(createPost)}
+        className="flex grow flex-col justify-between gap-y-10 xl:grow-0"
+      >
+        <div className="flex flex-col gap-y-10">
+          <div className="text-lg xl:text-xl">
+            <input
+              placeholder="Title"
+              className="input border-slate-400 dark:border-white dark:bg-slate-900 md:w-1/2"
+              type="text"
+              required
+              {...register('title')}
+            />
           </div>
 
-          <div className="mb-12 flex flex-col justify-between gap-4 text-base md:flex-row xl:text-lg">
+          <div className="flex flex-col justify-between gap-4 text-base md:flex-row xl:text-lg">
             <div className="flex flex-col gap-y-2 text-base md:text-lg xl:text-xl">
               <label htmlFor="picture">Choose picture:</label>
               <input
@@ -87,7 +89,7 @@ function CreatePost({ setIsCreatePost }) {
             <div className="flex flex-col gap-y-2 text-base md:text-lg xl:text-xl">
               <label htmlFor="">Choose topic:</label>
               <select
-                className="w-24 rounded-lg border border-slate-900 px-2 py-1 outline-none xl:w-full dark:border-slate-500 dark:bg-slate-950"
+                className="w-24 rounded-lg border border-slate-900 px-2 py-1 outline-none dark:border-slate-500 dark:bg-slate-950 xl:w-full"
                 {...register('topic')}
               >
                 {topics.map((topic) => (
@@ -99,26 +101,23 @@ function CreatePost({ setIsCreatePost }) {
             </div>
           </div>
 
-          <div className="mb-10 flex items-center gap-4 text-base md:text-lg xl:text-lg">
-            <div className="h-56 w-full grow rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900">
-              <input
-                type="text"
-                required
-                className="w-full focus:outline-none dark:bg-slate-900 dark:placeholder:text-slate-500"
-                placeholder="Tell your blip ..."
-                {...register('content')}
-              />
-            </div>
+          <div className="h-1/6 w-full rounded-lg border border-slate-400 px-4 py-1 text-base placeholder:text-stone-400 focus:outline-none dark:border-white dark:bg-slate-900 md:text-lg xl:text-lg">
+            <textarea
+              required
+              className="h-full w-full focus:outline-none dark:bg-slate-900 dark:placeholder:text-slate-500"
+              placeholder="Tell your blip ..."
+              {...register('content')}
+            ></textarea>
           </div>
+        </div>
 
-          <div className="mt-14 flex justify-center xl:block">
-            <button className="mb-2 rounded-full bg-slate-800 px-12 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none md:text-lg xl:text-xl">
-              Post
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className="flex justify-center xl:block">
+          <button className="mb-2 rounded-full bg-slate-800 px-12 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none md:text-lg xl:text-xl">
+            Post
+          </button>
+        </div>
+      </form>
+    </ViewsWrapper>
   );
 }
 

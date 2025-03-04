@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import ViewsWrapper from '../components/ViewsWrapper';
 
 function Register() {
   const { register, handleSubmit, reset } = useForm();
@@ -44,13 +45,16 @@ function Register() {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white">
-        <div className="mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl">
-          Register
-        </div>
-        <form onSubmit={handleSubmit(registerNewUser)}>
-          <div className="mb-5 flex items-center gap-4">
+    <ViewsWrapper>
+      <div className="sticky top-0 bg-white pb-2 text-xl font-bold dark:bg-slate-950 md:text-2xl xl:text-3xl">
+        Register
+      </div>
+      <form
+        onSubmit={handleSubmit(registerNewUser)}
+        className="flex grow flex-col justify-between gap-y-10 xl:grow-0"
+      >
+        <div className="flex flex-col gap-y-5">
+          <div className="flex items-center gap-4">
             <label
               htmlFor=""
               className="basis-40 text-base md:text-lg xl:text-xl"
@@ -69,7 +73,7 @@ function Register() {
             </div>
           </div>
 
-          <div className="mb-5 flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <label
               htmlFor=""
               className="basis-40 text-base md:text-lg xl:text-xl"
@@ -88,7 +92,7 @@ function Register() {
             </div>
           </div>
 
-          <div className="mb-5 flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <label
               htmlFor=""
               className="basis-40 text-base md:text-lg xl:text-xl"
@@ -107,7 +111,7 @@ function Register() {
             </div>
           </div>
 
-          <div className="mb-5 flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <label
               htmlFor=""
               className="basis-40 text-base md:text-lg xl:text-xl"
@@ -125,15 +129,15 @@ function Register() {
               />
             </div>
           </div>
+        </div>
 
-          <div className="mt-10 flex flex-col items-center">
-            <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
-              Register
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className="flex flex-col items-center">
+          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
+            Register
+          </button>
+        </div>
+      </form>
+    </ViewsWrapper>
   );
 }
 

@@ -41,47 +41,49 @@ function AppLayout() {
       <DarkModeProvider>
         <div className="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-white dark:bg-slate-950">
           <Header />
-          <div className="mx-4 overflow-hidden md:mx-16 xl:mx-48 2xl:mx-64">
-            <Routes>
-              <Route
-                exact
-                path="/signin"
-                element={<Signin />}
-              ></Route>
-              <Route
-                exact
-                path="/register"
-                element={<Register />}
-              ></Route>
-              <Route
-                exact
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              ></Route>
-              <Route
-                exact
-                path="/create-post"
-                element={
-                  <ProtectedRoute>
-                    <CreatePost setIsCreatePost={setIsCreatePost} />
-                  </ProtectedRoute>
-                }
-              ></Route>
-              <Route
-                exact
-                path="/"
-                element={<Navigate replace to="/home" />}
-              ></Route>
-              <Route
-                path="/not-found"
-                element={<PageNotFound />}
-              ></Route>
-              <Route path="/*" element={<Home />}></Route>
-            </Routes>
+          <div className="flex justify-center overflow-hidden">
+            <div className="flex w-11/12 justify-center overflow-hidden">
+              <Routes>
+                <Route
+                  exact
+                  path="/signin"
+                  element={<Signin />}
+                ></Route>
+                <Route
+                  exact
+                  path="/register"
+                  element={<Register />}
+                ></Route>
+                <Route
+                  exact
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                ></Route>
+                <Route
+                  exact
+                  path="/create-post"
+                  element={
+                    <ProtectedRoute>
+                      <CreatePost setIsCreatePost={setIsCreatePost} />
+                    </ProtectedRoute>
+                  }
+                ></Route>
+                <Route
+                  exact
+                  path="/"
+                  element={<Navigate replace to="/home" />}
+                ></Route>
+                <Route
+                  path="/not-found"
+                  element={<PageNotFound />}
+                ></Route>
+                <Route path="/*" element={<Home />}></Route>
+              </Routes>
+            </div>
           </div>
           {!isCreatePost && (
             <>

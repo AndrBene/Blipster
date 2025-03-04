@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import ViewsWrapper from '../components/ViewsWrapper';
 
 function Signin() {
   const { register, handleSubmit, reset } = useForm();
@@ -50,13 +51,16 @@ function Signin() {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="mt-10 w-2/3 text-black sm:w-3/6 lg:w-1/3 dark:text-white">
-        <div className="mb-12 text-xl font-bold md:text-2xl xl:mb-16 xl:text-3xl">
-          Login
-        </div>
-        <form onSubmit={handleSubmit(login)}>
-          <div className="mb-5 flex items-center gap-4 text-base xl:text-lg">
+    <ViewsWrapper>
+      <div className="sticky top-0 bg-white pb-2 text-xl font-bold dark:bg-slate-950 md:text-2xl xl:text-3xl">
+        Login
+      </div>
+      <form
+        className="flex grow flex-col justify-between gap-y-10 xl:grow-0"
+        onSubmit={handleSubmit(login)}
+      >
+        <div className="flex flex-col gap-y-5">
+          <div className="flex items-center gap-4 text-base xl:text-lg">
             <label
               htmlFor=""
               className="basis-20 text-base md:text-lg xl:text-xl"
@@ -75,7 +79,7 @@ function Signin() {
             </div>
           </div>
 
-          <div className="mb-5 flex items-center gap-4 text-base xl:text-lg">
+          <div className="flex items-center gap-4 text-base xl:text-lg">
             <label
               htmlFor=""
               className="basis-20 text-base md:text-lg xl:text-xl"
@@ -93,21 +97,21 @@ function Signin() {
               />
             </div>
           </div>
+        </div>
 
-          <div className="mt-10 flex flex-col items-center">
-            <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
-              Login
-            </button>
-            <div className="text-base md:text-lg xl:text-lg">
-              Or{' '}
-              <Link to="/register" className="underline">
-                Sign Up
-              </Link>
-            </div>
+        <div className="flex flex-col items-center">
+          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl">
+            Login
+          </button>
+          <div className="text-base md:text-lg xl:text-lg">
+            Or{' '}
+            <Link to="/register" className="underline">
+              Sign Up
+            </Link>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      </form>
+    </ViewsWrapper>
   );
 }
 

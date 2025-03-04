@@ -6,9 +6,9 @@ import SinglePost from '../components/SinglePost';
 
 function Home() {
   return (
-    <div className="grid h-full grid-rows-[auto_1fr] overflow-y-hidden overflow-x-visible bg-white px-5 text-black dark:bg-slate-950 dark:text-white">
+    <div className="grid h-full w-full grid-rows-[auto_1fr] overflow-x-visible overflow-y-scroll bg-white text-black dark:bg-slate-950 dark:text-white sm:w-11/12 lg:w-10/12 2xl:w-9/12">
       <TopBar />
-      <div className="overflow-y-scroll text-xl">
+      <div className="text-xl">
         <Routes>
           <Route path="home" element={<MainFeed />}></Route>
           <Route path="public-blog/about" element={<About />}></Route>
