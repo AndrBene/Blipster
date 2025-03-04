@@ -311,28 +311,28 @@ function UploadImage({ handleSubmit, register, uploadProfileImg }) {
 function Posts({ userPosts, deleteBlogPost }) {
   return (
     <div className="overflow-x-scroll">
-      <div className="mt-2 grid grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white dark:bg-slate-200 dark:text-black sm:text-base md:mt-10 md:text-lg">
-        <div>Title</div>
-        <div>Date</div>
-        <div>Views</div>
-        <div>Comments</div>
-        <div></div>
+      <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white dark:bg-slate-200 dark:text-black sm:text-base md:mt-10 md:text-lg">
+        <div className="min-w-5">Title</div>
+        <div className="min-w-24">Date</div>
+        <div className="min-w-5">Views</div>
+        <div className="min-w-5">Comments</div>
+        <div className="min-w-5"></div>
       </div>
       {userPosts?.map((post) => {
         return (
           <div
             key={post._id}
-            className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 border-x-[1px] border-b-[1px] border-gray-200 px-5 py-2 text-sm sm:text-base md:text-lg"
+            className="grid min-w-[550px] grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 border-x-[1px] border-b-[1px] border-gray-200 px-5 py-2 text-sm sm:text-base md:text-lg"
           >
-            <div>{post.title}</div>
-            <div>
+            <div className="min-w-5">{post.title}</div>
+            <div className="min-w-24">
               {DateTime.fromISO(post.createdAt).toFormat(
                 'MMM dd, yyyy',
               )}
             </div>
-            <div>{post.views}</div>
-            <div>{post.numComments}</div>
-            <div className="flex justify-end gap-2">
+            <div className="min-w-5">{post.views}</div>
+            <div className="min-w-5">{post.numComments}</div>
+            <div className="flex min-w-5 justify-end gap-2">
               <button className="rounded-md p-2 hover:bg-slate-100 dark:hover:bg-slate-700">
                 <HiOutlinePencilSquare className="size-5" />
               </button>
@@ -355,26 +355,28 @@ function Posts({ userPosts, deleteBlogPost }) {
 function Comments({ userComments, deleteComment }) {
   return (
     <div className="overflow-x-scroll">
-      <div className="mt-2 grid grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white dark:bg-slate-200 dark:text-black sm:text-base md:mt-10 md:text-lg">
-        <div>Message</div>
-        <div>Post</div>
-        <div>Date</div>
-        <div></div>
+      <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white dark:bg-slate-200 dark:text-black sm:text-base md:mt-10 md:text-lg">
+        <div className="min-w-16">Message</div>
+        <div className="min-w-16">Post</div>
+        <div className="min-w-24">Date</div>
+        <div className="min-w-5"></div>
       </div>
       {userComments?.map((comment) => {
         return (
           <div
             key={comment._id}
-            className="grid grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 border-x-[1px] border-b-[1px] border-gray-200 px-5 py-2 text-sm sm:text-base md:text-lg"
+            className="grid min-w-[550px] grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 border-x-[1px] border-b-[1px] border-gray-200 px-5 py-2 text-sm sm:text-base md:text-lg"
           >
-            <div>{comment.content}</div>
-            <div>{comment.postInfo[0]?.title}</div>
-            <div>
+            <div className="min-w-16">{comment.content}</div>
+            <div className="min-w-16">
+              {comment.postInfo[0]?.title}
+            </div>
+            <div className="min-w-24">
               {DateTime.fromISO(comment.createdAt).toFormat(
                 'MMM dd, yyyy',
               )}
             </div>
-            <div className="flex justify-end gap-2">
+            <div className="flex min-w-5 justify-end gap-2">
               <button className="rounded-md p-2 hover:bg-slate-100 dark:hover:bg-slate-700">
                 <HiOutlinePencilSquare className="size-5" />
               </button>
