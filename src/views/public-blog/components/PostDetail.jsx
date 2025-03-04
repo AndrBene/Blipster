@@ -5,7 +5,7 @@ import { HiArrowLongLeft } from 'react-icons/hi2';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Loader from './Loader';
 
-function SinglePost() {
+function PostDetail() {
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -74,4 +74,4 @@ function SinglePost() {
   );
 }
 
-export default SinglePost;
+export default PostDetail;
