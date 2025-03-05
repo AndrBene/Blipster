@@ -20,11 +20,6 @@ function TopBar() {
           setIsHome(true);
         }}
       >
-        {/* <img
-          src="/home.png"
-          className={`size-5 ${isHome ? null : 'opacity-25'}`}
-          alt="not found"
-        /> */}
         <HiOutlineHome />
         <div>Home</div>
       </Link>
@@ -35,11 +30,6 @@ function TopBar() {
           setIsHome(false);
         }}
       >
-        {/* <img
-          src="/about.png"
-          className={`size-5 ${!isHome ? null : 'opacity-25'}`}
-          alt="not found"
-        /> */}
         <HiOutlineInformationCircle className="size-6" />
         <div>About</div>
       </Link>

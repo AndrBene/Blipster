@@ -63,20 +63,10 @@ function Post(props) {
               )}
             </div>
             <div className="flex items-center justify-start gap-1 xl:gap-2">
-              {/* <img
-                src="/views.png"
-                className="size-5 opacity-50"
-                alt="not found"
-              /> */}
               <HiOutlineEye className="size-4 md:size-5 xl:size-6" />
               <div>{props.feed.views}</div>
             </div>
             <div className="flex items-center justify-start gap-1 xl:gap-2">
-              {/* <img
-                src="/comments.png"
-                className="size-5 opacity-50"
-                alt="not found"
-              /> */}
               <HiOutlineChatBubbleOvalLeft className="size-4 md:size-5 xl:size-6" />
               <div>{props.feed.numComments}</div>
             </div>

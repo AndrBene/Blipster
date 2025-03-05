@@ -7,10 +7,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { fetchUserIsAuthenticated } from '../services/authApi';
+import {
+  HiMiniArrowRightStartOnRectangle,
+  HiOutlineLockClosed,
+  HiOutlineUser,
+} from 'react-icons/hi2';
 
 function Header() {
-  const navigate = useNavigate();
-
   const { data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
@@ -70,11 +73,7 @@ function Header() {
               to="/profile"
               className="flex items-center justify-between gap-2"
             >
-              <img
-                src="/profile.png"
-                className="size-5 md:size-6 xl:size-8"
-                alt="not found"
-              />
+              <HiOutlineUser className="size-5 md:size-6" />
               <div className="hidden text-lg uppercase sm:block">
                 Profile
               </div>
@@ -83,11 +82,7 @@ function Header() {
               className="flex items-center justify-between gap-2"
               onClick={logout}
             >
-              <img
-                src="/logout.png"
-                className="size-5 md:size-6 xl:size-7"
-                alt="not found"
-              />
+              <HiMiniArrowRightStartOnRectangle className="size-5 md:size-6" />
               <button className="hidden text-lg uppercase sm:block">
                 Logout
               </button>
@@ -98,11 +93,7 @@ function Header() {
             to="/signin"
             className="flex items-center justify-between gap-2"
           >
-            <img
-              src="/signin.png"
-              className="size-5 md:size-6 xl:size-8"
-              alt="not found"
-            />
+            <HiOutlineLockClosed className="size-5 md:size-6" />
             <div className="hidden text-lg uppercase sm:block">
               Sign in
             </div>
