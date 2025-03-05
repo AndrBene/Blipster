@@ -6,7 +6,7 @@ import PostDetail from '../components/PostDetail';
 
 function Home() {
   return (
-    <div className="grid h-full w-full grid-rows-[auto_1fr] overflow-x-visible overflow-y-scroll bg-white text-black dark:bg-slate-950 dark:text-white sm:w-11/12 lg:w-10/12 2xl:w-9/12">
+    <div className="scrollbar-none grid h-full w-full grid-rows-[auto_1fr] overflow-x-visible overflow-y-scroll bg-white text-black dark:bg-slate-950 dark:text-white sm:w-11/12 lg:w-10/12 2xl:w-9/12">
       <TopBar />
       <div className="text-xl">
         <Routes>
