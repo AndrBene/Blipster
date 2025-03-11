@@ -13,7 +13,8 @@ import Spinner from './Spinner';
 import ViewsWrapper from './ViewsWrapper';
 
 function Profile() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const [myPostsSelected, setMyPostsSelected] = useState(true);
   const [userPosts, setUserPosts] = useState([]);
   const [userComments, setUserComments] = useState([]);
@@ -194,7 +195,7 @@ function Profile() {
 
   return (
     <ViewsWrapper>
-      <div className="sticky top-0 bg-white pb-2 text-xl font-bold dark:bg-slate-950 md:text-2xl xl:text-3xl">
+      <div className="sticky top-0 bg-white pb-2 text-xl font-bold md:text-2xl xl:text-3xl dark:bg-slate-950">
         Profile
       </div>
 
@@ -205,11 +206,12 @@ function Profile() {
           handleSubmit={handleSubmit}
           register={register}
           uploadProfileImg={uploadProfileImg}
+          errors={errors}
         />
       </div>
 
       <div className="flex flex-col gap-y-5">
-        <div className="border-b-[1px] border-gray-200 pb-2 text-lg font-medium dark:border-slate-500 md:text-xl xl:text-2xl">
+        <div className="border-b-[1px] border-gray-200 pb-2 text-lg font-medium md:text-xl xl:text-2xl dark:border-slate-500">
           My Activity
         </div>
         <div className="flex justify-start gap-5 text-base md:text-lg">
@@ -259,7 +261,7 @@ function Profile() {
 function UserImage({ image }) {
   return (
     <div className="w-full p-2 sm:w-fit">
-      <div className="flex h-12 w-12 items-center justify-center overflow-clip rounded-full ring-1 ring-slate-900 ring-offset-4 ring-offset-white dark:ring-white dark:ring-offset-slate-950 xl:h-24 xl:w-24">
+      <div className="flex h-12 w-12 items-center justify-center overflow-clip rounded-full ring-1 ring-slate-900 ring-offset-4 ring-offset-white xl:h-24 xl:w-24 dark:ring-white dark:ring-offset-slate-950">
         <img
           src={`${image ? '/users/images/' + image : '/default_profile.jpg'} `}
           alt="not found"
@@ -287,7 +289,12 @@ function UserInfo({ user }) {
   );
 }
 
-function UploadImage({ handleSubmit, register, uploadProfileImg }) {
+function UploadImage({
+  handleSubmit,
+  register,
+  uploadProfileImg,
+  errors,
+}) {
   return (
     <form
       className="flex w-full flex-col justify-start gap-y-3 text-base md:w-fit md:text-lg"
@@ -297,21 +304,32 @@ function UploadImage({ handleSubmit, register, uploadProfileImg }) {
       <input
         id="profileImg"
         type="file"
-        className="file:mr-5 file:cursor-pointer file:rounded-lg file:border-0 file:bg-slate-900 file:px-2 file:py-1 file:text-base file:text-white file:hover:bg-slate-700 dark:file:bg-white dark:file:text-black dark:file:hover:bg-slate-200 file:xl:text-lg"
-        {...register('profileImg')}
+        className="file:mr-5 file:cursor-pointer file:rounded-lg file:border-0 file:bg-slate-900 file:px-2 file:py-1 file:text-base file:text-white file:hover:bg-slate-700 file:xl:text-lg dark:file:bg-white dark:file:text-black dark:file:hover:bg-slate-200"
+        {...register('profileImg', {
+          required: 'Image is required',
+        })}
       />
-      <button className="flex w-fit items-center gap-x-3 rounded-lg bg-slate-900 px-3 py-1 text-base uppercase text-white hover:bg-slate-700 dark:bg-white dark:text-black dark:hover:bg-slate-200 xl:text-lg">
-        <HiMiniArrowUpTray />
-        <div>upload</div>
-      </button>
+      <div className="flex items-center gap-x-4">
+        <button className="flex w-fit items-center gap-x-3 rounded-lg bg-slate-900 px-3 py-1 text-base uppercase text-white hover:bg-slate-700 xl:text-lg dark:bg-white dark:text-black dark:hover:bg-slate-200">
+          <HiMiniArrowUpTray />
+          <div>upload</div>
+        </button>
+        <div className="flex">
+          {errors?.profileImg?.message && (
+            <div className="text-red-500 xl:text-lg">
+              {errors.profileImg.message}
+            </div>
+          )}
+        </div>
+      </div>
     </form>
   );
 }
 
 function Posts({ userPosts, deleteBlogPost }) {
   return (
-    <div className="scrollbar-none overflow-x-scroll">
-      <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white dark:bg-slate-200 dark:text-black sm:text-base md:mt-10 md:text-lg">
+    <div className="overflow-x-scroll scrollbar-none">
+      <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white sm:text-base md:mt-10 md:text-lg dark:bg-slate-200 dark:text-black">
         <div className="min-w-5">Title</div>
         <div className="min-w-24">Date</div>
         <div className="min-w-5">Views</div>
@@ -354,8 +372,8 @@ function Posts({ userPosts, deleteBlogPost }) {
 
 function Comments({ userComments, deleteComment }) {
   return (
-    <div className="scrollbar-none overflow-x-scroll">
-      <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white dark:bg-slate-200 dark:text-black sm:text-base md:mt-10 md:text-lg">
+    <div className="overflow-x-scroll scrollbar-none">
+      <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white sm:text-base md:mt-10 md:text-lg dark:bg-slate-200 dark:text-black">
         <div className="min-w-16">Message</div>
         <div className="min-w-16">Post</div>
         <div className="min-w-24">Date</div>

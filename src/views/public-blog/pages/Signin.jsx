@@ -5,7 +5,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ViewsWrapper from '../components/ViewsWrapper';
 
 function Signin() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -52,7 +53,7 @@ function Signin() {
 
   return (
     <ViewsWrapper>
-      <div className="sticky top-0 bg-white pb-2 text-xl font-bold dark:bg-slate-950 md:text-2xl xl:text-3xl">
+      <div className="sticky top-0 bg-white pb-2 text-xl font-bold md:text-2xl xl:text-3xl dark:bg-slate-950">
         Login
       </div>
       <form
@@ -61,6 +62,7 @@ function Signin() {
       >
         <div className="flex flex-col gap-y-5">
           <div className="flex items-center gap-4 text-base xl:text-lg">
+            {/* <div className="grid grid-cols-[6rem_3fr_1fr] items-center justify-start gap-x-4"> */}
             <label
               htmlFor=""
               className="basis-20 text-base md:text-lg xl:text-xl"
@@ -72,14 +74,24 @@ function Signin() {
                 placeholder="username"
                 className="input"
                 type="text"
-                required
                 id="username"
-                {...register('username')}
+                {...register('username', {
+                  required: 'Username is required',
+                })}
               />
             </div>
           </div>
+          <div className="flex gap-4">
+            <div className="basis-20"></div>
+            {errors?.username?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.username.message}
+              </div>
+            )}
+          </div>
 
           <div className="flex items-center gap-4 text-base xl:text-lg">
+            {/* <div className="grid grid-cols-[6rem_3fr_1fr] items-center justify-start gap-x-4"> */}
             <label
               htmlFor=""
               className="basis-20 text-base md:text-lg xl:text-xl"
@@ -89,18 +101,32 @@ function Signin() {
             <div className="grow text-base xl:text-lg">
               <input
                 type="password"
-                required
                 className="input"
                 placeholder="password"
                 id="password"
-                {...register('password')}
+                {...register('password', {
+                  required: 'Password is required',
+                })}
               />
             </div>
+            {/* {errors?.password?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.password.message}
+              </div>
+            )} */}
+          </div>
+          <div className="flex gap-4">
+            <div className="basis-20"></div>
+            {errors?.password?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.password.message}
+              </div>
+            )}
           </div>
         </div>
 
         <div className="flex flex-col items-center xl:mt-10">
-          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none dark:bg-white dark:text-black dark:hover:bg-slate-200 xl:px-12 xl:text-xl">
+          <button className="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl dark:bg-white dark:text-black dark:hover:bg-slate-200">
             Login
           </button>
           <div className="text-base md:text-lg xl:text-lg">

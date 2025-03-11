@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import ViewsWrapper from '../components/ViewsWrapper';
 
 function Register() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const navigate = useNavigate();
 
   async function registerNewUser(userInfo) {
@@ -46,7 +47,7 @@ function Register() {
 
   return (
     <ViewsWrapper>
-      <div className="sticky top-0 bg-white pb-2 text-xl font-bold dark:bg-slate-950 md:text-2xl xl:text-3xl">
+      <div className="sticky top-0 bg-white pb-2 text-xl font-bold md:text-2xl xl:text-3xl dark:bg-slate-950">
         Register
       </div>
       <form
@@ -66,11 +67,20 @@ function Register() {
                 placeholder="email"
                 className="input"
                 type="text"
-                required
                 id="email"
-                {...register('email')}
+                {...register('email', {
+                  required: 'Email is required',
+                })}
               />
             </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="basis-40"></div>
+            {errors?.email?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.email.message}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -85,11 +95,20 @@ function Register() {
                 placeholder="username"
                 className="input"
                 type="text"
-                required
                 id="username"
-                {...register('username')}
+                {...register('username', {
+                  required: 'Username is required',
+                })}
               />
             </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="basis-40"></div>
+            {errors?.username?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.username.message}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -102,13 +121,22 @@ function Register() {
             <div className="grow text-base xl:text-lg">
               <input
                 type="password"
-                required
                 className="input"
                 placeholder="password"
                 id="password"
-                {...register('password')}
+                {...register('password', {
+                  required: 'Password is required',
+                })}
               />
             </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="basis-40"></div>
+            {errors?.password?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.password.message}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -121,18 +149,27 @@ function Register() {
             <div className="grow text-base xl:text-lg">
               <input
                 type="password"
-                required
                 className="input"
                 placeholder="confirm password"
                 id="confirmPassword"
-                {...register('confirmPassword')}
+                {...register('confirmPassword', {
+                  required: 'Confirm password is required',
+                })}
               />
             </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="basis-40"></div>
+            {errors?.confirmPassword?.message && (
+              <div className="text-red-500 xl:text-lg">
+                {errors.confirmPassword.message}
+              </div>
+            )}
           </div>
         </div>
 
         <div className="flex flex-col items-center xl:mt-10">
-          <button className="rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none dark:bg-white dark:text-black dark:hover:bg-slate-200 xl:px-12 xl:text-xl">
+          <button className="rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl dark:bg-white dark:text-black dark:hover:bg-slate-200">
             Register
           </button>
         </div>

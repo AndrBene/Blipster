@@ -11,7 +11,8 @@ import {
 import Spinner from './Spinner';
 
 function Comments({ comments }) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
   const { id } = useParams();
 
   const { data: userInfo } = useQuery({
@@ -72,16 +73,17 @@ function Comments({ comments }) {
         </div>
         {userInfo?.authenticated && (
           <form
-            className="px-5 pb-5"
+            className="flex flex-col gap-y-3 px-5 pb-5"
             onSubmit={handleSubmit(submitComment)}
           >
-            <div className="shadow-custom dark:shadow-custom-dark flex h-12 w-full grow items-center justify-between rounded-lg px-4 py-8 text-base placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900">
+            <div className="flex h-12 w-full grow items-center justify-between rounded-lg px-4 py-8 text-base shadow-custom placeholder:text-stone-400 focus:outline-none md:text-lg xl:text-lg dark:border-white dark:bg-slate-900 dark:shadow-custom-dark">
               <input
                 type="text"
-                required
                 className="w-full focus:outline-none dark:bg-slate-900 dark:placeholder:text-slate-500"
                 placeholder="What are your thoughts?"
-                {...register('comment')}
+                {...register('comment', {
+                  required: 'A comment is required',
+                })}
               />
 
               <button className="flex w-20 items-center justify-center rounded-full bg-slate-800 px-5 py-1 text-base text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:text-lg dark:bg-stone-200 dark:text-black dark:hover:bg-white dark:focus:bg-white dark:focus:outline-none">
@@ -92,6 +94,13 @@ function Comments({ comments }) {
                   <Spinner width={4} />
                 )}
               </button>
+            </div>
+            <div>
+              {errors?.comment?.message && (
+                <div className="text-red-500 xl:text-lg">
+                  {errors.comment.message}
+                </div>
+              )}
             </div>
           </form>
         )}

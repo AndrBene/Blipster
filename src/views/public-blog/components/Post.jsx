@@ -39,8 +39,8 @@ function Post(props) {
     >
       <div className="my-6 flex h-56 cursor-pointer flex-col justify-between gap-6 border-b-[0.5px] p-2 hover:bg-slate-50 dark:border-slate-500 dark:hover:bg-slate-900">
         <div className="flex items-start justify-between gap-4 overflow-hidden xl:gap-16">
-          <div className="">
-            <div className="mb-2 text-lg font-bold text-slate-800 dark:text-white md:text-2xl xl:text-3xl">
+          <div>
+            <div className="mb-2 text-lg font-bold text-slate-800 md:text-2xl xl:text-3xl dark:text-white">
               {props.feed.title}
             </div>
             <div className="text-sm md:text-lg xl:text-xl">
@@ -56,7 +56,7 @@ function Post(props) {
           )}
         </div>
         <div className="flex h-auto items-center justify-between">
-          <div className="flex items-center justify-start gap-2 text-sm text-stone-500 dark:text-slate-500 md:gap-5 md:text-base xl:gap-8 xl:text-lg">
+          <div className="flex items-center justify-start gap-2 text-sm text-stone-500 md:gap-5 md:text-base xl:gap-8 xl:text-lg dark:text-slate-500">
             <div>
               {DateTime.fromISO(props.feed.updatedAt).toFormat(
                 'MMM dd, yyyy',

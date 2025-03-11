@@ -42,7 +42,7 @@ function MainFeed() {
       {isLoading ? (
         <Loader text={'posts'} />
       ) : (
-        <div className="">
+        <div>
           <div className="mt-2">
             {feed.map((el) => {
               return <Post key={el.title} feed={el} />;
