@@ -50,7 +50,7 @@ function PostDetail() {
             }
           >
             <HiArrowLongLeft className="size-5" />
-            <div className="text-sm text-slate-800 dark:text-white xl:text-base">
+            <div className="text-sm text-slate-800 xl:text-base dark:text-white">
               Home
             </div>
           </div>
@@ -58,11 +58,13 @@ function PostDetail() {
             {postContent.title}
           </div>
           <div className="flex flex-col justify-start gap-y-10">
-            <img
-              src={`/posts/images/${postContent.image}`}
-              className="w-80 rounded-md xl:w-96"
-              alt="Not found"
-            />
+            {postContent?.image && (
+              <img
+                src={`/posts/images/${postContent.image}`}
+                className="w-80 rounded-md xl:w-96"
+                alt="Not found"
+              />
+            )}
             <div className="text-base xl:text-xl">
               {postContent.content}
             </div>
