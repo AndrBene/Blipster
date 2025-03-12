@@ -40,6 +40,10 @@ function Profile() {
     try {
       const formData = new FormData();
       formData.append('profileImg', profileImg[0]);
+      formData.append(
+        'previousProfileImg',
+        userInfo?.data.user.photo,
+      );
 
       const res = await fetch(
         `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/profile-image`,
