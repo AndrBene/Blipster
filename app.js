@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 export * from '@multiloader/loader';
+import chalk from 'chalk';
 
 import userRouter from './src/server/routes/userRoutes';
 import blogPostRouter from './src/server/routes/blogPostRoutes';
@@ -29,6 +30,9 @@ mongoose
   )
   .then(() => {
     console.log('DB connection successful!');
+  })
+  .catch(() => {
+    console.log(chalk.red('DB connection failed!'));
   });
 
 const app = express();
