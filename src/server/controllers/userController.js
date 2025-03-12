@@ -20,17 +20,6 @@ export const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
-export const getUserProfile = catchAsync(async (req, res) => {
-  const user = await User.findById(req.params.id).populate(
-    'blogPosts',
-  );
-
-  res.status(200).json({
-    status: 'success',
-    data: { user },
-  });
-});
-
 export const updateUserProfileImg = catchAsync(async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.params.id,

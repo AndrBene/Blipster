@@ -27,10 +27,6 @@ userRouter
   );
 
 userRouter
-  .route('/profile/:id')
-  .get(authController.protect, userController.getUserProfile);
-
-userRouter
   .route('/:id')
   .delete(
     authController.protect,
