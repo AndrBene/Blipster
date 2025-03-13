@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Post from './Post';
 import Loader from './Loader';
 import { useSearchParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const limit = 5;
 
@@ -14,25 +15,41 @@ function MainFeed() {
   const currentPageNum = Number(searchParams.get('page')) || 1;
 
   useEffect(function () {
-    fetch('http://localhost:3000/api/v1/posts/tot-posts')
-      .then((res) => res.json())
-      .then((json) => {
-        setTotPages(Math.ceil(json.data.numPosts / limit));
-      });
+    async function fetchTotPosts() {
+      try {
+        await fetch('http://localhost:3000/api/v1/posts/tot-posts')
+          .then((res) => res.json())
+          .then((json) => {
+            setTotPages(Math.ceil(json.data.numPosts / limit));
+          });
+      } catch (error) {
+        toast.error(`Server error: ${error}`);
+      }
+    }
+
+    fetchTotPosts();
   }, []);
 
   useEffect(
     function () {
-      localStorage.setItem('currentPageNum', currentPageNum);
-      setIsLoading(true);
-      fetch(
-        `http://localhost:3000/api/v1/posts?page=${currentPageNum}&limit=${limit}`,
-      )
-        .then((res) => res.json())
-        .then((json) => {
-          setFeed(json.data.blogPosts);
-        })
-        .finally(() => setIsLoading(false));
+      async function fetchPosts() {
+        localStorage.setItem('currentPageNum', currentPageNum);
+        setIsLoading(true);
+        try {
+          await fetch(
+            `http://localhost:3000/api/v1/posts?page=${currentPageNum}&limit=${limit}`,
+          )
+            .then((res) => res.json())
+            .then((json) => {
+              setFeed(json.data.blogPosts);
+            })
+            .finally(() => setIsLoading(false));
+        } catch (error) {
+          toast.error(`Server error: ${error}`);
+        }
+      }
+
+      fetchPosts();
     },
     [currentPageNum],
   );
