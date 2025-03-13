@@ -267,7 +267,7 @@ function UserImage({ image }) {
     <div className="w-full p-2 sm:w-fit">
       <div className="flex h-12 w-12 items-center justify-center overflow-clip rounded-full ring-1 ring-slate-900 ring-offset-4 ring-offset-white xl:h-24 xl:w-24 dark:ring-white dark:ring-offset-slate-950">
         <img
-          src={`${image ? '/users/images/' + image : '/default_profile.jpg'} `}
+          src={`${image ? `/users/images/${image}` : '/default_profile.jpg'} `}
           alt="not found"
           className="h-12 object-cover xl:h-24"
         />
