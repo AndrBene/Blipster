@@ -57,10 +57,7 @@ export const deleteComment = catchAsync(async (req, res) => {
     { new: true, runValidators: true },
   );
 
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+  res.status(204).send();
 });
 
 export const getUserComments = catchAsync(async (req, res) => {

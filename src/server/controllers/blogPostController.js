@@ -80,10 +80,7 @@ export const deleteBlogPost = catchAsync(async (req, res) => {
 
   await Comment.deleteMany({ post: req.params.id });
 
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+  res.status(204).send();
 });
 
 export const updateNumViews = catchAsync(async (req, res) => {

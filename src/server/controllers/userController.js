@@ -15,10 +15,7 @@ export const getAllUsers = catchAsync(async (req, res) => {
 export const deleteUser = catchAsync(async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
 
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+  res.status(204).send();
 });
 
 export const updateUserProfileImg = catchAsync(async (req, res) => {
