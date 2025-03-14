@@ -3,26 +3,15 @@ import Comment from '../models/commentModel';
 import catchAsync from '../utils/catchAsync';
 
 export const getBlogPostComments = catchAsync(async (req, res) => {
-  /*
-   FIXME: 
-   - why there's still a try-catch block
-  */
-  try {
-    const comments = await Comment.find({
-      post: req.params.postId,
-    });
+  const comments = await Comment.find({
+    post: req.params.postId,
+  });
 
-    res.status(200).json({
-      status: 'success',
-      results: comments.length,
-      data: { comments },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
+  res.status(200).json({
+    status: 'success',
+    results: comments.length,
+    data: { comments },
+  });
 });
 
 export const addComment = catchAsync(async (req, res) => {

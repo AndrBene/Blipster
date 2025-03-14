@@ -1,3 +1,5 @@
+import AppError from '../utils/appError';
+
 const handleValidationError = (err) => {
   const errors = Object.values(err.errors).map((el) => {
     const message = el.message.replace(/ \(`.*?`\)/, '');
@@ -6,7 +8,7 @@ const handleValidationError = (err) => {
 
   const message = `Invalid input data. ${errors.join('. ')}`;
 
-  return new Error(message, 404);
+  return new AppError(message, 404);
 };
 
 export default (err, req, res, next) => {
