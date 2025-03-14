@@ -30,8 +30,6 @@ function Profile() {
     },
   });
 
-  console.log('re-render. userInfo: ', userInfo);
-
   if (isLoading) {
     return <Spinner />; // Show loading until the query resolves
   }
@@ -118,9 +116,7 @@ function Profile() {
 
   useEffect(
     function () {
-      // if (!isLoading) {
       myPostsSelected ? fetchUserPosts() : fetchUserComments();
-      // }
     },
     [myPostsSelected],
   );
@@ -241,6 +237,7 @@ function Profile() {
             <Posts
               userPosts={userPosts}
               deleteBlogPost={deleteBlogPost}
+              alert={alert}
             />
           ) : (
             <div className="mx-2 mt-10 text-base md:text-lg">
@@ -251,6 +248,7 @@ function Profile() {
           <Comments
             userComments={userComments}
             deleteComment={deleteComment}
+            alert={alert}
           />
         ) : (
           <div className="mx-2 mt-10 text-base md:text-lg">
@@ -330,7 +328,7 @@ function UploadImage({
   );
 }
 
-function Posts({ userPosts, deleteBlogPost }) {
+function Posts({ userPosts, deleteBlogPost, alert }) {
   return (
     <div className="overflow-x-scroll scrollbar-none">
       <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_1fr_1fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white sm:text-base md:mt-10 md:text-lg dark:bg-slate-200 dark:text-black">
@@ -374,7 +372,7 @@ function Posts({ userPosts, deleteBlogPost }) {
   );
 }
 
-function Comments({ userComments, deleteComment }) {
+function Comments({ userComments, deleteComment, alert }) {
   return (
     <div className="overflow-x-scroll scrollbar-none">
       <div className="mt-2 grid min-w-[550px] grid-cols-[2fr_2fr_1fr_1fr] items-center gap-x-5 rounded-t-md bg-slate-900 px-5 py-2 text-sm text-white sm:text-base md:mt-10 md:text-lg dark:bg-slate-200 dark:text-black">
@@ -391,7 +389,7 @@ function Comments({ userComments, deleteComment }) {
           >
             <div className="min-w-16">{comment.content}</div>
             <div className="min-w-16">
-              {comment.postInfo[0]?.title}
+              {comment.postInfo?.[0]?.title}
             </div>
             <div className="min-w-24">
               {DateTime.fromISO(comment.createdAt).toFormat(
@@ -408,7 +406,7 @@ function Comments({ userComments, deleteComment }) {
                   alert(() =>
                     deleteComment(
                       comment._id,
-                      comment.postInfo[0]?._id,
+                      comment.postInfo?.[0]?._id,
                     ),
                   );
                 }}

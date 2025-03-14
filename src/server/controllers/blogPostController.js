@@ -46,7 +46,6 @@ export const getBlogPost = catchAsync(async (req, res) => {
     path: 'comments',
     populate: {
       path: 'userInfo',
-      model: 'User',
     },
   });
 

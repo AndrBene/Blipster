@@ -34,7 +34,7 @@ function CreatePost({ setIsCreatePost }) {
       formData.append('content', postInfo.content);
       formData.append('author', userInfo.data.user._id);
       formData.append('topic', postInfo.topic);
-      formData.append('image', postInfo.photo[0]);
+      formData.append('image', postInfo.photo?.[0]);
 
       const res = await fetch(`http://localhost:3000/api/v1/posts`, {
         method: 'POST',
