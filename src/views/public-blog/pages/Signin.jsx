@@ -1,8 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import ViewsWrapper from '../components/ViewsWrapper';
+import { useEffect } from 'react';
+import { fetchUserIsAuthenticated } from '../services/authApi';
+import Spinner from '../components/Spinner';
 
 function Signin() {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -10,6 +17,15 @@ function Signin() {
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
+
+  const { isLoading, data: userInfo } = useQuery({
+    queryKey: ['isAuthenticated'],
+    queryFn: fetchUserIsAuthenticated,
+    meta: {
+      protectedRouteErrorMessage:
+        "Couldn't fetch user authentication status",
+    },
+  });
 
   const { mutate: login } = useMutation({
     mutationFn: loginUser,
@@ -49,6 +65,17 @@ function Signin() {
     if (json.status === 'error') {
       throw new Error(json.message);
     }
+  }
+
+  useEffect(
+    function () {
+      if (userInfo?.authenticated && !isLoading) navigate('/');
+    },
+    [userInfo?.authenticated, navigate, isLoading],
+  );
+
+  if (isLoading) {
+    return <Spinner text={''} />;
   }
 
   return (
