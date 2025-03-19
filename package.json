@@ -59,6 +59,8 @@
     "eslint": "^8.57.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
     "extensionless": "^1.9.9",
     "globals": "^15.14.0",
     "ndb": "^1.1.5",
