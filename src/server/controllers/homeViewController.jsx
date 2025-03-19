@@ -1,32 +1,41 @@
-const { renderToString } = require('react-dom/server');
-const React = require('react');
-const path = require('path');
-const Home = require(path.join(__dirname, '../views/Home.jsx'));
-const { readFileSync } = require('fs');
+import { renderToString } from 'react-dom/server';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import AppLayout from '../../views/public-blog/AppLayout.jsx';
+import { readFileSync } from 'fs';
+import { StaticRouter } from 'react-router-dom';
+import '../../style/index.css';
+import dotenv from 'dotenv';
 
-const homeViewHtml = readFileSync(
-  path.join(__dirname, '../views/index.html'),
-  `utf-8`,
-);
+dotenv.config({ path: './config.env' });
 
-const jsBundle = readFileSync(
-  path.join(__dirname, '../../client/public-blog/index.jsx'),
-  `utf-8`,
-);
+let homeViewHtml;
 
-exports.getHomeView = (req, res, next) => {
-  const renderedReact = renderToString(<Home />);
+if (process.env.JUST_API === 'true') {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  homeViewHtml = readFileSync(
+    path.join(__dirname, '../../views/public-blog/index.html'),
+    `utf-8`,
+  );
+} else {
+  homeViewHtml = readFileSync(
+    path.join(__dirname, '../src/views/public-blog/index.html'),
+    `utf-8`,
+  );
+}
+
+export const getHomeView = (req, res, next) => {
+  const renderedReact = renderToString(
+    <StaticRouter location={req.url} context={{}}>
+      <AppLayout />
+    </StaticRouter>,
+  );
   const renderedHtml = homeViewHtml.replace(
     '%CONTENT%',
     renderedReact,
   );
 
   res.status(200).send(renderedHtml);
-};
-
-exports.getJsBundle = (req, res, next) => {
-  res
-    .status(200)
-    .set('Content-Type', 'application/javascript')
-    .end(jsBundle);
 };

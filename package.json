@@ -4,41 +4,73 @@
   "description": "Backend of Blipster Project",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --config nodemon.json app.js",
-    "start:prod": "NODE_ENV=production nodemon app.js",
+    "dev:public-blog": "vite",
+    "dev:api": "JUST_API=true nodemon --config nodemon.json --experimental-loader ./jsx-loader.mjs  --experimental-loader ./css-loader.mjs --experimental-detect-module  --import=extensionless/register app.js",
+    "build:css": "tailwindcss -i ./src/style/input.css -o ./src/style/index.css",
+    "build:client": "esbuild src/client/public-blog/index.js --bundle --platform=browser --outfile=build/jsBundle.js --loader:.js=jsx --jsx=automatic",
+    "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --external:@babel/preset-typescript --loader:.js=jsx --jsx=automatic",
+    "start": "eslint . && npm run build:css && npm run build:server && npm run build:client && node build/server.js",
+    "start:prod": "NODE_ENV=production nodemon build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "ndb app.js"
+    "debug": "ndb app.js",
+    "lint": "eslint ."
   },
   "author": "Andrea Benedetto",
   "license": "ISC",
+  "extensionless": {
+    "lookFor": [
+      "js",
+      "mjs",
+      "cjs",
+      "jsx"
+    ]
+  },
   "dependencies": {
+    "@multiloader/loader": "^0.0.1",
+    "@tanstack/react-query": "^5.66.9",
+    "@tanstack/react-query-devtools": "^5.66.9",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "luxon": "^3.5.0",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",
+    "multer": "^1.4.5-lts.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.1.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
+    "@babel/core": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
-    "@babel/register": "^7.25.9",
+    "@eslint/js": "^9.18.0",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "esbuild": "^0.24.2",
     "eslint": "^8.57.1",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react": "^7.37.4",
+    "extensionless": "^1.9.9",
+    "globals": "^15.14.0",
     "ndb": "^1.1.5",
     "nodemon": "^3.1.9",
-    "prettier": "^3.4.2"
+    "postcss": "^8.5.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.7"
   },
   "engines": {
-    "node": ">=21.5.0"
+    "node": "^21.5.0"
   }
 }

@@ -1,15 +1,17 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+export * from '@multiloader/loader';
+import chalk from 'chalk';
 
-require('@babel/register')({ extensions: ['.js', '.jsx'] });
+import userRouter from './src/server/routes/userRoutes';
+import blogPostRouter from './src/server/routes/blogPostRoutes';
+import homeViewRouter from './src/server/routes/homeViewRoutes';
 
-const userRouter = require('./src/server/routes/userRoutes');
-const blogPostRouter = require('./src/server/routes/blogPostRoutes');
-const homeViewRouter = require('./src/server/routes/homeViewRoutes');
-
-const AppError = require('./src/server/utils/appError');
-const globalErrorHandler = require('./src/server/controllers/errorController');
+import AppError from './src/server/utils/appError';
+import globalErrorHandler from './src/server/controllers/errorController';
 
 dotenv.config({ path: './config.env' });
 
@@ -28,15 +30,38 @@ mongoose
   )
   .then(() => {
     console.log('DB connection successful!');
+  })
+  .catch(() => {
+    console.log(chalk.red('DB connection failed!'));
   });
 
 const app = express();
 
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5173',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3000',
+    ],
+    credentials: true,
+  }),
+);
 
-app.use('/', homeViewRouter);
+app.use(express.json());
+app.use(cookieParser());
+
+app.use(express.static('build'));
+app.use(express.static('public'));
+
+app.options('*', cors());
+
+if (process.env.JUST_API === 'false') {
+  app.use('/', homeViewRouter);
+}
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
 

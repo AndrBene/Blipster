@@ -1,14 +1,15 @@
-const BlogPost = require('../models/blogPostModel');
-const catchAsync = require('../utils/catchAsync');
+import BlogPost from '../models/blogPostModel';
+import catchAsync from '../utils/catchAsync';
+import Comment from '../models/commentModel';
 
-exports.getAllBlogPosts = catchAsync(async (req, res) => {
+export const getAllBlogPosts = catchAsync(async (req, res) => {
   let query = BlogPost.find();
 
   const page = req.query.page * 1 || 1;
-  const limit = req.query.limit * 100 || 100;
+  const limit = req.query.limit * 1 || 100;
   const skip = (page - 1) * limit;
 
-  query = query.skip(skip).limit(limit);
+  query = query.skip(skip).limit(limit).sort('-createdAt');
 
   if (req.query.page) {
     const numPosts = await BlogPost.countDocuments();
@@ -26,8 +27,11 @@ exports.getAllBlogPosts = catchAsync(async (req, res) => {
   });
 });
 
-exports.createNewBlogPost = catchAsync(async (req, res) => {
-  const newBlogPost = await BlogPost.create(req.body);
+export const createNewBlogPost = catchAsync(async (req, res) => {
+  const newBlogPost = await BlogPost.create({
+    ...req.body,
+    image: req.file?.filename,
+  });
 
   res.status(201).json({
     status: 'success',
@@ -37,8 +41,13 @@ exports.createNewBlogPost = catchAsync(async (req, res) => {
   });
 });
 
-exports.getBlogPost = catchAsync(async (req, res) => {
-  const blogPost = await BlogPost.findById(req.params.id);
+export const getBlogPost = catchAsync(async (req, res) => {
+  const blogPost = await BlogPost.findById(req.params.id).populate({
+    path: 'comments',
+    populate: {
+      path: 'userInfo',
+    },
+  });
 
   res.status(200).json({
     status: 'success',
@@ -48,7 +57,7 @@ exports.getBlogPost = catchAsync(async (req, res) => {
   });
 });
 
-exports.updateBlogPost = catchAsync(async (req, res) => {
+export const updateBlogPost = catchAsync(async (req, res) => {
   const blogPost = await BlogPost.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -66,11 +75,65 @@ exports.updateBlogPost = catchAsync(async (req, res) => {
   });
 });
 
-exports.deleteBlogPost = catchAsync(async (req, res) => {
+export const deleteBlogPost = catchAsync(async (req, res) => {
   await BlogPost.findByIdAndDelete(req.params.id);
 
-  res.status(204).json({
+  await Comment.deleteMany({ post: req.params.id });
+
+  res.status(204).send();
+});
+
+export const updateNumViews = catchAsync(async (req, res) => {
+  const blogPost = await BlogPost.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  res.status(200).json({
     status: 'success',
-    data: null,
+    data: {
+      blogPost,
+    },
+  });
+});
+
+export const getNumViews = catchAsync(async (req, res) => {
+  const numViews = await BlogPost.findById(req.params.id).select(
+    'views',
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      numViews: numViews.views,
+    },
+  });
+});
+
+export const getTotNumberPosts = catchAsync(async (req, res) => {
+  const numPosts = await BlogPost.countDocuments();
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      numPosts,
+    },
+  });
+});
+
+export const getUserPosts = catchAsync(async (req, res) => {
+  const blogPosts = await BlogPost.find({
+    author: req.params.id,
+  }).select(['title', 'createdAt', 'views', 'numComments']);
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      blogPosts,
+    },
   });
 });

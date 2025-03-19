@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import validator from 'validator';
 
 const userSchema = new mongoose.Schema(
   {
@@ -13,6 +14,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
+      validate: [validator.isEmail, 'Please provide a valid email'],
     },
     password: {
       type: String,
@@ -31,6 +33,7 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords do not coincide!',
       },
     },
+    photo: { type: String, default: undefined },
     role: { type: String, enum: ['admin', 'user'], default: 'user' }, // Role-based access
     createdAt: { type: Date, default: Date.now },
     passwordChangedAt: Date,
@@ -80,4 +83,4 @@ console.log(userSchema.virtuals);
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+export default User;

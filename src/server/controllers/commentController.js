@@ -1,30 +1,38 @@
-const Comment = require('../models/commentModel');
-const catchAsync = require('../utils/catchAsync');
+import BlogPost from '../models/blogPostModel';
+import Comment from '../models/commentModel';
+import catchAsync from '../utils/catchAsync';
 
-exports.getBlogPostComments = catchAsync(async (req, res) => {
-  try {
-    const comments = await Comment.find({
-      post: req.params.postId,
-    });
+export const getBlogPostComments = catchAsync(async (req, res) => {
+  const comments = await Comment.find({
+    post: req.params.postId,
+  });
 
-    res.status(200).json({
-      status: 'success',
-      results: comments.length,
-      data: { comments },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
+  res.status(200).json({
+    status: 'success',
+    results: comments.length,
+    data: { comments },
+  });
 });
 
-exports.addComment = catchAsync(async (req, res) => {
+export const addComment = catchAsync(async (req, res) => {
+  /*
+   FIXME: 
+   - find a way to make DB operations atomic
+  */
   const newComment = await Comment.create({
     ...req.body,
     post: req.params.postId,
   });
+
+  const post = await BlogPost.findById(req.params.postId).select(
+    'numComments',
+  );
+
+  await BlogPost.findByIdAndUpdate(
+    req.params.postId,
+    { numComments: post.numComments + 1 },
+    { new: true, runValidators: true },
+  );
 
   res.status(201).json({
     status: 'success',
@@ -32,11 +40,38 @@ exports.addComment = catchAsync(async (req, res) => {
   });
 });
 
-exports.deleteComment = catchAsync(async (req, res) => {
+export const deleteComment = catchAsync(async (req, res) => {
+  /*
+   FIXME: 
+   - find a way to make DB operations atomic
+  */
   await Comment.findByIdAndDelete(req.params.commentId);
 
-  res.status(204).json({
+  const post = await BlogPost.findById(req.params.postId).select(
+    'numComments',
+  );
+
+  await BlogPost.findByIdAndUpdate(
+    req.params.postId,
+    { numComments: post.numComments - 1 },
+    { new: true, runValidators: true },
+  );
+
+  res.status(204).send();
+});
+
+export const getUserComments = catchAsync(async (req, res) => {
+  const comments = await Comment.find({
+    user: req.params.id,
+  })
+    .populate({
+      path: 'postInfo',
+      select: 'title',
+    })
+    .select(['post', 'content', 'createdAt']);
+
+  res.status(200).json({
     status: 'success',
-    data: null,
+    data: { comments },
   });
 });

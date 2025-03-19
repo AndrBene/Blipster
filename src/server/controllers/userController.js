@@ -1,7 +1,8 @@
-const User = require('../models/userModel');
-const catchAsync = require('../utils/catchAsync');
+import User from '../models/userModel';
+import catchAsync from '../utils/catchAsync';
+import { unlink } from 'fs/promises';
 
-exports.getAllUsers = catchAsync(async (req, res) => {
+export const getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
 
   res.status(200).json({
@@ -11,20 +12,24 @@ exports.getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
-exports.deleteUser = catchAsync(async (req, res) => {
+export const deleteUser = catchAsync(async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
 
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+  res.status(204).send();
 });
 
-exports.getUserProfile = catchAsync(async (req, res) => {
-  const user = await User.findById(req.params.id).populate(
-    'blogPosts',
+export const updateUserProfileImg = catchAsync(async (req, res) => {
+  if (req.body) {
+    await unlink(
+      `./public/users/images/${req.body.previousProfileImg}`,
+    );
+  }
+
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { photo: req.file?.filename },
+    { new: true, runValidators: true },
   );
-  console.log(user);
 
   res.status(200).json({
     status: 'success',
