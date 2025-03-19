@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import DarkModeToggle from './DarkModeToggle';
 import {
@@ -57,7 +57,7 @@ function Header() {
     }
   }
   return (
-    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 dark:bg-slate-900 md:px-12 xl:px-32">
+    <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 md:px-12 xl:px-32 dark:bg-slate-900">
       <Link to="/">
         <img
           src="/blipster_logo.png"
