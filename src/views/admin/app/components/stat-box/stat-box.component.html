@@ -1,0 +1,22 @@
+<div
+  class="flex cursor-pointer items-center gap-x-5 rounded-md bg-white px-6 py-4 hover:shadow-lg hover:shadow-slate-400"
+  [ngClass]="
+    selected()
+      ? 'border-[1px] border-slate-800'
+      : 'border-[1px] border-transparent'
+  "
+>
+  <div
+    class="flex items-center justify-center rounded-full {{
+      color()
+    }} p-2"
+  >
+    <ng-icon name="{{ icon() }}" size="25" />
+  </div>
+  <div class="flex flex-col">
+    <div class="text-sm font-semibold uppercase text-slate-400">
+      {{ text() }}
+    </div>
+    <div class="text-xl">{{ number() }}</div>
+  </div>
+</div>

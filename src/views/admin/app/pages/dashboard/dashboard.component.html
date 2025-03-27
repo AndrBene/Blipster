@@ -1,0 +1,111 @@
+<div
+  class="my-10 flex grow flex-col justify-start gap-y-6 overflow-y-scroll scrollbar-none"
+>
+  <div
+    class="sticky top-0 flex items-center justify-between bg-slate-100 pb-5"
+  >
+    <div class="text-xl font-bold">Dashboard</div>
+    <div
+      class="flex items-center gap-x-4 rounded-md bg-white p-[3px]"
+    >
+      <div
+        (click)="updateSelectedDays(7)"
+        [ngClass]="
+          selectedDays() == 7
+            ? 'flex items-center gap-x-4 rounded-md bg-slate-800 p-1 text-white'
+            : 'flex cursor-pointer items-center gap-x-4 rounded-md p-1'
+        "
+      >
+        Last 7 days
+      </div>
+      <div
+        (click)="updateSelectedDays(30)"
+        [ngClass]="
+          selectedDays() == 30
+            ? 'flex items-center gap-x-4 rounded-md bg-slate-800 p-1 text-white'
+            : 'flex cursor-pointer items-center gap-x-4 rounded-md p-1'
+        "
+      >
+        Last 30 days
+      </div>
+      <div
+        (click)="updateSelectedDays(90)"
+        [ngClass]="
+          selectedDays() == 90
+            ? 'flex items-center gap-x-4 rounded-md bg-slate-800 p-1 text-white'
+            : 'flex cursor-pointer items-center gap-x-4 rounded-md p-1'
+        "
+      >
+        Last 90 days
+      </div>
+    </div>
+  </div>
+  <div class="flex grow flex-col justify-start gap-y-20">
+    <div class="flex flex-col justify-start gap-y-5">
+      <div class="text-base font-semibold uppercase text-slate-400">
+        Totals
+      </div>
+      <div class="flex gap-x-12">
+        <stat-box
+          [icon]="'heroUserGroup'"
+          [color]="'bg-red-300'"
+          [text]="'users'"
+          [number]="usersData() ? sumOfValues(usersData()) : 0"
+          [selected]="usersSelected()"
+          (click)="toggleUsers()"
+        />
+        <stat-box
+          [icon]="'heroClipboardDocumentList'"
+          [color]="'bg-blue-300'"
+          [text]="'posts'"
+          [number]="postsData() ? sumOfValues(postsData()) : 0"
+          [selected]="postsSelected()"
+          (click)="togglePosts()"
+        />
+        <stat-box
+          [icon]="'heroChatBubbleOvalLeftEllipsis'"
+          [color]="'bg-green-300'"
+          [text]="'comments'"
+          [number]="commentsData() ? sumOfValues(commentsData()) : 0"
+          [selected]="commentsSelected()"
+          (click)="toggleComments()"
+        />
+        <stat-box
+          [icon]="'heroEye'"
+          [color]="'bg-yellow-200'"
+          [text]="'views'"
+          [number]="viewsData() ? sumOfValues(viewsData()) : 0"
+          [selected]="viewsSelected()"
+          (click)="toggleViews()"
+        />
+      </div>
+    </div>
+    @if (isDataLoading()) {
+      <div class="flex items-center justify-center gap-3">
+        <spinner [inputWidth]="'h-10'"></spinner>
+        <div class="text-base">Loading...</div>
+      </div>
+    } @else {
+      @if (lineChartData().datasets.length > 0) {
+        <div class="rounded-md bg-white p-6">
+          <canvas
+            baseChart
+            [data]="lineChartData()"
+            [type]="lineChartType"
+          ></canvas>
+        </div>
+      } @else {
+        @if (
+          usersSelected() ||
+          postsSelected() ||
+          commentsSelected() ||
+          viewsSelected()
+        ) {
+          <div class="text-base">
+            No data available for the selected period.
+          </div>
+        }
+      }
+    }
+  </div>
+</div>
