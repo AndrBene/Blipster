@@ -75,3 +75,22 @@ export const getUserComments = catchAsync(async (req, res) => {
     data: { comments },
   });
 });
+
+export const getComments = catchAsync(async (req, res) => {
+  let query = Comment.find();
+
+  if (req.query.period) {
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - (req.query.period - 1));
+    fromDate.setUTCHours(0, 0, 0, 0);
+    query = query.where('createdAt').gte(fromDate);
+  }
+
+  const comments = await query.select('createdAt');
+
+  res.status(200).json({
+    status: 'success',
+    results: comments.length,
+    data: { comments },
+  });
+});

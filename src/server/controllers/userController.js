@@ -3,7 +3,16 @@ import catchAsync from '../utils/catchAsync';
 import { unlink } from 'fs/promises';
 
 export const getAllUsers = catchAsync(async (req, res) => {
-  const users = await User.find();
+  let query = User.find();
+
+  if (req.query.period) {
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - (req.query.period - 1));
+    fromDate.setUTCHours(0, 0, 0, 0);
+    query = query.where('createdAt').gte(fromDate);
+  }
+
+  const users = await query.select('createdAt');
 
   res.status(200).json({
     status: 'success',

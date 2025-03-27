@@ -5,6 +5,16 @@ import Comment from '../models/commentModel';
 export const getAllBlogPosts = catchAsync(async (req, res) => {
   let query = BlogPost.find();
 
+  if (req.query.period) {
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - (req.query.period - 1));
+    fromDate.setUTCHours(0, 0, 0, 0);
+    query = query
+      .where('createdAt')
+      .gte(fromDate)
+      .select('createdAt');
+  }
+
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 100;
   const skip = (page - 1) * limit;
@@ -137,6 +147,29 @@ export const getUserPosts = catchAsync(async (req, res) => {
     status: 'success',
     data: {
       blogPosts,
+    },
+  });
+});
+
+export const getViews = catchAsync(async (req, res) => {
+  let query = BlogPost.find();
+
+  if (req.query.period) {
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - (req.query.period - 1));
+    fromDate.setUTCHours(0, 0, 0, 0);
+    query = query.where('createdAt').gte(fromDate);
+  }
+
+  query = query.where('views').gt(0).select(['views', 'createdAt']);
+
+  const blogPosts = await query;
+
+  res.status(200).json({
+    status: 'success',
+    results: blogPosts.length,
+    data: {
+      blogPosts: blogPosts,
     },
   });
 });
