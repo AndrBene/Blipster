@@ -8,6 +8,7 @@ import chalk from 'chalk';
 
 import userRouter from './src/server/routes/userRoutes';
 import blogPostRouter from './src/server/routes/blogPostRoutes';
+import commentsRouter from './src/server/routes/commentsRoutes';
 import homeViewRouter from './src/server/routes/homeViewRoutes';
 
 import AppError from './src/server/utils/appError';
@@ -66,6 +67,7 @@ if (process.env.JUST_API === 'false') {
 }
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
+app.use('/api/v1/comments', commentsRouter);
 
 app.all('*', (req, res, next) => {
   next(
