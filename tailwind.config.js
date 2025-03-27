@@ -6,6 +6,7 @@ module.exports = {
     './src/vite-dev-server/index.html',
     './src/views/public-blog/index.html',
     './src/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{html,ts}',
   ],
   theme: {
     extend: {
