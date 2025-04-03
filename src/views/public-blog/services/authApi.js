@@ -7,5 +7,10 @@ export async function fetchUserIsAuthenticated() {
   );
 
   const json = await res.json();
+
+  if (json.status === 'error' || json.status === 'fail') {
+    throw new Error(json.message);
+  }
+
   return json;
 }

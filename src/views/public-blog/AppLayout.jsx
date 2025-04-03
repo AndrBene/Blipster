@@ -5,7 +5,7 @@ import Signin from './pages/Signin';
 import Register from './pages/Register';
 import CreatePost from './pages/CreatePost';
 import PageNotFound from './pages/PageNotFound';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import ProtectedRoute from './components/ProtectedRoute';
 import {
   QueryCache,
@@ -25,6 +25,7 @@ const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error, query) => {
       if (query.meta.protectedRouteErrorMessage) {
+        toast.error(query.meta.protectedRouteErrorMessage);
         console.log(query.meta.protectedRouteErrorMessage);
       }
     },
@@ -87,13 +88,13 @@ function AppLayout() {
           <>
             <Link
               to="/create-post"
-              className="delay-20 fixed bottom-8 right-8 flex size-20 cursor-pointer flex-col items-center justify-center rounded-full bg-slate-800 text-sm text-white transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-125 dark:bg-white dark:text-black dark:hover:bg-slate-200 md:bottom-14 md:right-14 md:size-20 md:text-base xl:bottom-20 xl:right-20 xl:size-24 xl:text-lg"
+              className="delay-20 fixed bottom-8 right-8 flex size-20 cursor-pointer flex-col items-center justify-center rounded-full bg-slate-800 text-sm text-white transition duration-200 ease-in-out hover:-translate-y-1 hover:scale-125 md:bottom-14 md:right-14 md:size-20 md:text-base xl:bottom-20 xl:right-20 xl:size-24 xl:text-lg dark:bg-white dark:text-black dark:hover:bg-slate-200"
             >
               <div>CREATE</div>
               <div>POST</div>
             </Link>
-            <div className="fixed bottom-12 right-12 hidden size-10 rounded-full bg-slate-800 dark:bg-white md:bottom-9 md:right-9 md:block md:size-8 xl:bottom-12 xl:right-12 xl:block xl:size-10"></div>
-            <div className="fixed bottom-5 right-5 size-5 rounded-full bg-slate-800 dark:bg-white xl:bottom-8 xl:right-8"></div>
+            <div className="fixed bottom-12 right-12 hidden size-10 rounded-full bg-slate-800 md:bottom-9 md:right-9 md:block md:size-8 xl:bottom-12 xl:right-12 xl:block xl:size-10 dark:bg-white"></div>
+            <div className="fixed bottom-5 right-5 size-5 rounded-full bg-slate-800 xl:bottom-8 xl:right-8 dark:bg-white"></div>
           </>
         )}
         <Toaster
