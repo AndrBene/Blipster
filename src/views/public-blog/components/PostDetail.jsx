@@ -12,7 +12,7 @@ function PostDetail() {
   const { id } = useParams();
 
   const {
-    isLoading,
+    isFetching,
     isError,
     data: postContent,
   } = useQuery({
@@ -49,7 +49,7 @@ function PostDetail() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Loader text={'post content'} />
       ) : (
         <div className="my-10 flex flex-col justify-start gap-y-10 overflow-x-visible">
