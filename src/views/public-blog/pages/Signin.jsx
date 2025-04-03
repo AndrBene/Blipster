@@ -9,7 +9,7 @@ import {
 import ViewsWrapper from '../components/ViewsWrapper';
 import { useEffect } from 'react';
 import { fetchUserIsAuthenticated } from '../services/authApi';
-import Spinner from '../components/Spinner';
+import Loader from '../components/Loader';
 
 function Signin() {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -76,7 +76,7 @@ function Signin() {
   );
 
   if (isLoading) {
-    return <Spinner text={''} />;
+    return <Loader text={''} />;
   }
 
   return (

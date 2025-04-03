@@ -9,8 +9,8 @@ import {
 } from 'react-icons/hi2';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-import Spinner from './Spinner';
 import ViewsWrapper from './ViewsWrapper';
+import Loader from './Loader';
 
 function Profile() {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -31,7 +31,7 @@ function Profile() {
   });
 
   if (isLoading) {
-    return <Spinner />; // Show loading until the query resolves
+    return <Loader text={''} />; // Show loading until the query resolves
   }
 
   async function uploadProfileImg({ profileImg }) {
