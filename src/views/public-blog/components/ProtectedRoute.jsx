@@ -5,7 +5,11 @@ import Loader from './Loader';
 
 function ProtectedRoute({ children }) {
   const location = useLocation();
-  const { isLoading, data: userInfo } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data: userInfo,
+  } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -14,11 +18,15 @@ function ProtectedRoute({ children }) {
     },
   });
 
+  if (isError) {
+    return <Navigate to="/home?page=1" />;
+  }
+
   if (isLoading) {
     return <Loader text={''} />; // Show loading until the query resolves
   }
 
-  return userInfo.authenticated ? (
+  return userInfo?.authenticated ? (
     children
   ) : (
     <Navigate to="/signin" state={{ from: location.pathname }} />
