@@ -44,6 +44,9 @@ export const createNewBlogPost = catchAsync(async (req, res) => {
 export const getBlogPost = catchAsync(async (req, res) => {
   const blogPost = await BlogPost.findById(req.params.id).populate({
     path: 'comments',
+    options: {
+      sort: '-createdAt',
+    },
     populate: {
       path: 'userInfo',
     },

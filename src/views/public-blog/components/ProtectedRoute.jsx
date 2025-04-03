@@ -1,10 +1,15 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { fetchUserIsAuthenticated } from '../services/authApi';
 import { useQuery } from '@tanstack/react-query';
 import Loader from './Loader';
 
 function ProtectedRoute({ children }) {
-  const { isLoading, data: userInfo } = useQuery({
+  const location = useLocation();
+  const {
+    isLoading,
+    isError,
+    data: userInfo,
+  } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -13,14 +18,18 @@ function ProtectedRoute({ children }) {
     },
   });
 
+  if (isError) {
+    return <Navigate to="/home?page=1" />;
+  }
+
   if (isLoading) {
     return <Loader text={''} />; // Show loading until the query resolves
   }
 
-  return userInfo.authenticated ? (
+  return userInfo?.authenticated ? (
     children
   ) : (
-    <Navigate replace to="/signin" />
+    <Navigate to="/signin" state={{ from: location.pathname }} />
   );
 }
 

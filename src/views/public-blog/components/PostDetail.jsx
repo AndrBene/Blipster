@@ -4,13 +4,18 @@ import { useEffect } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Loader from './Loader';
+import toast from 'react-hot-toast';
 
 function PostDetail() {
   const navigate = useNavigate();
 
   const { id } = useParams();
 
-  const { isLoading, data: postContent } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data: postContent,
+  } = useQuery({
     queryKey: [`post-${id}`],
     queryFn: fetchPostContent,
     meta: {
@@ -34,6 +39,13 @@ function PostDetail() {
       queryClient.removeQueries(`post-${id}`);
     };
   }, []);
+
+  if (isError) {
+    toast.error('Error fetching post details');
+    navigate(
+      `/home?page=${localStorage.getItem('currentPageNum') || 1}`,
+    );
+  }
 
   return (
     <>
