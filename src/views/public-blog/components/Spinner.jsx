@@ -1,9 +1,11 @@
 export default function Spinner({ width }) {
+  const spinnerWidth = width ? `w-${width}` : 'w-4';
+
   return (
     <span className="pb-2">
       <svg
         aria-hidden="true"
-        className={`inline h-${width} animate-spin fill-slate-900 text-gray-200 dark:fill-white dark:text-slate-500`}
+        className={`inline ${spinnerWidth} animate-spin fill-slate-900 text-gray-200 dark:fill-white dark:text-slate-500`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
