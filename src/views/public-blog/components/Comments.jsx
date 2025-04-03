@@ -9,13 +9,14 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import Spinner from './Spinner';
+import Loader from './Loader';
 
 function Comments({ comments }) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const { id } = useParams();
 
-  const { data: userInfo } = useQuery({
+  const { isFetching, data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -71,7 +72,8 @@ function Comments({ comments }) {
         <div className="mb-6 flex flex-col justify-start text-lg font-medium text-black xl:text-2xl dark:text-white">
           Comments
         </div>
-        {userInfo?.authenticated && (
+        {isFetching && <Loader text={''} />}
+        {userInfo?.authenticated && !isFetching && (
           <form
             className="flex flex-col gap-y-3 px-5 pb-5"
             onSubmit={handleSubmit(submitComment)}

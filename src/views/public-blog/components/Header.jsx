@@ -12,9 +12,10 @@ import {
   HiOutlineLockClosed,
   HiOutlineUser,
 } from 'react-icons/hi2';
+import Spinner from './Spinner';
 
 function Header() {
-  const { data: userInfo } = useQuery({
+  const { isFetching, data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -56,6 +57,7 @@ function Header() {
       throw new Error(json.message);
     }
   }
+
   return (
     <div className="flex content-center justify-between border-b-[1px] border-slate-800 bg-slate-800 px-5 py-3 md:px-12 xl:px-32 dark:bg-slate-900">
       <Link to="/">
@@ -67,7 +69,9 @@ function Header() {
       </Link>
 
       <div className="flex items-center justify-between gap-5 xl:gap-10">
-        {userInfo?.authenticated ? (
+        {isFetching ? (
+          <Spinner width={4} />
+        ) : userInfo?.authenticated ? (
           <div className="flex items-center justify-between gap-3 xl:gap-10">
             <Link
               to="/profile"
