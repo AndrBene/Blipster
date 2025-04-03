@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   useMutation,
@@ -15,6 +15,7 @@ function Signin() {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
   const navigate = useNavigate();
+  const location = useLocation();
 
   const queryClient = useQueryClient();
 
@@ -29,16 +30,16 @@ function Signin() {
 
   const { mutate: login } = useMutation({
     mutationFn: loginUser,
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.dismiss();
       toast.success('Login successful!');
 
-      navigate('/home?page=1');
-
-      reset();
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ['isAuthenticated'],
       });
+
+      navigate(`${location.state?.from || '/'}`);
+      reset();
     },
     onError: (error) => {
       toast.dismiss();
@@ -69,9 +70,9 @@ function Signin() {
 
   useEffect(
     function () {
-      if (userInfo?.authenticated && !isLoading) navigate('/');
+      if (userInfo?.authenticated) navigate('/');
     },
-    [userInfo?.authenticated, navigate, isLoading],
+    [isLoading, navigate],
   );
 
   if (isLoading) {
