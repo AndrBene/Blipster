@@ -10,7 +10,6 @@ import {
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import ViewsWrapper from './ViewsWrapper';
-import Loader from './Loader';
 
 function Profile() {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -21,7 +20,7 @@ function Profile() {
 
   const queryClient = useQueryClient();
 
-  const { isLoading, data: userInfo } = useQuery({
+  const { data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -29,10 +28,6 @@ function Profile() {
         "Couldn't fetch user authentication status",
     },
   });
-
-  if (isLoading) {
-    return <Loader text={''} />; // Show loading until the query resolves
-  }
 
   async function uploadProfileImg({ profileImg }) {
     try {
