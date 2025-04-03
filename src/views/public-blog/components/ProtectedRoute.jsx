@@ -6,7 +6,7 @@ import Loader from './Loader';
 function ProtectedRoute({ children }) {
   const location = useLocation();
   const {
-    isLoading,
+    isFetching,
     isError,
     data: userInfo,
   } = useQuery({
@@ -22,7 +22,7 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/home?page=1" />;
   }
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loader text={''} />; // Show loading until the query resolves
   }
 

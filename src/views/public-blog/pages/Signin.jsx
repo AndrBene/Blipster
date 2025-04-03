@@ -19,7 +19,7 @@ function Signin() {
 
   const queryClient = useQueryClient();
 
-  const { isLoading, data: userInfo } = useQuery({
+  const { isFetching, data: userInfo } = useQuery({
     queryKey: ['isAuthenticated'],
     queryFn: fetchUserIsAuthenticated,
     meta: {
@@ -72,10 +72,10 @@ function Signin() {
     function () {
       if (userInfo?.authenticated) navigate('/');
     },
-    [isLoading, navigate],
+    [isFetching, navigate],
   );
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loader text={''} />;
   }
 
