@@ -70,7 +70,7 @@ function Signin() {
 
   useEffect(
     function () {
-      if (userInfo?.authenticated) navigate('/');
+      if (userInfo?.authenticated && !isFetching) navigate('/');
     },
     [isFetching, navigate],
   );
