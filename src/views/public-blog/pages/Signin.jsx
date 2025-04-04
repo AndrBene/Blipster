@@ -36,7 +36,7 @@ function Signin() {
       toast.success('Login successful!');
       isLoggingRef.current = true; // Mark login action
 
-      await queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: ['isAuthenticated'],
       });
 
