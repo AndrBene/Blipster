@@ -7,7 +7,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import ViewsWrapper from '../components/ViewsWrapper';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { fetchUserIsAuthenticated } from '../services/authApi';
 import Loader from '../components/Loader';
 
@@ -16,6 +16,7 @@ function Signin() {
   const { errors } = formState;
   const navigate = useNavigate();
   const location = useLocation();
+  const isLoggingRef = useRef(false); // Track if login is causing the state change
 
   const queryClient = useQueryClient();
 
@@ -33,8 +34,9 @@ function Signin() {
     onSuccess: async () => {
       toast.dismiss();
       toast.success('Login successful!');
+      isLoggingRef.current = true; // Mark login action
 
-      await queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: ['isAuthenticated'],
       });
 
@@ -70,7 +72,13 @@ function Signin() {
 
   useEffect(
     function () {
-      if (userInfo?.authenticated) navigate('/');
+      if (
+        userInfo?.authenticated &&
+        !isFetching &&
+        !isLoggingRef.current
+      )
+        // Redirect only if NOT logging in (isLoggingRef == false)
+        navigate('/');
     },
     [isFetching, navigate],
   );
