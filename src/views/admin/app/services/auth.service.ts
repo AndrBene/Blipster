@@ -27,6 +27,15 @@ export class AuthService {
     );
   }
 
+  logout() {
+    return this.httpClient.get<AuthResponse>(
+      this.url + 'users/logout',
+      {
+        withCredentials: true,
+      },
+    );
+  }
+
   private isLoggedIn() {
     return this.httpClient.get<UserInfo>(
       this.url + 'users/is-logged-in',

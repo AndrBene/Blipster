@@ -1,4 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
+import { QueryClient } from '@tanstack/angular-query-experimental';
+import { AuthService } from '../../services/auth.service';
 import {
   NavigationEnd,
   Router,
@@ -31,7 +33,9 @@ export class MainComponent {
 
   pageSelected = signal<string>('Dashboard');
 
+  private queryClient = inject(QueryClient);
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   constructor() {
     this.router.events
@@ -45,5 +49,19 @@ export class MainComponent {
 
   changePage(page: string) {
     this.pageSelected.set(page);
+  }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: async () => {
+        await this.queryClient.invalidateQueries({
+          queryKey: ['isAuthenticated'],
+        });
+        this.router.navigate(['/signin']);
+      },
+      error: () => {
+        console.log('Error');
+      },
+    });
   }
 }

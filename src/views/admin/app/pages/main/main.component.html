@@ -42,6 +42,17 @@
           <ng-icon name="heroHome" size="25" class="" />
           <div class="text-lg font-semibold uppercase">Dashboard</div>
         </div>
+        <div
+          class="flex cursor-pointer gap-x-5 {{
+            pageSelected() == 'Logout'
+              ? 'text-slate-800'
+              : 'text-slate-400 hover:text-slate-800'
+          }}"
+          (click)="logout()"
+        >
+          <ng-icon name="heroArrowRightStartOnRectangle" size="25" />
+          <div class="text-lg font-semibold uppercase">Logout</div>
+        </div>
       </div>
     </div>
     <div class="flex justify-center overflow-hidden bg-slate-100">
