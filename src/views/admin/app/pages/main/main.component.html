@@ -1,0 +1,55 @@
+<div
+  class="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-slate-800"
+>
+  <div
+    class="flex items-center justify-between border-b-[1px] border-slate-200 bg-white px-20 py-4 text-xl font-bold"
+  >
+    <img
+      routerLink="/"
+      src="/BlipsterIcon.png"
+      alt=""
+      class="-my-8 size-12 cursor-pointer"
+    />
+    <div class="flex items-center gap-x-5">
+      <div
+        class="h-8 w-8 overflow-clip rounded-full ring-1 ring-slate-900 ring-offset-4 ring-offset-white"
+      >
+        <img
+          src="/default_profile.jpg"
+          alt="not found"
+          class="h-8 object-cover"
+        />
+      </div>
+      <div class="text-base">Admin</div>
+    </div>
+  </div>
+  <div
+    class="grid grid-cols-[1fr_6fr] overflow-hidden bg-white font-EBGaramond"
+  >
+    <div class="flex justify-center border-r-[1px] border-slate-200">
+      <div
+        class="flex flex-col items-start justify-start gap-y-4 p-10"
+      >
+        <div
+          class="flex cursor-pointer gap-x-5 {{
+            pageSelected() == 'Dashboard'
+              ? 'text-slate-800'
+              : 'text-slate-400 hover:text-slate-800'
+          }} "
+          (click)="changePage('Dashboard')"
+          routerLink="/"
+        >
+          <ng-icon name="heroHome" size="25" class="" />
+          <div class="text-lg font-semibold uppercase">Dashboard</div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center overflow-hidden bg-slate-100">
+      <div class="flex w-2/3 justify-start overflow-hidden">
+        <div class="flex grow">
+          <router-outlet />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

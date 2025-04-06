@@ -1,15 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { provideIcons } from '@ng-icons/core';
 import {
   heroArrowRightStartOnRectangle,
   heroHome,
   heroUser,
 } from '@ng-icons/heroicons/outline';
+import { AuthService } from './services/auth.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgIcon, RouterLink],
+  imports: [RouterOutlet, SpinnerComponent],
   providers: [
     provideIcons({
       heroArrowRightStartOnRectangle,
@@ -21,7 +23,6 @@ import {
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'Blipster';
-
-  pageSelected = signal<string>('Dashboard');
+  private authService = inject(AuthService);
+  query = this.authService.query;
 }
