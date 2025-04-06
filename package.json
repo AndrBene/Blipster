@@ -37,6 +37,7 @@
     "@multiloader/loader": "^0.0.1",
     "@ng-icons/core": "^31.2.0",
     "@ng-icons/heroicons": "^31.2.0",
+    "@tanstack/angular-query-experimental": "^5.71.1",
     "@tanstack/react-query": "^5.66.9",
     "@tanstack/react-query-devtools": "^5.66.9",
     "bcryptjs": "^2.4.3",

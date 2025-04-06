@@ -6,6 +6,10 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { provideHttpClient } from '@angular/common/http';
+import {
+  provideTanStackQuery,
+  QueryClient,
+} from '@tanstack/angular-query-experimental';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +17,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideCharts(withDefaultRegisterables()),
     provideHttpClient(),
+    provideTanStackQuery(
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000, // (60 * 1000 ms) = 1 minute
+          },
+        },
+      }),
+    ),
   ],
 };
