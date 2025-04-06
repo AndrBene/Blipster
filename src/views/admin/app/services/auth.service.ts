@@ -16,6 +16,17 @@ export class AuthService {
     queryFn: () => lastValueFrom(this.isLoggedIn()),
   }));
 
+  login(username: string, password: string) {
+    return this.httpClient.post<AuthResponse>(
+      this.url + 'users/login',
+      {
+        username,
+        password,
+      },
+      { withCredentials: true },
+    );
+  }
+
   private isLoggedIn() {
     return this.httpClient.get<UserInfo>(
       this.url + 'users/is-logged-in',
@@ -24,4 +35,8 @@ export class AuthService {
       },
     );
   }
+}
+
+interface AuthResponse {
+  status: string;
 }
