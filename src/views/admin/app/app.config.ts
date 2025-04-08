@@ -9,6 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 import {
   provideTanStackQuery,
   QueryClient,
+  withDevtools,
 } from '@tanstack/angular-query-experimental';
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
           },
         },
       }),
+      withDevtools(() => ({ loadDevtools: 'auto' })),
     ),
   ],
 };
