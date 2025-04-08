@@ -14,6 +14,7 @@ import {
   heroHome,
   heroUser,
 } from '@ng-icons/heroicons/outline';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main',
@@ -36,6 +37,7 @@ export class MainComponent {
   private queryClient = inject(QueryClient);
   private router = inject(Router);
   private authService = inject(AuthService);
+  private toastrService = inject(ToastrService);
 
   constructor() {
     this.router.events
@@ -57,10 +59,11 @@ export class MainComponent {
         await this.queryClient.invalidateQueries({
           queryKey: ['isAuthenticated'],
         });
+        this.toastrService.success('Logout successful!');
         this.router.navigate(['/signin']);
       },
-      error: () => {
-        console.log('Error');
+      error: (err) => {
+        this.toastrService.error(err.error.message);
       },
     });
   }

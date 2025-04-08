@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { AuthService } from '../../services/auth.service';
 import { QueryClient } from '@tanstack/angular-query-experimental';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signin',
@@ -30,6 +31,7 @@ export class SigninComponent {
   private router = inject(Router);
   isLoading = signal(false);
   private queryClient = inject(QueryClient);
+  private toastrService = inject(ToastrService);
 
   login() {
     if (
@@ -52,9 +54,11 @@ export class SigninComponent {
 
             this.form.reset();
             this.router.navigate(['/']);
+            this.toastrService.success('Login successful!');
           },
-          error: () => {
+          error: (err) => {
             this.isLoading.set(false);
+            this.toastrService.error(err.error.message);
           },
         });
     }

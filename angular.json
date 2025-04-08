@@ -24,7 +24,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/views/admin/styles.css"],
+            "styles": [
+              "src/views/admin/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
+            ],
             "scripts": [],
             "outputHashing": "none"
           },
@@ -78,7 +81,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/views/admin/styles.css"],
+            "styles": [
+              "src/views/admin/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
+            ],
             "scripts": []
           }
         }
