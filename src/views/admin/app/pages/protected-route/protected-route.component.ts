@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { QueryClient } from '@tanstack/angular-query-experimental';
 import { AuthService } from '../../services/auth.service';
 import {
@@ -15,9 +15,10 @@ import {
   heroUser,
 } from '@ng-icons/heroicons/outline';
 import { ToastrService } from 'ngx-toastr';
+import { SpinnerComponent } from '../../components/spinner/spinner.component';
 
 @Component({
-  selector: 'app-main',
+  selector: 'protected-route',
   imports: [RouterOutlet, NgIcon, RouterLink],
   providers: [
     provideIcons({
@@ -26,18 +27,23 @@ import { ToastrService } from 'ngx-toastr';
       heroUser,
     }),
   ],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.css',
+  templateUrl: './protected-route.component.html',
+  styleUrl: './protected-route.component.css',
 })
-export class MainComponent {
-  title = 'Blipster';
-
+export class ProtectedRouteComponent {
   pageSelected = signal<string>('Dashboard');
 
   private queryClient = inject(QueryClient);
   private router = inject(Router);
   private authService = inject(AuthService);
   private toastrService = inject(ToastrService);
+  query = this.authService.query;
+
+  redirectEffect = effect(() => {
+    if (!this.query.data()?.authenticated || this.query.isError()) {
+      this.router.navigate(['/signin']);
+    }
+  });
 
   constructor() {
     this.router.events
@@ -55,8 +61,8 @@ export class MainComponent {
 
   logout() {
     this.authService.logout().subscribe({
-      next: async () => {
-        await this.queryClient.invalidateQueries({
+      next: () => {
+        this.queryClient.invalidateQueries({
           queryKey: ['isAuthenticated'],
         });
         this.toastrService.success('Logout successful!');

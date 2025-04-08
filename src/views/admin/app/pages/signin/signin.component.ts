@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -32,6 +32,13 @@ export class SigninComponent {
   isLoading = signal(false);
   private queryClient = inject(QueryClient);
   private toastrService = inject(ToastrService);
+  query = this.authService.query;
+
+  redirectEffect = effect(() => {
+    if (this.query.data()?.authenticated) {
+      this.router.navigate(['/']);
+    }
+  });
 
   login() {
     if (
