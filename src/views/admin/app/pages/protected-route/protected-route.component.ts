@@ -15,7 +15,6 @@ import {
   heroUser,
 } from '@ng-icons/heroicons/outline';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerComponent } from '../../components/spinner/spinner.component';
 
 @Component({
   selector: 'protected-route',
@@ -46,13 +45,11 @@ export class ProtectedRouteComponent {
   });
 
   constructor() {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event) => {
-        if (event.url == '/') {
-          this.pageSelected.set('Dashboard');
-        }
-      });
+    if (this.router.url == '/') {
+      this.changePage('Dashboard');
+    } else if (this.router.url == '/profile') {
+      this.changePage('Profile');
+    }
   }
 
   changePage(page: string) {

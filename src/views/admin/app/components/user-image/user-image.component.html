@@ -1,0 +1,13 @@
+<div class="w-full p-2 sm:w-fit">
+  <div
+    class="flex h-12 w-12 items-center justify-center overflow-clip rounded-full ring-2 ring-white ring-offset-4 ring-offset-slate-100 xl:h-36 xl:w-36"
+  >
+    <img
+      [src]="
+        image() ? '/users/images/' + image() : '/default_profile.jpg'
+      "
+      alt="not found"
+      class="h-12 object-cover xl:h-36"
+    />
+  </div>
+</div>

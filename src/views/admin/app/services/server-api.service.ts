@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { User } from '../models/user';
 
 export class ServerApiService {
   private httpClient = inject(HttpClient);
@@ -30,6 +31,19 @@ export class ServerApiService {
       this.url + `posts/views?period=${period}`,
     );
   }
+
+  uploadAdminProfilePhoto(id: string, data: FormData) {
+    return this.httpClient.patch<UserResponse>(
+      this.url + `users/${id}/profile-image`,
+      data,
+      { withCredentials: true },
+    );
+  }
+}
+
+interface UserResponse {
+  status: string;
+  data: User;
 }
 
 interface PostsResponse {
