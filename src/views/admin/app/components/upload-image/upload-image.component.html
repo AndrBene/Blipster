@@ -9,7 +9,7 @@
     type="file"
     class="file:mr-5 file:cursor-pointer file:rounded-lg file:border-0 file:bg-slate-900 file:px-2 file:py-1 file:text-base file:text-white file:hover:bg-slate-700 file:xl:text-lg dark:file:bg-white dark:file:text-black dark:file:hover:bg-slate-200"
     [formControl]="form.controls.file"
-    (change)="onImageSelected($event)"
+    (input)="onImageSelected($event)"
   />
   <div class="flex items-center gap-x-4">
     <button
@@ -18,12 +18,11 @@
       <ng-icon name="heroArrowUpTray" size="25" class="" />
       <div>upload</div>
     </button>
-    <!-- <div class="flex">
-          {errors?.profileImg?.message && (
-            <div class="text-red-500 xl:text-lg">
-              {errors.profileImg.message}
-            </div>
-          )}
-        </div> -->
+
+    <div class="flex">
+      @if (submitted() && form.controls.file.errors) {
+        <div class="text-red-500 xl:text-lg">Image is required</div>
+      }
+    </div>
   </div>
 </form>

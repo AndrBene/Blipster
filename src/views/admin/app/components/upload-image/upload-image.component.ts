@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -30,7 +30,8 @@ export class UploadImageComponent {
   private queryClient = inject(QueryClient);
   private toastrService = inject(ToastrService);
 
-  selectedFile: File | null = null;
+  selectedFile = signal<File | null>(null);
+  submitted = signal(false);
 
   form = new FormGroup({
     file: new FormControl<File | null>(null, {
@@ -39,15 +40,18 @@ export class UploadImageComponent {
   });
 
   onImageSelected(event: any) {
+    if (this.submitted()) this.submitted.set(false);
+
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
+      this.selectedFile.set(event.target.files[0]);
     }
   }
 
   upload() {
+    this.submitted.set(true);
     if (this.form.controls.file.valid) {
       const formData = new FormData();
-      formData.append('profileImg', this.selectedFile!);
+      formData.append('profileImg', this.selectedFile()!);
 
       if (this.authService.query.data()?.data?.user?.photo)
         formData.append(
