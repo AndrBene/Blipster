@@ -1,4 +1,11 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -23,7 +30,7 @@ export class SigninComponent {
       validators: [Validators.required],
     }),
     password: new FormControl('', {
-      validators: [Validators.minLength(6), Validators.required],
+      validators: [Validators.required],
     }),
   });
 
@@ -34,13 +41,46 @@ export class SigninComponent {
   private toastrService = inject(ToastrService);
   query = this.authService.query;
 
+  usernameSubmitted = signal(false);
+  passwordSubmitted = signal(false);
+
   redirectEffect = effect(() => {
     if (this.query.data()?.authenticated) {
       this.router.navigate(['/']);
     }
   });
 
+  @ViewChild('stickyHeader') headerRef!: ElementRef;
+  @ViewChild('stickyBar') barRef!: ElementRef;
+
+  ngAfterViewChecked() {
+    this.updateStickyOffset();
+  }
+
+  updateStickyOffset() {
+    const header = this.headerRef?.nativeElement;
+    const bar = this.barRef?.nativeElement;
+
+    if (header && bar) {
+      const newTop = `${header.offsetHeight}px`;
+      if (bar.style.top !== newTop) {
+        bar.style.top = newTop;
+      }
+    }
+  }
+
+  onUsernameSelected(event: any) {
+    if (this.usernameSubmitted()) this.usernameSubmitted.set(false);
+  }
+
+  onPasswordSelected(event: any) {
+    if (this.passwordSubmitted()) this.passwordSubmitted.set(false);
+  }
+
   login() {
+    this.usernameSubmitted.set(true);
+    this.passwordSubmitted.set(true);
+
     if (
       this.form.controls.username.valid &&
       this.form.controls.password.valid
