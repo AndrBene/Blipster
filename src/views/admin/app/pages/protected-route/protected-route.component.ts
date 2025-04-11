@@ -15,10 +15,11 @@ import {
   heroUser,
 } from '@ng-icons/heroicons/outline';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'protected-route',
-  imports: [RouterOutlet, NgIcon, RouterLink],
+  imports: [RouterOutlet, NgIcon, RouterLink, CommonModule],
   providers: [
     provideIcons({
       heroArrowRightStartOnRectangle,
@@ -30,10 +31,19 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './protected-route.component.css',
 })
 export class ProtectedRouteComponent {
-  pageSelected = signal<string>('Dashboard');
-
   private queryClient = inject(QueryClient);
   private router = inject(Router);
+
+  pageSelected = signal<string>(
+    (() => {
+      if (this.router.url == '/profile') {
+        return 'Profile';
+      } else {
+        return 'Dashboard';
+      }
+    })(),
+  );
+
   private authService = inject(AuthService);
   private toastrService = inject(ToastrService);
   query = this.authService.query;
@@ -45,11 +55,21 @@ export class ProtectedRouteComponent {
   });
 
   constructor() {
-    if (this.router.url == '/') {
-      this.changePage('Dashboard');
-    } else if (this.router.url == '/profile') {
-      this.changePage('Profile');
-    }
+    this.router.events
+      .pipe(
+        filter((event) => {
+          return event instanceof NavigationEnd;
+        }),
+      )
+      .subscribe({
+        next: (event) => {
+          if (event.url == '/') {
+            this.pageSelected.set('Dashboard');
+          } else if (event.url == '/profile') {
+            this.pageSelected.set('Profile');
+          }
+        },
+      });
   }
 
   changePage(page: string) {
