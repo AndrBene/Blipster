@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { User } from '../models/user';
 
 export class ServerApiService {
@@ -11,6 +11,7 @@ export class ServerApiService {
   loadUsers(period: number) {
     return this.httpClient.get<UsersResponse>(
       this.url + `users?period=${period}`,
+      { withCredentials: true },
     );
   }
 
