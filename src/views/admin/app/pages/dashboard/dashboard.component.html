@@ -1,12 +1,14 @@
 <div
-  class="my-10 flex grow flex-col justify-start gap-y-6 overflow-y-scroll scrollbar-none"
+  class="my-10 flex grow flex-col justify-start gap-y-6 overflow-x-hidden overflow-y-scroll scrollbar-none"
 >
   <div
-    class="sticky top-0 flex items-center justify-between bg-slate-100 pb-5"
+    class="sticky top-0 flex flex-wrap items-center justify-between gap-5 bg-slate-100 pb-5"
   >
-    <div class="text-xl font-bold">Dashboard</div>
+    <div class="text-xl font-bold md:text-2xl xl:text-3xl">
+      Dashboard
+    </div>
     <div
-      class="flex items-center gap-x-4 rounded-md bg-white p-[3px]"
+      class="flex flex-wrap items-center gap-x-4 rounded-md bg-white p-[3px] text-sm sm:text-base xl:text-lg"
     >
       <div
         (click)="updateSelectedDays(7)"
@@ -40,12 +42,16 @@
       </div>
     </div>
   </div>
-  <div class="flex grow flex-col justify-start gap-y-20">
-    <div class="flex flex-col justify-start gap-y-5">
-      <div class="text-base font-semibold uppercase text-slate-400">
+  <div class="flex grow flex-col justify-start gap-y-10 xl:gap-y-20">
+    <div class="flex flex-col justify-start gap-y-2 xl:gap-y-5">
+      <div
+        class="text-xs font-semibold uppercase text-slate-400 sm:text-base md:text-lg"
+      >
         Totals
       </div>
-      <div class="flex gap-x-12">
+      <div
+        class="flex gap-x-3 overflow-x-scroll py-2 scrollbar-none sm:gap-x-5 md:gap-x-8 md:py-5 xl:gap-x-12"
+      >
         <stat-box
           [icon]="'heroUserGroup'"
           [color]="'bg-red-300'"
@@ -101,7 +107,7 @@
           commentsSelected() ||
           viewsSelected()
         ) {
-          <div class="text-base">
+          <div class="text-base md:text-lg">
             No data available for the selected period.
           </div>
         }

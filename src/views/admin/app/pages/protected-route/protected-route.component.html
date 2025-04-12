@@ -3,7 +3,7 @@
     class="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-slate-800"
   >
     <div
-      class="flex items-center justify-between border-b-[1px] border-slate-200 bg-white px-20 py-4 text-xl font-bold"
+      class="flex items-center justify-between border-b-[1px] border-slate-200 bg-white px-2 py-4 text-xl font-bold sm:px-20"
     >
       <img
         routerLink="/"
@@ -12,11 +12,11 @@
         class="-my-8 size-12 cursor-pointer"
       />
       <div
-        class="flex cursor-pointer items-center gap-x-5"
+        class="flex cursor-pointer items-center gap-x-2 md:gap-x-5"
         routerLink="profile"
       >
         <div
-          class="flex h-8 w-8 items-center justify-center overflow-clip rounded-full ring-1 ring-slate-900 ring-offset-4 ring-offset-white"
+          class="flex h-6 w-6 items-center justify-center overflow-clip rounded-full ring-1 ring-slate-200 ring-offset-4 ring-offset-white md:h-8 md:w-8"
         >
           <img
             [src]="
@@ -25,23 +25,23 @@
                 : '/default_profile.jpg'
             "
             alt="not found"
-            class="h-8 object-cover"
+            class="h-6 object-cover md:h-8"
           />
         </div>
-        <div class="text-base">Admin</div>
+        <div class="text-sm md:text-base">Admin</div>
       </div>
     </div>
     <div
-      class="grid grid-cols-[1fr_6fr] overflow-hidden bg-white font-EBGaramond"
+      class="grid grid-cols-[auto_6fr] overflow-hidden bg-white font-EBGaramond lg:grid-cols-[1fr_6fr]"
     >
       <div
         class="flex justify-center border-r-[1px] border-slate-200"
       >
         <div
-          class="flex flex-col items-start justify-start gap-y-4 p-10"
+          class="flex flex-col items-start justify-start gap-y-4 p-3 md:p-8 lg:p-10"
         >
           <div
-            class="flex cursor-pointer gap-x-5 {{
+            class="flex items-center justify-center cursor-pointer gap-x-5 {{
               pageSelected() == 'Dashboard'
                 ? 'text-slate-800'
                 : 'text-slate-400 hover:text-slate-800'
@@ -49,14 +49,23 @@
             (click)="changePage('Dashboard')"
             routerLink="/"
           >
-            <ng-icon name="heroHome" size="25" class="" />
-            <div class="text-lg font-semibold uppercase">
+            <div class="size-4 sm:size-5 lg:size-6">
+              <ng-icon
+                name="heroHome"
+                [style.width.%]="100"
+                [style.height.%]="100"
+              ></ng-icon>
+            </div>
+
+            <div
+              class="hidden text-lg font-semibold uppercase xl:block"
+            >
               Dashboard
             </div>
           </div>
 
           <div
-            class="flex cursor-pointer gap-x-5 {{
+            class="flex items-center justify-center cursor-pointer gap-x-5 {{
               pageSelected() == 'Profile'
                 ? 'text-slate-800'
                 : 'text-slate-400 hover:text-slate-800'
@@ -64,31 +73,48 @@
             (click)="changePage('Profile')"
             routerLink="/profile"
           >
-            <ng-icon name="heroUser" size="25" />
-            <div class="text-lg font-semibold uppercase">Profile</div>
+            <div class="size-4 sm:size-5 lg:size-6">
+              <ng-icon
+                name="heroUser"
+                [style.width.%]="100"
+                [style.height.%]="100"
+              />
+            </div>
+            <div
+              class="hidden text-lg font-semibold uppercase xl:block"
+            >
+              Profile
+            </div>
           </div>
 
           <div
-            class="flex cursor-pointer gap-x-5 {{
+            class="flex items-center justify-center cursor-pointer gap-x-5 {{
               pageSelected() == 'Logout'
                 ? 'text-slate-800'
                 : 'text-slate-400 hover:text-slate-800'
             }}"
             (click)="logout()"
           >
-            <ng-icon
-              name="heroArrowRightStartOnRectangle"
-              size="25"
-            />
-            <div class="text-lg font-semibold uppercase">Logout</div>
+            <div class="size-4 sm:size-5 lg:size-6">
+              <ng-icon
+                name="heroArrowRightStartOnRectangle"
+                [style.width.%]="100"
+                [style.height.%]="100"
+              />
+            </div>
+            <div
+              class="hidden text-lg font-semibold uppercase xl:block"
+            >
+              Logout
+            </div>
           </div>
         </div>
       </div>
       <div class="flex justify-center overflow-hidden bg-slate-100">
-        <div class="flex w-2/3 justify-start overflow-hidden">
-          <div class="flex grow">
-            <router-outlet />
-          </div>
+        <div
+          class="flex grow justify-start overflow-hidden px-10 xl:w-5/6 xl:grow-0 2xl:w-2/3"
+        >
+          <router-outlet />
         </div>
       </div>
     </div>

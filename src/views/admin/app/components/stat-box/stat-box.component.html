@@ -1,5 +1,5 @@
 <div
-  class="flex cursor-pointer items-center gap-x-5 rounded-md bg-white px-6 py-4 hover:shadow-lg hover:shadow-slate-400"
+  class="flex cursor-pointer items-center gap-x-5 rounded-md bg-white px-2 py-1 hover:shadow-md hover:shadow-slate-400 md:px-6 md:py-4 md:hover:shadow-lg"
   [ngClass]="
     selected()
       ? 'border-[1px] border-slate-800'
@@ -9,14 +9,24 @@
   <div
     class="flex items-center justify-center rounded-full {{
       color()
-    }} p-2"
+    }} p-2 md:p-2"
   >
-    <ng-icon name="{{ icon() }}" size="25" />
+    <div
+      class="flex size-4 items-center justify-center md:size-5 lg:size-6"
+    >
+      <ng-icon
+        name="{{ icon() }}"
+        [style.width.%]="100"
+        [style.height.%]="100"
+      ></ng-icon>
+    </div>
   </div>
   <div class="flex flex-col">
-    <div class="text-sm font-semibold uppercase text-slate-400">
+    <div
+      class="text-xs font-semibold uppercase text-slate-400 md:text-sm xl:text-base"
+    >
       {{ text() }}
     </div>
-    <div class="text-xl">{{ number() }}</div>
+    <div class="text-md md:text-lg xl:text-xl">{{ number() }}</div>
   </div>
 </div>
