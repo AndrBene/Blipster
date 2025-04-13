@@ -77,6 +77,9 @@ export class ProtectedRouteComponent {
   }
 
   logout() {
+    this.toastrService.info('Waiting for logout...', '', {
+      disableTimeOut: true,
+    });
     this.authService.logout().subscribe({
       next: () => {
         this.queryClient.invalidateQueries({

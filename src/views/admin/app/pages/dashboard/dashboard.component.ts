@@ -24,6 +24,7 @@ import { StatBoxComponent } from '../../components/stat-box/stat-box.component';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { ServerApiService } from '../../services/server-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 const usersBlueprint = {
   data: [65, 59, 80, 81, 56, 55, 40],
@@ -107,6 +108,7 @@ const viewsBlueprint = {
 })
 export class DashboardComponent {
   private serverApi = inject(ServerApiService);
+  private toastrService = inject(ToastrService);
 
   usersSelected = signal(true);
   postsSelected = signal(true);
@@ -287,6 +289,9 @@ export class DashboardComponent {
         }
         this.isDataLoading.set(false);
       },
+      error: (err) => {
+        this.toastrService.error(err.error.message);
+      },
     });
 
     // Load posts
@@ -317,6 +322,9 @@ export class DashboardComponent {
           });
         }
         this.isDataLoading.set(false);
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.message);
       },
     });
 
@@ -351,6 +359,9 @@ export class DashboardComponent {
           });
         }
         this.isDataLoading.set(false);
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.message);
       },
     });
 
@@ -390,6 +401,9 @@ export class DashboardComponent {
           });
         }
         this.isDataLoading.set(false);
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.message);
       },
     });
   }

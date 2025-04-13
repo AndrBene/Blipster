@@ -25,6 +25,8 @@ export const appConfig: ApplicationConfig = {
       timeOut: 3000,
       positionClass: 'toast-top-center',
       preventDuplicates: true,
+      maxOpened: 1,
+      autoDismiss: true,
     }),
     provideTanStackQuery(
       new QueryClient({

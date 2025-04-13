@@ -86,6 +86,9 @@ export class SigninComponent {
       this.form.controls.password.valid
     ) {
       this.isLoading.set(true);
+      this.toastrService.info('Waiting for sign in...', '', {
+        disableTimeOut: true,
+      });
       this.authService
         .login(
           this.form.value.username as string,
