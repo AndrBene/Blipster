@@ -46,7 +46,7 @@ export class SigninComponent {
 
   redirectEffect = effect(() => {
     if (this.query.data()?.authenticated) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/admin/']);
     }
   });
 
@@ -103,7 +103,7 @@ export class SigninComponent {
             });
 
             this.form.reset();
-            this.router.navigate(['/']);
+            this.router.navigate(['/admin/']);
             this.toastrService.success('Login successful!');
           },
           error: (err) => {

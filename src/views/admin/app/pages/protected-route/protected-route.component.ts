@@ -36,7 +36,7 @@ export class ProtectedRouteComponent {
 
   pageSelected = signal<string>(
     (() => {
-      if (this.router.url == '/profile') {
+      if (this.router.url == '/admin/profile') {
         return 'Profile';
       } else {
         return 'Dashboard';
@@ -50,7 +50,7 @@ export class ProtectedRouteComponent {
 
   redirectEffect = effect(() => {
     if (!this.query.data()?.authenticated || this.query.isError()) {
-      this.router.navigate(['/signin']);
+      this.router.navigate(['/admin/signin']);
     }
   });
 
@@ -86,7 +86,7 @@ export class ProtectedRouteComponent {
           queryKey: ['isAuthenticated'],
         });
         this.toastrService.success('Logout successful!');
-        this.router.navigate(['/signin']);
+        this.router.navigate(['/admin/signin']);
       },
       error: (err) => {
         this.toastrService.error(err.error.message);

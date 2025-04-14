@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: ProtectedRouteComponent,
     children: [
       {
@@ -21,7 +21,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'signin',
+    path: 'admin/signin',
     component: SigninComponent,
   },
   {
