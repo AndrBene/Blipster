@@ -1,0 +1,100 @@
+@if (!query.data()?.authenticated) {
+  <div
+    class="flex h-screen w-screen items-center justify-center overflow-hidden bg-slate-100 font-EBGaramond text-slate-800 scrollbar-none"
+  >
+    <div
+      class="flex h-full w-full flex-col overflow-y-scroll bg-white sm:h-4/5 sm:w-3/4 sm:rounded-xl lg:h-2/3 lg:w-1/2"
+    >
+      <div
+        class="flex grow flex-col items-center gap-y-10 bg-white py-10"
+      >
+        <div
+          #stickyHeader
+          class="sticky top-0 flex w-full flex-col items-center bg-white"
+        >
+          <img src="/BlipsterIcon.png" alt="" class="size-20" />
+          <div
+            class="bg-white pb-2 text-xl font-bold md:text-2xl xl:text-3xl dark:bg-slate-950"
+          >
+            Admin Login
+          </div>
+        </div>
+        <div
+          #stickyBar
+          class="sticky mt-10 w-8/12 border-b-[1px] border-slate-200 bg-white"
+        ></div>
+        <form
+          class="flex grow flex-col justify-between gap-y-10"
+          [formGroup]="form"
+          (ngSubmit)="login()"
+        >
+          <div class="flex flex-col gap-y-5">
+            <div class="flex items-center gap-4 text-base xl:text-lg">
+              <label class="basis-20 text-base font-medium">
+                Username
+              </label>
+              <div class="grow text-base xl:text-lg">
+                <input
+                  placeholder="username"
+                  class="input"
+                  type="text"
+                  id="username"
+                  [formControl]="form.controls.username"
+                  (input)="onUsernameSelected($event)"
+                />
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="basis-20"></div>
+              @if (
+                usernameSubmitted() && form.controls.username.errors
+              ) {
+                <div class="text-red-500 xl:text-lg">
+                  Username is required
+                </div>
+              }
+            </div>
+
+            <div class="flex items-center gap-4 text-base xl:text-lg">
+              <label class="basis-20 text-base font-medium">
+                Password
+              </label>
+              <div class="grow text-base xl:text-lg">
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="password"
+                  id="password"
+                  [formControl]="form.controls.password"
+                  (input)="onPasswordSelected($event)"
+                />
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="basis-20"></div>
+              @if (
+                passwordSubmitted() && form.controls.password.errors
+              ) {
+                <div class="text-red-500 xl:text-lg">
+                  Password is required
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center xl:mt-10">
+            <button
+              class="mb-2 rounded-full bg-slate-800 px-8 py-3 text-base uppercase text-white transition-colors duration-200 hover:bg-slate-700 focus:bg-slate-700 focus:outline-none xl:px-12 xl:text-xl dark:bg-white dark:text-black dark:hover:bg-slate-200"
+            >
+              @if (isLoading()) {
+                <spinner [inputWidth]="'h-4'" />
+              } @else {
+                Login
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}

@@ -20,6 +20,8 @@ blogPostRouter
     blogPostController.createNewBlogPost,
   );
 
+blogPostRouter.route('/views').get(blogPostController.getViews);
+
 blogPostRouter.route('/:id').get(blogPostController.getBlogPost);
 
 blogPostRouter

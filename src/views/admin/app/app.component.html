@@ -1,0 +1,7 @@
+@if (query.isFetching()) {
+  <div class="flex h-screen w-screen items-center justify-center">
+    <spinner [inputWidth]="'h-14'" />
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}
