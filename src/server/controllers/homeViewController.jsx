@@ -26,7 +26,8 @@ if (process.env.JUST_API === 'true') {
   );
 }
 
-export const getHomeView = (req, res, next) => {
+export const getHomeView = (req, res) => {
+  console.log('getHomeView');
   const renderedReact = renderToString(
     <StaticRouter location={req.url} context={{}}>
       <AppLayout />
