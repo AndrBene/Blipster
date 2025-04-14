@@ -1,10 +1,10 @@
 import { renderToString } from 'react-dom/server';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import AppLayout from '../../views/public-blog/AppLayout.jsx';
+import AppLayout from '../../client/public-blog/views/AppLayout.jsx';
 import { readFileSync } from 'fs';
 import { StaticRouter } from 'react-router-dom';
-import '../../style/index.css';
+import '../../client/public-blog/style/index.css';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: './config.env' });
@@ -16,18 +16,20 @@ if (process.env.JUST_API === 'true') {
   const __dirname = path.dirname(__filename);
 
   homeViewHtml = readFileSync(
-    path.join(__dirname, '../../views/public-blog/index.html'),
+    path.join(__dirname, '../../client/public-blog/views/index.html'),
     `utf-8`,
   );
 } else {
   homeViewHtml = readFileSync(
-    path.join(__dirname, '../src/views/public-blog/index.html'),
+    path.join(
+      __dirname,
+      '../src/client/public-blog/views/index.html',
+    ),
     `utf-8`,
   );
 }
 
 export const getHomeView = (req, res) => {
-  console.log('getHomeView');
   const renderedReact = renderToString(
     <StaticRouter location={req.url} context={{}}>
       <AppLayout />

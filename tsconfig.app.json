@@ -6,6 +6,6 @@
     "outDir": "./build",
     "types": []
   },
-  "files": ["src/views/admin/main.ts"],
-  "include": ["src/views/admin/**/*.d.ts"]
+  "files": ["src/client/admin/views/main.ts"],
+  "include": ["src/client/admin/views/**/*.d.ts"]
 }
