@@ -15,9 +15,7 @@ function Register() {
       formData.append('username', userInfo.username);
       formData.append('password', userInfo.password);
       formData.append('confirmPassword', userInfo.confirmPassword);
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
-      }
+
       const res = await fetch(
         `http://localhost:3000/api/v1/users/register`,
         {

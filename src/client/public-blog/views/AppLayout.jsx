@@ -26,7 +26,6 @@ const queryClient = new QueryClient({
     onError: (error, query) => {
       if (query.meta.protectedRouteErrorMessage) {
         toast.error(query.meta.protectedRouteErrorMessage);
-        console.log(query.meta.protectedRouteErrorMessage);
       }
     },
   }),

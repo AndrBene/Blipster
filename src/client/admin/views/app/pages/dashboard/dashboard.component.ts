@@ -138,7 +138,6 @@ export class DashboardComponent {
     effect(() => {
       if (this.usersSelected() && this.usersData()) {
         this.lineChartData.update((oldValue) => {
-          console.log([...oldValue.datasets, this.usersData()!]);
           return {
             ...oldValue,
             datasets: [...oldValue.datasets, this.usersData()!],
@@ -247,7 +246,7 @@ export class DashboardComponent {
     const labels = Array.from({ length: days }, (_, i) => {
       const date = new Date();
       date.setDate(new Date().getDate() - (days - 1 - i)); // Go back in time
-      // console.log('date: ', date);
+
       return date.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
@@ -263,8 +262,6 @@ export class DashboardComponent {
     // Load users
     this.serverApi.loadUsers(days).subscribe({
       next: (fetchedUsers) => {
-        console.log('-> fetchedPosts: ', fetchedUsers.data);
-
         if (fetchedUsers.results > 0) {
           let users: number[] = [];
           labels.forEach((label) => {
@@ -297,8 +294,6 @@ export class DashboardComponent {
     // Load posts
     this.serverApi.loadPosts(days).subscribe({
       next: (fetchedPosts) => {
-        console.log('-> fetchedPosts: ', fetchedPosts.data);
-
         if (fetchedPosts.results > 0) {
           let posts: number[] = [];
           labels.forEach((label) => {
@@ -331,7 +326,6 @@ export class DashboardComponent {
     // Load comments
     this.serverApi.loadComments(days).subscribe({
       next: (fetchedComments) => {
-        console.log('-> fetchedComments: ', fetchedComments.data);
         if (fetchedComments.results > 0) {
           let comments: number[] = [];
           labels.forEach((label) => {
@@ -368,7 +362,6 @@ export class DashboardComponent {
     // Load views
     this.serverApi.loadViews(days).subscribe({
       next: (fetchedPosts) => {
-        console.log('-> fetchedComments: ', fetchedPosts.data);
         if (fetchedPosts.results > 0) {
           let views: number[] = [];
           labels.forEach((label) => {
