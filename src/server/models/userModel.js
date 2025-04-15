@@ -79,8 +79,6 @@ userSchema.methods.checkPasswordChangedAfterTokenRelease = function (
   return false;
 };
 
-console.log(userSchema.virtuals);
-
 const User = mongoose.model('User', userSchema);
 
 export default User;

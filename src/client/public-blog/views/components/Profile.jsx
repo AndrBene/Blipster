@@ -66,7 +66,6 @@ function Profile() {
   }
 
   async function fetchUserPosts() {
-    console.log('user: ', userInfo?.data.user);
     try {
       const res = await fetch(
         `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts`,
@@ -75,7 +74,6 @@ function Profile() {
         },
       );
       const json = await res.json();
-      console.log('json:', json);
 
       if (json.status === 'error') {
         throw new Error(json.errorMessage);
@@ -83,12 +81,11 @@ function Profile() {
 
       setUserPosts(json.data.blogPosts);
     } catch (err) {
-      console.log(err);
+      toast.error(`${err}`);
     }
   }
 
   async function fetchUserComments() {
-    console.log('userInfo?.data: ', userInfo?.data);
     try {
       const res = await fetch(
         `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/comments`,
@@ -97,7 +94,6 @@ function Profile() {
         },
       );
       const json = await res.json();
-      console.log('json:', json);
 
       if (json.status === 'error') {
         throw new Error(json.errorMessage);
@@ -105,7 +101,7 @@ function Profile() {
 
       setUserComments(json.data.comments);
     } catch (err) {
-      console.log(err);
+      toast.error(`${err}`);
     }
   }
 
@@ -166,8 +162,6 @@ function Profile() {
   }
 
   async function deleteComment(commentId, postId) {
-    console.log('commentId: ', commentId);
-    console.log('postId: ', postId);
     try {
       const res = await fetch(
         `http://localhost:3000/api/v1/posts/${postId}/comments/${commentId}`,
