@@ -86,7 +86,7 @@ export const registerUser = catchAsync(async (req, res) => {
   });
 });
 
-export const loginUser = catchAsync(async (req, res, next) => {
+export const loginUser = catchAsync(async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -126,7 +126,7 @@ export const loginUser = catchAsync(async (req, res, next) => {
   });
 });
 
-export const logoutUser = catchAsync(async (req, res, next) => {
+export const logoutUser = catchAsync(async (req, res) => {
   res.cookie('jwt', '', {
     expires: new Date(0),
     httpOnly: true,
@@ -137,7 +137,7 @@ export const logoutUser = catchAsync(async (req, res, next) => {
   });
 });
 
-export const isLoggedIn = catchAsync(async (req, res, next) => {
+export const isLoggedIn = catchAsync(async (req, res) => {
   const resObject = {
     status: 'success',
     authenticated: false,

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import Comments from './Comments';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HiArrowLongLeft } from 'react-icons/hi2';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Loader from './Loader';
@@ -23,6 +23,8 @@ function PostDetail() {
     },
   });
 
+  const [pageNum, setPageNum] = useState('1');
+
   async function fetchPostContent() {
     const res = await fetch(
       `http://localhost:3000/api/v1/posts/${id}`,
@@ -40,11 +42,16 @@ function PostDetail() {
     };
   }, []);
 
+  useEffect(() => {
+    const savedPage = localStorage.getItem('currentPageNum');
+    if (savedPage) {
+      setPageNum(savedPage);
+    }
+  }, []);
+
   if (isError) {
     toast.error('Error fetching post details');
-    navigate(
-      `/home?page=${localStorage.getItem('currentPageNum') || 1}`,
-    );
+    navigate(`/home?page=${pageNum}`);
   }
 
   return (
@@ -55,11 +62,9 @@ function PostDetail() {
         <div className="my-10 flex flex-col justify-start gap-y-10 overflow-x-visible">
           <div
             className="flex w-fit cursor-pointer items-center justify-start gap-2 border-b-[1px] border-slate-800 dark:border-white"
-            onClick={() =>
-              navigate(
-                `/home?page=${localStorage.getItem('currentPageNum') || 1}`,
-              )
-            }
+            onClick={() => {
+              navigate(`/home?page=${pageNum}`);
+            }}
           >
             <HiArrowLongLeft className="size-5" />
             <div className="text-sm text-slate-800 xl:text-base dark:text-white">

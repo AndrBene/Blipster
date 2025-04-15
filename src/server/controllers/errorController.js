@@ -11,7 +11,7 @@ const handleValidationError = (err) => {
   return new AppError(message, 404);
 };
 
-export default (err, req, res, next) => {
+export default (err, req, res) => {
   if (process.env.NODE_ENV === 'development') {
     res.status(err.statusCode || 500).json({
       status: err.status || 'error',

@@ -2,27 +2,32 @@ import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi2';
 import { useEffect, useState } from 'react';
 
 function DarkModeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(function () {
-    const storedValue = localStorage.getItem('dark-mode');
-    return storedValue ? JSON.parse(storedValue) : false;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(null);
 
   function toggleDarkMode() {
     setIsDarkMode(!isDarkMode);
   }
 
+  useEffect(function () {
+    const storedValue = localStorage.getItem('dark-mode');
+    setIsDarkMode(storedValue ? JSON.parse(storedValue) : false);
+  }, []);
+
   useEffect(
     function () {
-      isDarkMode
-        ? document.documentElement.classList.add('dark')
-        : document.documentElement.classList.remove('dark');
+      if (isDarkMode !== null) {
+        isDarkMode
+          ? document.documentElement.classList.add('dark')
+          : document.documentElement.classList.remove('dark');
+      }
     },
     [isDarkMode],
   );
 
   useEffect(
     function () {
-      localStorage.setItem('dark-mode', JSON.stringify(isDarkMode));
+      if (isDarkMode !== null)
+        localStorage.setItem('dark-mode', JSON.stringify(isDarkMode));
     },
     [isDarkMode],
   );

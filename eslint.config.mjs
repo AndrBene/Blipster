@@ -39,6 +39,6 @@ export default [
     },
   },
   {
-    ignores: ['build/*'],
+    ignores: ['build/*', '.angular/*'],
   },
 ];

@@ -11,6 +11,7 @@ import blogPostRouter from './src/server/routes/blogPostRoutes';
 import commentsRouter from './src/server/routes/commentsRoutes';
 import homeViewRouter from './src/server/routes/homeViewRoutes';
 import adminViewRouter from './src/server/routes/adminViewRoutes';
+import * as homeViewController from './src/server/controllers/homeViewController';
 
 import AppError from './src/server/utils/appError';
 import globalErrorHandler from './src/server/controllers/errorController';
@@ -41,19 +42,21 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-app.use(
-  cors({
-    origin: [
-      'http://localhost:5173',
-      'http://localhost:3000',
-      'http://localhost:4200',
-      'http://127.0.0.1:5173',
-      'http://127.0.0.1:3000',
-      'http://127.0.0.1:4200',
-    ],
-    credentials: true,
-  }),
-);
+if (process.env.JUST_API === 'true') {
+  app.use(
+    cors({
+      origin: [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'http://localhost:4200',
+        'http://127.0.0.1:5173',
+        'http://127.0.0.1:3000',
+        'http://127.0.0.1:4200',
+      ],
+      credentials: true,
+    }),
+  );
+}
 
 app.use(express.json());
 app.use(cookieParser());
@@ -67,15 +70,18 @@ if (process.env.JUST_API === 'false') {
   app.use('/', homeViewRouter);
   app.use('/admin', adminViewRouter);
 }
+
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', blogPostRouter);
 app.use('/api/v1/comments', commentsRouter);
 
-app.all('*', (req, res, next) => {
+app.all('/api/v1/*', (req, res, next) => {
   next(
     new AppError(`Can't find ${req.originalUrl} on the server.`, 404),
   );
 });
+
+app.all('*', homeViewController.getHomeView);
 
 app.use(globalErrorHandler);
 
