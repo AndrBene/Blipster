@@ -4,7 +4,7 @@ import { User } from '../models/user';
 
 export class ServerApiService {
   private httpClient = inject(HttpClient);
-  private url = 'http://localhost:3000/api/v1/';
+  private url = '/api/v1/';
 
   constructor() {}
 

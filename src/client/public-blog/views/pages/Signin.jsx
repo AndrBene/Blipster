@@ -51,17 +51,14 @@ function Signin() {
 
   async function loginUser(userInfo) {
     toast.loading('Waiting for sign in...');
-    const res = await fetch(
-      `http://localhost:3000/api/v1/users/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Sending JSON data
-        },
-        credentials: 'include',
-        body: JSON.stringify(userInfo),
+    const res = await fetch(`/api/v1/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Sending JSON data
       },
-    );
+      credentials: 'include',
+      body: JSON.stringify(userInfo),
+    });
 
     const json = await res.json();
 
