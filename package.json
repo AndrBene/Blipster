@@ -13,6 +13,7 @@
     "build:server": "esbuild app.js --bundle --platform=node --outfile=build/server.js --external:@babel/preset-typescript --loader:.js=jsx --jsx=automatic",
     "start": "eslint . && npm run build:css && npm run build:public-blog-client && npm run build:admin-client && npm run build:server && node build/server.js",
     "start:prod": "NODE_ENV=production nodemon build/server.js",
+    "build:prod": "rm -rf build && npm run build:css && npm run build:public-blog-client && npm run build:admin-client && npm run build:server && cpx 'build/**/*' public/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ndb app.js",
     "lint": "eslint ."
@@ -78,6 +79,7 @@
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "cpx": "^1.5.0",
     "esbuild": "^0.24.2",
     "eslint": "^8.57.1",
     "eslint-plugin-node": "^11.1.0",
