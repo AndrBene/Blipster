@@ -12,7 +12,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 import Profile from './components/Profile';
 
@@ -36,7 +35,6 @@ function AppLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
       <div className="grid h-screen grid-rows-[auto_1fr] overflow-hidden bg-white font-EBGaramond text-white dark:bg-slate-950">
         <Header />
         <div className="flex justify-center overflow-hidden">

@@ -9,7 +9,6 @@ import { provideHttpClient } from '@angular/common/http';
 import {
   provideTanStackQuery,
   QueryClient,
-  withDevtools,
 } from '@tanstack/angular-query-experimental';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -36,7 +35,6 @@ export const appConfig: ApplicationConfig = {
           },
         },
       }),
-      withDevtools(() => ({ loadDevtools: 'auto' })),
     ),
   ],
 };
