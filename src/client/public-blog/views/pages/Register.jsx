@@ -16,13 +16,10 @@ function Register() {
       formData.append('password', userInfo.password);
       formData.append('confirmPassword', userInfo.confirmPassword);
 
-      const res = await fetch(
-        `http://localhost:3000/api/v1/users/register`,
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
+      const res = await fetch(`/api/v1/users/register`, {
+        method: 'POST',
+        body: formData,
+      });
 
       const json = await res.json();
 

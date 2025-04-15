@@ -43,20 +43,17 @@ function Comments({ comments }) {
     });
 
   async function sendNewComment({ comment }) {
-    const res = await fetch(
-      `http://localhost:3000/api/v1/posts/${id}/comments`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Sending JSON data
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          user: userInfo.data.user._id,
-          content: comment,
-        }),
+    const res = await fetch(`/api/v1/posts/${id}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Sending JSON data
       },
-    );
+      credentials: 'include',
+      body: JSON.stringify({
+        user: userInfo.data.user._id,
+        content: comment,
+      }),
+    });
 
     const json = await res.json();
 

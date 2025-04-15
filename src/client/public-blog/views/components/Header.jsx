@@ -44,12 +44,9 @@ function Header() {
 
   async function logoutUser() {
     toast.loading('Waiting for logout...');
-    const res = await fetch(
-      `http://localhost:3000/api/v1/users/logout`,
-      {
-        credentials: 'include',
-      },
-    );
+    const res = await fetch(`/api/v1/users/logout`, {
+      credentials: 'include',
+    });
 
     const json = await res.json();
 

@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AuthService {
   private toastrService = inject(ToastrService);
   private httpClient = inject(HttpClient);
-  private url = 'http://localhost:3000/api/v1/';
+  private url = '/api/v1/';
 
   query = injectQuery(() => ({
     queryKey: ['isAuthenticated'],
