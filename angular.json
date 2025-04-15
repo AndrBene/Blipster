@@ -63,12 +63,6 @@
             "main": "src/client/admin/views/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
             "styles": [
               "src/client/admin/views/styles.css",
               "node_modules/ngx-toastr/toastr.css"
