@@ -39,7 +39,7 @@ function Profile() {
       );
 
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/profile-image`,
+        `/api/v1/users/${userInfo?.data.user._id}/profile-image`,
         {
           method: 'PATCH',
           credentials: 'include',
@@ -68,7 +68,7 @@ function Profile() {
   async function fetchUserPosts() {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts`,
+        `/api/v1/users/${userInfo?.data.user._id}/posts`,
         {
           credentials: 'include',
         },
@@ -88,7 +88,7 @@ function Profile() {
   async function fetchUserComments() {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/comments`,
+        `/api/v1/users/${userInfo?.data.user._id}/comments`,
         {
           credentials: 'include',
         },
@@ -145,7 +145,7 @@ function Profile() {
   async function deleteBlogPost(postId) {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/users/${userInfo?.data.user._id}/posts/${postId}`,
+        `/api/v1/users/${userInfo?.data.user._id}/posts/${postId}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -164,7 +164,7 @@ function Profile() {
   async function deleteComment(commentId, postId) {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/v1/posts/${postId}/comments/${commentId}`,
+        `/api/v1/posts/${postId}/comments/${commentId}`,
         {
           method: 'DELETE',
           credentials: 'include',

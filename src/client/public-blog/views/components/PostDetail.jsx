@@ -26,9 +26,7 @@ function PostDetail() {
   const [pageNum, setPageNum] = useState('1');
 
   async function fetchPostContent() {
-    const res = await fetch(
-      `http://localhost:3000/api/v1/posts/${id}`,
-    );
+    const res = await fetch(`/api/v1/posts/${id}`);
     const json = await res.json();
 
     return json.data.blogPost;

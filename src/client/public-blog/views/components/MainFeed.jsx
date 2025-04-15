@@ -17,7 +17,7 @@ function MainFeed() {
   useEffect(function () {
     async function fetchTotPosts() {
       try {
-        await fetch('http://localhost:3000/api/v1/posts/tot-posts')
+        await fetch('/api/v1/posts/tot-posts')
           .then((res) => res.json())
           .then((json) => {
             setTotPages(Math.ceil(json.data.numPosts / limit));
@@ -37,7 +37,7 @@ function MainFeed() {
         setIsLoading(true);
         try {
           await fetch(
-            `http://localhost:3000/api/v1/posts?page=${currentPageNum}&limit=${limit}`,
+            `/api/v1/posts?page=${currentPageNum}&limit=${limit}`,
           )
             .then((res) => res.json())
             .then((json) => {
