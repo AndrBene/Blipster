@@ -23,6 +23,5 @@ if (process.env.JUST_API === 'true') {
 }
 
 export const getAdminView = (req, res) => {
-  console.log('getAdminView');
   res.status(200).send(adminViewHtml);
 };

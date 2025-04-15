@@ -24,7 +24,6 @@ export const protect = catchAsync(async (req, res, next) => {
     token,
     process.env.JWT_SECRET,
   );
-  console.log(decodedPayload);
 
   const user = await User.findById(decodedPayload.id);
   if (!user) {
@@ -45,7 +44,6 @@ export const protect = catchAsync(async (req, res, next) => {
 export const restrictTo = (...roles) => {
   return (req, res, next) => {
     try {
-      console.log('user: ', req.user);
       if (!roles.includes(req.user.role)) {
         throw new Error();
       }
