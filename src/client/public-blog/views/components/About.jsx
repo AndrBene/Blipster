@@ -32,8 +32,10 @@ export function About() {
               posts.
             </li>
             <li>
-              <span className="font-medium">Search & Filter: </span>
-              Easily find posts by keywords or tags.
+              <s>
+                <span className="font-medium">Search & Filter: </span>
+                Easily find posts by keywords or tags.
+              </s>
             </li>
             <li>
               <span className="font-medium">Read & Engage: </span>
@@ -60,12 +62,10 @@ export function About() {
             Secure access with JWT authentication.
           </li>
           <li>
-            <span className="font-medium">Post Management:</span>{' '}
-            Create, edit, publish, and delete blog posts.
-          </li>
-          <li>
-            <span className="font-medium">Comment Moderation:</span>{' '}
-            Approve or remove user comments.
+            <s>
+              <span className="font-medium">Post Management:</span>{' '}
+              Create, edit, publish, and delete blog posts.
+            </s>
           </li>
           <li>
             <span className="font-medium">Post Analytics:</span> View
